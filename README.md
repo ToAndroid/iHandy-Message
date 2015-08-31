@@ -4,6 +4,7 @@ This is an emigration to Android Studio from the original Eclipse project.
 
 Project Setup
 -----
+0. Please first install those in Android SDK: Build Tools 22.0.1, API 22(5.1.1), Support Library, Google Play Service.
 
 0. Open Android Studio. Select **Import Project (Eclipse ADT, Gradle, etc.)**
 
