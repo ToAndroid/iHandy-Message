@@ -5,9 +5,11 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.ihs.message"
+        applicationId "com.ihs.message_2012010548"
         minSdkVersion 9
         targetSdkVersion 22
+        versionCode 1
+        versionName '1.0'
     }
 
     buildTypes {
