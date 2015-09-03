@@ -1,8 +1,8 @@
-package com.ihs.message.managers;
+package com.ihs.message_2012010548.managers;
 
 import java.util.List;
 
-import com.ihs.message.types.HSBaseMessage;
+import com.ihs.message_2012010548.types.HSBaseMessage;
 
 public class MessageInsertResult {
 

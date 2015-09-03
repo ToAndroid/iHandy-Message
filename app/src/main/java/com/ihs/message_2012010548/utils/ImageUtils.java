@@ -1,4 +1,4 @@
-package com.ihs.message.utils;
+package com.ihs.message_2012010548.utils;
 
 import java.io.FileInputStream;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package com.ihs.message.managers;
+package com.ihs.message_2012010548.managers;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,10 +17,10 @@ import com.ihs.commons.keepcenter.HSKeepCenter.IMessageSendingCallback;
 import com.ihs.commons.keepcenter.HSKeepCenterMessage;
 import com.ihs.commons.utils.HSError;
 import com.ihs.commons.utils.HSLog;
-import com.ihs.message.managers.HSMessageManager.SendMessageCallback;
-import com.ihs.message.types.HSBaseMessage;
-import com.ihs.message.types.HSMessageType;
-import com.ihs.message.utils.Utils;
+import com.ihs.message_2012010548.managers.HSMessageManager.SendMessageCallback;
+import com.ihs.message_2012010548.types.HSBaseMessage;
+import com.ihs.message_2012010548.types.HSMessageType;
+import com.ihs.message_2012010548.utils.Utils;
 
 public class MessageNetworkOperator {
 

@@ -1,4 +1,4 @@
-package com.ihs.message.types;
+package com.ihs.message_2012010548.types;
 
 import java.util.Date;
 
@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import android.database.Cursor;
 
 import com.ihs.account.api.account.HSAccountManager;
-import com.ihs.message.utils.Utils;
+import com.ihs.message_2012010548.utils.Utils;
 
 /**
  * 语音消息类

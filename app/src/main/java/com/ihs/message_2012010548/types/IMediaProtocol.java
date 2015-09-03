@@ -1,4 +1,4 @@
-package com.ihs.message.types;
+package com.ihs.message_2012010548.types;
 
 /**
  * 多媒体消息的接口

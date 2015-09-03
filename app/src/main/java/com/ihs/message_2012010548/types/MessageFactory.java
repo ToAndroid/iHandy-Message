@@ -1,4 +1,4 @@
-package com.ihs.message.types;
+package com.ihs.message_2012010548.types;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -6,8 +6,8 @@ import org.json.JSONObject;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import com.ihs.message.managers.MessageDBManager;
-import com.ihs.message.utils.Utils;
+import com.ihs.message_2012010548.managers.MessageDBManager;
+import com.ihs.message_2012010548.utils.Utils;
 
 /*
  * 消息工厂类

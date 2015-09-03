@@ -1,4 +1,4 @@
-package com.ihs.message.types;
+package com.ihs.message_2012010548.types;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,14 +20,14 @@ import com.ihs.commons.config.HSConfig;
 import com.ihs.commons.connection.HSHttpMultiPart;
 import com.ihs.commons.connection.HSServerAPIConnection;
 import com.ihs.commons.utils.HSLog;
-import com.ihs.message.managers.DownloadManager;
-import com.ihs.message.managers.DownloadManager.DownloadOperationType;
-import com.ihs.message.utils.ImageUtils;
-import com.ihs.message.utils.ImageUtils.ImageClass;
-import com.ihs.message.utils.ImageUtils.ImageCompressionSetting;
-import com.ihs.message.utils.ImageUtils.ImageSizeClass;
-import com.ihs.message.utils.ImageUtils.Size;
-import com.ihs.message.utils.Utils;
+import com.ihs.message_2012010548.managers.DownloadManager;
+import com.ihs.message_2012010548.managers.DownloadManager.DownloadOperationType;
+import com.ihs.message_2012010548.utils.ImageUtils;
+import com.ihs.message_2012010548.utils.ImageUtils.ImageClass;
+import com.ihs.message_2012010548.utils.ImageUtils.ImageCompressionSetting;
+import com.ihs.message_2012010548.utils.ImageUtils.ImageSizeClass;
+import com.ihs.message_2012010548.utils.ImageUtils.Size;
+import com.ihs.message_2012010548.utils.Utils;
 
 /**
  * 图片消息类

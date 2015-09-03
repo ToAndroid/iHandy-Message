@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.ihs.commons.notificationcenter.HSGlobalNotificationCenter;
 import com.ihs.commons.notificationcenter.INotificationObserver;
 import com.ihs.commons.utils.HSBundle;
-import com.ihs.message.R;
+import com.ihs.message_2012010548.R;
 
 public class ContactsFragment extends Fragment implements INotificationObserver {
 

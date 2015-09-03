@@ -1,4 +1,4 @@
-package com.ihs.message.types;
+package com.ihs.message_2012010548.types;
 
 import java.util.Date;
 
@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.text.TextUtils;
 
 import com.ihs.account.api.account.HSAccountManager;
-import com.ihs.message.utils.Utils;
+import com.ihs.message_2012010548.utils.Utils;
 
 /**
  * 位置消息类

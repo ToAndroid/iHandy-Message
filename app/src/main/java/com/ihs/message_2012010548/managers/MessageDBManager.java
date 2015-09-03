@@ -1,4 +1,4 @@
-package com.ihs.message.managers;
+package com.ihs.message_2012010548.managers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,11 +14,11 @@ import android.text.TextUtils;
 import com.ihs.app.framework.HSApplication;
 import com.ihs.commons.config.HSConfig;
 import com.ihs.commons.utils.HSLog;
-import com.ihs.message.types.HSBaseMessage;
-import com.ihs.message.types.HSBaseMessage.HSMessageMediaStatus;
-import com.ihs.message.types.HSBaseMessage.HSMessageStatus;
-import com.ihs.message.types.IMediaProtocol;
-import com.ihs.message.types.MessageFactory;
+import com.ihs.message_2012010548.types.HSBaseMessage;
+import com.ihs.message_2012010548.types.HSBaseMessage.HSMessageMediaStatus;
+import com.ihs.message_2012010548.types.HSBaseMessage.HSMessageStatus;
+import com.ihs.message_2012010548.types.IMediaProtocol;
+import com.ihs.message_2012010548.types.MessageFactory;
 
 public class MessageDBManager extends SQLiteOpenHelper {
     public static final String COLUMN_SID = "msg_s_id";

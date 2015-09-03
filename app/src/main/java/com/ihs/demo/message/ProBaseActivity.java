@@ -15,7 +15,7 @@ import com.ihs.account.api.account.HSAccountManager;
 import com.ihs.account.api.tpaccount.HSTPAccountEvent;
 import com.ihs.account.api.tpaccount.ITPAccount.ITPAccountObserver;
 import com.ihs.app.framework.activity.HSActivity;
-import com.ihs.message.R;
+import com.ihs.message_2012010548.R;
 import com.ihs.commons.utils.HSBundle;
 
 public class ProBaseActivity extends HSActivity implements OnClickListener, ITPAccountObserver {

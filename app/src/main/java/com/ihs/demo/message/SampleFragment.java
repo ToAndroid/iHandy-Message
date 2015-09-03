@@ -34,16 +34,16 @@ import com.ihs.commons.notificationcenter.HSGlobalNotificationCenter;
 import com.ihs.commons.utils.HSBundle;
 import com.ihs.commons.utils.HSError;
 import com.ihs.commons.utils.HSLog;
-import com.ihs.message.R;
-import com.ihs.message.managers.HSMessageManager;
-import com.ihs.message.managers.HSMessageManager.QueryResult;
-import com.ihs.message.managers.HSMessageManager.SendMessageCallback;
-import com.ihs.message.types.HSAudioMessage;
-import com.ihs.message.types.HSBaseMessage;
-import com.ihs.message.types.HSImageMessage;
-import com.ihs.message.types.HSLocationMessage;
-import com.ihs.message.types.HSOnlineMessage;
-import com.ihs.message.types.HSTextMessage;
+import com.ihs.message_2012010548.R;
+import com.ihs.message_2012010548.managers.HSMessageManager;
+import com.ihs.message_2012010548.managers.HSMessageManager.QueryResult;
+import com.ihs.message_2012010548.managers.HSMessageManager.SendMessageCallback;
+import com.ihs.message_2012010548.types.HSAudioMessage;
+import com.ihs.message_2012010548.types.HSBaseMessage;
+import com.ihs.message_2012010548.types.HSImageMessage;
+import com.ihs.message_2012010548.types.HSLocationMessage;
+import com.ihs.message_2012010548.types.HSOnlineMessage;
+import com.ihs.message_2012010548.types.HSTextMessage;
 
 public class SampleFragment extends Fragment {
 

@@ -8,7 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.ihs.app.framework.activity.HSActivity;
-import com.ihs.message.R;
+import com.ihs.message_2012010548.R;
 
 public class CongratulationActivity extends HSActivity implements OnClickListener {
 

@@ -1,4 +1,4 @@
-package com.ihs.message.managers;
+package com.ihs.message_2012010548.managers;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,13 +22,13 @@ import com.ihs.commons.connection.HSServerAPIConnection;
 import com.ihs.commons.connection.httplib.HttpRequest.Method;
 import com.ihs.commons.utils.HSError;
 import com.ihs.commons.utils.HSLog;
-import com.ihs.message.managers.HSMessageChangeListener.HSMessageChangeType;
-import com.ihs.message.types.HSBaseMessage;
-import com.ihs.message.types.HSBaseMessage.HSMessageMediaStatus;
-import com.ihs.message.types.HSImageMessage;
-import com.ihs.message.types.HSMessageType;
-import com.ihs.message.types.HSOnlineMessage;
-import com.ihs.message.utils.Utils;
+import com.ihs.message_2012010548.managers.HSMessageChangeListener.HSMessageChangeType;
+import com.ihs.message_2012010548.types.HSBaseMessage;
+import com.ihs.message_2012010548.types.HSBaseMessage.HSMessageMediaStatus;
+import com.ihs.message_2012010548.types.HSImageMessage;
+import com.ihs.message_2012010548.types.HSMessageType;
+import com.ihs.message_2012010548.types.HSOnlineMessage;
+import com.ihs.message_2012010548.utils.Utils;
 
 @SuppressLint("Assert")
 public class DownloadManager {

@@ -1,11 +1,11 @@
-package com.ihs.message.managers;
+package com.ihs.message_2012010548.managers;
 
 import java.util.List;
 
 import org.json.JSONObject;
 
-import com.ihs.message.types.HSBaseMessage;
-import com.ihs.message.types.HSOnlineMessage;
+import com.ihs.message_2012010548.types.HSBaseMessage;
+import com.ihs.message_2012010548.types.HSOnlineMessage;
 
 /**
  * 消息变化监听接口

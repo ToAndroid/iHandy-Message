@@ -1,13 +1,13 @@
-package com.ihs.message.managers;
+package com.ihs.message_2012010548.managers;
 
 import java.util.List;
 
 import android.os.Handler;
 
 import com.ihs.commons.utils.HSError;
-import com.ihs.message.managers.HSMessageChangeListener.HSMessageChangeType;
-import com.ihs.message.types.HSBaseMessage;
-import com.ihs.message.types.HSOnlineMessage;
+import com.ihs.message_2012010548.managers.HSMessageChangeListener.HSMessageChangeType;
+import com.ihs.message_2012010548.types.HSBaseMessage;
+import com.ihs.message_2012010548.types.HSOnlineMessage;
 
 public class HSMessageManager {
     private static HSMessageManager sInstance = null;

@@ -12,8 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ihs.commons.utils.HSLog;
-import com.ihs.message.R;
-import com.ihs.message.managers.HSMessageManager;
+import com.ihs.message_2012010548.R;
+import com.ihs.message_2012010548.managers.HSMessageManager;
 
 public class MainActivity extends HSActionBarActivity {
 

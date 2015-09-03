@@ -1,4 +1,4 @@
-package com.ihs.message.types;
+package com.ihs.message_2012010548.types;
 
 import java.util.Date;
 
@@ -11,9 +11,9 @@ import android.text.TextUtils;
 
 import com.ihs.account.api.account.HSAccountManager;
 import com.ihs.commons.connection.HSServerAPIConnection;
-import com.ihs.message.managers.HSMessageManager;
-import com.ihs.message.managers.MessageDBManager;
-import com.ihs.message.utils.Utils;
+import com.ihs.message_2012010548.managers.HSMessageManager;
+import com.ihs.message_2012010548.managers.MessageDBManager;
+import com.ihs.message_2012010548.utils.Utils;
 
 /**
  * 消息的基类

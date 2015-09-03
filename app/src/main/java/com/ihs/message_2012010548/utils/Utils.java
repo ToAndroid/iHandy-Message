@@ -1,4 +1,4 @@
-package com.ihs.message.utils;
+package com.ihs.message_2012010548.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,8 +16,8 @@ import android.text.TextUtils;
 import com.ihs.app.framework.HSApplication;
 import com.ihs.commons.config.HSConfig;
 import com.ihs.commons.utils.HSLog;
-import com.ihs.message.types.Constants;
-import com.ihs.message.types.HSMessageType;
+import com.ihs.message_2012010548.types.Constants;
+import com.ihs.message_2012010548.types.HSMessageType;
 
 public class Utils {
 

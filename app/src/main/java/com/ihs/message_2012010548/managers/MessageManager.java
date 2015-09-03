@@ -1,4 +1,4 @@
-package com.ihs.message.managers;
+package com.ihs.message_2012010548.managers;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,19 +31,19 @@ import com.ihs.commons.utils.HSError;
 import com.ihs.commons.utils.HSLog;
 import com.ihs.commons.utils.HSSynchronizer;
 import com.ihs.commons.utils.HSSynchronizer.ISyncResultCallBack;
-import com.ihs.message.managers.HSMessageChangeListener.HSMessageChangeType;
-import com.ihs.message.managers.HSMessageManager.QueryResult;
-import com.ihs.message.managers.HSMessageManager.SendMessageCallback;
-import com.ihs.message.managers.MessageDBManager.MessageDBOperationResult;
-import com.ihs.message.types.Constants;
-import com.ihs.message.types.HSBaseMessage;
-import com.ihs.message.types.HSBaseMessage.HSMessageStatus;
-import com.ihs.message.types.HSImageMessage;
-import com.ihs.message.types.HSMessageType;
-import com.ihs.message.types.HSOnlineMessage;
-import com.ihs.message.types.IMediaProtocol;
-import com.ihs.message.types.MessageFactory;
-import com.ihs.message.utils.Utils;
+import com.ihs.message_2012010548.managers.HSMessageChangeListener.HSMessageChangeType;
+import com.ihs.message_2012010548.managers.HSMessageManager.QueryResult;
+import com.ihs.message_2012010548.managers.HSMessageManager.SendMessageCallback;
+import com.ihs.message_2012010548.managers.MessageDBManager.MessageDBOperationResult;
+import com.ihs.message_2012010548.types.Constants;
+import com.ihs.message_2012010548.types.HSBaseMessage;
+import com.ihs.message_2012010548.types.HSBaseMessage.HSMessageStatus;
+import com.ihs.message_2012010548.types.HSImageMessage;
+import com.ihs.message_2012010548.types.HSMessageType;
+import com.ihs.message_2012010548.types.HSOnlineMessage;
+import com.ihs.message_2012010548.types.IMediaProtocol;
+import com.ihs.message_2012010548.types.MessageFactory;
+import com.ihs.message_2012010548.utils.Utils;
 
 public class MessageManager implements INotificationObserver {
 
