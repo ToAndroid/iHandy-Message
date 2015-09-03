@@ -2,13 +2,13 @@ package com.ihs.demo.message;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
 import com.ihs.app.framework.HSSessionMgr;
 import com.ihs.app.framework.activity.IDialogHolder;
 
-public class HSActionBarActivity extends ActionBarActivity implements IDialogHolder {
+public class HSActionBarActivity extends AppCompatActivity implements IDialogHolder {
 
     protected AlertDialog dialog;
     private boolean isBackPressed = false;
