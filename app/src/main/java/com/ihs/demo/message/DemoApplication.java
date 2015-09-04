@@ -8,7 +8,7 @@ import test.contacts.demo.friends.api.HSContactFriendsMgr;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Handler;
-import android.support.multidex.MultiDex;
+//import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -43,11 +43,11 @@ public class DemoApplication extends HSApplication implements HSMessageChangeLis
 
     private static final String TAG = DemoApplication.class.getName(); // 用于打印 log
 
-    @Override
-    public void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
-    }
+//    @Override
+//    public void attachBaseContext(Context base) {
+//        super.attachBaseContext(base);
+//        MultiDex.install(this);
+//    }
 
     @Override
     public void onCreate() {
