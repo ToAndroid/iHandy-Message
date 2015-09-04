@@ -56,13 +56,13 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/card_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/card_recycler_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:paddingTop="15dp"-->
+            <!--android:paddingBottom="15dp"-->
+            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
 
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
