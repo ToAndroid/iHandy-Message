@@ -66,13 +66,13 @@ public class MainActivity extends HSActionBarActivity {
             bar.addTab(tab);
         }
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.ihs_activity_main);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.ihs_main, menu);
         return true;
     }
 

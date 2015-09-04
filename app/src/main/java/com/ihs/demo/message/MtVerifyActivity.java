@@ -156,7 +156,7 @@ public class MtVerifyActivity extends ProBaseActivity implements View.OnClickLis
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.provider.Telephony.SMS_RECEIVED");
 
-        setContentView(R.layout.activity_mt_verify);
+        setContentView(R.layout.ihs_activity_mt_verify);
 
         et_accessCode = (EditText) findViewById(R.id.access_code_inputbox);
         et_accessCode.addTextChangedListener(new PhoneNumberFormattingTextWatcher());

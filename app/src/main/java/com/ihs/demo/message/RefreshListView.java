@@ -77,7 +77,7 @@ public class RefreshListView extends ListView {
     @SuppressLint("InflateParams")
     private void addHeadView() {
         //添加下拉刷新的HeadView
-        headView = (LinearLayout) inflater.inflate(R.layout.refresh_listview_head, null);
+        headView = (LinearLayout) inflater.inflate(R.layout.ihs_refresh_listview_head, null);
         progressBar = (ProgressBar) headView.findViewById(R.id.head_progressBar);
         updatedTimeTextView = (TextView) headView.findViewById(R.id.head_lastUpdatedTextView);
         measureView(headView);

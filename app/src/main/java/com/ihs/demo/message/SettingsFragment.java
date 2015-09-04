@@ -31,7 +31,7 @@ public class SettingsFragment extends Fragment implements INotificationObserver 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        View view = inflater.inflate(R.layout.ihs_fragment_settings, container, false);
         listView = (ListView) view.findViewById(R.id.settings_list);
         ArrayList<String> objects = new ArrayList<String>();
         adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, objects);

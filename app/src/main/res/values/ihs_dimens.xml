@@ -45,13 +45,13 @@
 	<dimen name="chat_iv_select_text_or_audio_padding">3dp</dimen>
 	<dimen name="chat_chatListView_dividerHeight">5dp</dimen>
 	
-	<!-- activity_congratulation -->
+	<!-- ihs_activity_congratulation -->
 	<dimen name="congratulation_button1_layout_marginBottom">106dp</dimen>
 	
 	<dimen name="congratulation_textView1_layout_marginTop">110dp</dimen>
 	<dimen name="congratulation_textView1_textSize">20sp</dimen>
 	
-	<!-- activity_login.xml -->
+	<!-- ihs_activity_loginogin.xml -->
 	<dimen name="login_phonenumber_hint_layout_marginTop">30dp</dimen>
 	<dimen name="login_phonenumber_hint_textSize">17sp</dimen>
 	
@@ -63,7 +63,7 @@
 	<dimen name="login_button_layout_height">45dp</dimen>
 	<dimen name="login_button_layout_marginTop">120dp</dimen>
 	
-	<!-- activity_mt_verify -->
+	<!-- ihs_activity_mt_verify -->
 	<dimen name="verify_textView1_layout_marginLeft">10dp</dimen>
 	
 	<dimen name="verify_tel_provision_hint_layout_marginLeft">25dp</dimen>
@@ -87,7 +87,7 @@
 	
 	<dimen name="verify_sms_verification_nocode_hint_padding">10dp</dimen>
 	
-	<!-- cell_item_contact.xml -->
+	<!-- ihs_cell_item_contacttact.xml -->
 	<dimen name="cell_item_contact_avatar_layout_width">55dp</dimen>
 	<dimen name="cell_item_contact_avatar_layout_height">55dp</dimen>
 	<dimen name="cell_item_contact_avatar_layout_margin">10dp</dimen>
@@ -100,7 +100,7 @@
 	<dimen name="cell_item_detail_text_view_paddingRight">10dp</dimen>
 	<dimen name="cell_item_detail_text_view_textSize">15dip</dimen>
 	
-	<!-- cell_item_conversion.xml -->
+	<!-- ihs_cell_item_conversion.xml.xml -->
 	<dimen name="cell_item_conversion_name_text_view_paddingLeft">20dp</dimen>
 	<dimen name="cell_item_conversion_name_text_view_paddingRight">10dp</dimen>
 	<dimen name="cell_item_conversion_name_text_view_textSize">20dip</dimen>
@@ -188,22 +188,22 @@
 	<dimen name="chat_popup_line_layout_height">0.2dp</dimen>
 	<dimen name="chat_popup_pop_sendLocation_padding">8dp</dimen>
 	
-	<!-- fragment_contacts.xml -->
+	<!-- ihs_fragment_contacts.xml.xml -->
 	<dimen name="fragment_contacts_contact_list_dividerHeight">1dp</dimen>
 	
-	<!-- fragment_messages.xml -->
+	<!-- ihs_fragment_messagesages.xml -->
 	<dimen name="fragment_messages_messages_list_dividerHeight">1dp</dimen>
 	
-	<!-- fragment_sample.xml -->
+	<!-- ihs_fragment_samplemple.xml -->
 	<dimen name="fragment_sample_test_list_dividerHeight">1dp</dimen>
 	
-	<!-- fragment_settings.xml -->
+	<!-- ihs_fragment_settingsings.xml -->
 	<dimen name="fragment_settings_settings_list_dividerHeight">1dp</dimen>
 	
-	<!-- prompt_set_receiver.xml -->
+	<!-- ihs_prompt_set_receiveriver.xml -->
 	<dimen name="prompt_set_receiver_linearLayout_padding">10dp</dimen>
 	
-	<!-- refresh_listview_head.xml -->
+	<!-- ihs_refresh_listview_head.xml.xml -->
 	<dimen name="refresh_listview_head_contentLayout_paddingBottom">8dp</dimen>
 	<dimen name="refresh_listview_head_contentLayout_paddingTop">8dp</dimen>
 	

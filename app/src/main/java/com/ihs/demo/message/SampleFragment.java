@@ -55,7 +55,7 @@ public class SampleFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sample, container, false);
+        View view = inflater.inflate(R.layout.ihs_fragment_sample, container, false);
         listView = (ListView) view.findViewById(R.id.test_list);
         // @formatter:off
         String objects[] = new String[] {
@@ -92,7 +92,7 @@ public class SampleFragment extends Fragment {
                     switch (position) {
                         case 0: {
                             LayoutInflater li = LayoutInflater.from(context);
-                            View promptsView = li.inflate(R.layout.prompt_set_receiver, null);
+                            View promptsView = li.inflate(R.layout.ihs_prompt_set_receiver, null);
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
                             alertDialogBuilder.setView(promptsView);
 

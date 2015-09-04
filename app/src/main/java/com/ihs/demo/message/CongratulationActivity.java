@@ -15,7 +15,7 @@ public class CongratulationActivity extends HSActivity implements OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_congratulation);
+        setContentView(R.layout.ihs_activity_congratulation);
         Button btPhone = (Button) findViewById(R.id.button1);
         btPhone.setOnClickListener(this);
     }
@@ -23,7 +23,7 @@ public class CongratulationActivity extends HSActivity implements OnClickListene
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.congratulation, menu);
+        getMenuInflater().inflate(R.menu.ihs_congratulation, menu);
         return true;
     }
 

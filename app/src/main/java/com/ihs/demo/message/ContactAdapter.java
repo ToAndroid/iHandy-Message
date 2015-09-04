@@ -47,7 +47,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         ViewHolder holder = null;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.cell_item_contact, parent, false);
+            convertView = inflater.inflate(R.layout.ihs_cell_item_contact, parent, false);
             TextView titleView = (TextView) convertView.findViewById(R.id.title_text_view);
             TextView detailView = (TextView) convertView.findViewById(R.id.detail_text_view);
             holder.titleTextView = titleView;

@@ -25,11 +25,11 @@ public class ContactsFragment extends Fragment implements INotificationObserver 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_contacts, container, false);
+        View view = inflater.inflate(R.layout.ihs_fragment_contacts, container, false);
         listView = (ListView) view.findViewById(R.id.contact_list);
         final List<Contact> contacts = new ArrayList<Contact>();
 
-        adapter = new ContactAdapter(this.getActivity(), R.layout.cell_item_contact, contacts);
+        adapter = new ContactAdapter(this.getActivity(), R.layout.ihs_cell_item_contact, contacts);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new OnItemClickListener() {

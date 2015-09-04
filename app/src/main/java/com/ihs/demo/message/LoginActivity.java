@@ -45,7 +45,7 @@ public class LoginActivity extends HSActivity implements ITPAccountObserver, INo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_login);
+        this.setContentView(R.layout.ihs_activity_login);
 
         this.inputEditText = (EditText) findViewById(R.id.phonenumber_editor);
         Button loginButton = (Button) findViewById(R.id.login_button);

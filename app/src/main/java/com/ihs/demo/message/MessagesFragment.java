@@ -17,7 +17,7 @@ public class MessagesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_messages, container, false);
+        View view = inflater.inflate(R.layout.ihs_fragment_messages, container, false);
         return view;
     }
 
