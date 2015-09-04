@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ihs.message_2012010548.R;
+import me.hqythu.ihs.message.R;
 
 public class MessagesFragment extends Fragment {
 

@@ -12,8 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ihs.commons.utils.HSLog;
-import com.ihs.message_2012010548.R;
 import com.ihs.message_2012010548.managers.HSMessageManager;
+
+import me.hqythu.ihs.message.R;
 
 public class MainActivity extends HSActionBarActivity {
 

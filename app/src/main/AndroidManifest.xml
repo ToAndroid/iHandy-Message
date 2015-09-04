@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ihs.message_2012010548">
+    package="me.hqythu.ihs.message">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -30,7 +30,7 @@
         android:protectionLevel="signature" />
 
     <application
-        android:name="com.ihs.demo.message.DemoApplication"
+        android:name="me.hqythu.ihs.message.MessageApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -46,7 +46,7 @@
         </service>
 
         <activity
-            android:name="com.ihs.demo.message.MainActivity"
+            android:name="me.hqythu.ihs.message.ui.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

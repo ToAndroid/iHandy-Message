@@ -34,7 +34,7 @@ import com.ihs.commons.notificationcenter.HSGlobalNotificationCenter;
 import com.ihs.commons.utils.HSBundle;
 import com.ihs.commons.utils.HSError;
 import com.ihs.commons.utils.HSLog;
-import com.ihs.message_2012010548.R;
+import me.hqythu.ihs.message.R;
 import com.ihs.message_2012010548.managers.HSMessageManager;
 import com.ihs.message_2012010548.managers.HSMessageManager.QueryResult;
 import com.ihs.message_2012010548.managers.HSMessageManager.SendMessageCallback;

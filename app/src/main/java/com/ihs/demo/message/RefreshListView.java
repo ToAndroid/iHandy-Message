@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.ihs.message_2012010548.R;
+import me.hqythu.ihs.message.R;
 
 // 为ListView增加下拉刷新功能
 // OnRefreshListener

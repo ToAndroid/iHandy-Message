@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.ihs.message_2012010548"
+        applicationId "me.hqythu.ihs.message"
         minSdkVersion 9
         targetSdkVersion 22
         versionCode 1
@@ -22,7 +22,8 @@ android {
 
 dependencies {
     compile 'com.google.android.gms:play-services:7.8.0'
-    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.android.support:design:22.2.0'
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/libAccount.jar')
     compile files('libs/libAppFramework.jar')

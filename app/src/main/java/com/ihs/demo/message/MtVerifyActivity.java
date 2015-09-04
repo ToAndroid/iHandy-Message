@@ -34,7 +34,7 @@ import com.ihs.account.api.tpaccount.ITPAccountPhone.HSPhoneAuthType;
 import com.ihs.commons.notificationcenter.HSGlobalNotificationCenter;
 import com.ihs.commons.notificationcenter.INotificationObserver;
 import com.ihs.commons.utils.HSBundle;
-import com.ihs.message_2012010548.R;
+import me.hqythu.ihs.message.R;
 
 public class MtVerifyActivity extends ProBaseActivity implements View.OnClickListener, android.content.DialogInterface.OnClickListener, ITPAccountObserver, INotificationObserver {
 
