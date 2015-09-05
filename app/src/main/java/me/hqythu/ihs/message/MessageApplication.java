@@ -3,6 +3,7 @@ package me.hqythu.ihs.message;
 import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 import android.support.multidex.MultiDex;
 
@@ -13,7 +14,6 @@ import com.ihs.commons.keepcenter.HSKeepCenter;
 import com.ihs.commons.notificationcenter.HSGlobalNotificationCenter;
 import com.ihs.commons.notificationcenter.INotificationObserver;
 import com.ihs.commons.utils.HSBundle;
-import com.ihs.commons.utils.HSLog;
 import com.ihs.contacts.api.HSPhoneContactMgr;
 import com.ihs.demo.message.SampleFragment;
 import com.ihs.message_2012010548.managers.HSMessageManager;
@@ -79,11 +79,11 @@ public class MessageApplication extends HSApplication implements INotificationOb
     }
 
     private static void doInit() {
-        HSLog.d(LogTag, "doInit invoked");
+        Log.d(LogTag, "doInit invoked");
 
         // 验证登录状态
         if (HSAccountManager.getInstance().getSessionState() == HSAccountManager.HSAccountSessionState.VALID) {
-            HSLog.d(LogTag, "doInit during session is valid");
+            Log.d(LogTag, "doInit during session is valid");
             HSMessageManager.getInstance();
 
             // 初始化长连接服务管理类 HSKeepCenter
@@ -120,7 +120,7 @@ public class MessageApplication extends HSApplication implements INotificationOb
      * 返回多媒体消息的文件存储路径
      */
     void getMediaFilePath() {
-        HSLog.d("getMediaFilePath: ", Utils.getMediaPath());
+        Log.d("getMediaFilePath: ", Utils.getMediaPath());
     }
 
     /**
