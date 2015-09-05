@@ -3,15 +3,24 @@ package me.hqythu.ihs.message.ui;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.ihs.message_2012010548.types.HSTextMessage;
+
+import java.util.ArrayList;
 
 import me.hqythu.ihs.message.R;
 
 public class ChatActivity extends BaseActivity {
 
     private Toolbar mToolbar;
+    private RecyclerView mMessageView;
+
+    private ArrayList<HSTextMessage> messages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +28,7 @@ public class ChatActivity extends BaseActivity {
         setContentView(R.layout.activity_chat);
 
         setToolbar();
+        setData();
     }
 
     @Override
@@ -49,5 +59,16 @@ public class ChatActivity extends BaseActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+    }
+
+    private void setData() {
+        messages = new ArrayList<>();
+        messages.add(new HSTextMessage("12", "hello"));
+        messages.add(new HSTextMessage("13", "I'm fine"));
+        messages.add(new HSTextMessage("12", "how are you"));
+        messages.add(new HSTextMessage("13", "not bad"));
+        mMessageView = (RecyclerView) findViewById(R.id.chat_message_list);
+        mMessageView.setLayoutManager(new LinearLayoutManager(this));
+        mMessageView.setAdapter(new ChatListAdapter(messages));
     }
 }
