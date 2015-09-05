@@ -2,6 +2,7 @@
 <resources>
     <string name="actionbar_menu_about">About Us</string>
     <string name="actionbar_menu_origin">Origin Activity</string>
+    <string name="actionbar_menu_chat_activity">Chat Activity</string>
 
     <string name="open_drawer">Open Drawer</string>
     <string name="close_drawer">Close Drawer</string>

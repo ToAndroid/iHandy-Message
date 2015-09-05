@@ -22,6 +22,10 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
             R.string.actionbar_menu_origin,
             0,
             R.color.gray_600),
+        CHAT_ACTIVITY(
+            R.string.actionbar_menu_chat_activity,
+            0,
+            R.color.gray_600),
 //        CURRICULUM(
 //            R.string.actionbar_menu_curriculum,
 //            R.mipmap.ic_assignment_white_24dp,
@@ -83,6 +87,9 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
                     switch (item) {
                         case ORIGIN_ACTIVITY:
                             ActivityMixin.startOtherActivity(mActivity, com.ihs.demo.message.MainActivity.class);
+                            break;
+                        case CHAT_ACTIVITY:
+                            ActivityMixin.startOtherActivity(mActivity, ChatActivity.class);
                             break;
 //                        case SETTINGS:
 //                            break;
