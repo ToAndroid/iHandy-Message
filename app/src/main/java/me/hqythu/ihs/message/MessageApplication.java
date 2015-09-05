@@ -5,7 +5,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
-import android.support.multidex.MultiDex;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.ihs.account.api.account.HSAccountManager;
@@ -38,12 +37,6 @@ public class MessageApplication extends HSApplication implements INotificationOb
     public static final String URL_ACK = "http://54.223.212.19:8024/template/contacts/friends/get";
 
     private static final String LogTag = MessageApplication.class.getName();
-
-    @Override
-    public void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
-    }
 
     @Override
     public void onCreate() {

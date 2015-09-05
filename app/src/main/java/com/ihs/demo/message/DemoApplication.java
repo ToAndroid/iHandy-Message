@@ -8,7 +8,6 @@ import test.contacts.demo.friends.api.HSContactFriendsMgr;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Handler;
-import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -42,12 +41,6 @@ public class DemoApplication extends HSApplication implements HSMessageChangeLis
     public static final String URL_ACK = "http://54.223.212.19:8024/template/contacts/friends/get";
 
     private static final String TAG = DemoApplication.class.getName(); // 用于打印 log
-
-    @Override
-    public void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
-    }
 
     @Override
     public void onCreate() {
