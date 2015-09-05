@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="actionbar_menu_about">关于我们</string>
+    <string name="actionbar_menu_origin">打开原程序</string>
 
     <string name="open_drawer">打开侧滑栏</string>
     <string name="close_drawer">关闭侧滑栏</string>

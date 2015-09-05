@@ -18,10 +18,10 @@ import me.hqythu.ihs.message.R;
 public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.ViewHolder> {
 
     enum DrawerListItem {
-//        LEARN_HELPER(
-//            R.string.actionbar_learn_helper,
-//            R.mipmap.ic_school_white_24dp,
-//            R.color.green_300),
+        ORIGIN_ACTIVITY(
+            R.string.actionbar_menu_origin,
+            0,
+            R.color.gray_600),
 //        CURRICULUM(
 //            R.string.actionbar_menu_curriculum,
 //            R.mipmap.ic_assignment_white_24dp,
@@ -80,7 +80,10 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     mDrawerLayout.closeDrawers();
-//                    switch (item) {
+                    switch (item) {
+                        case ORIGIN_ACTIVITY:
+                            ActivityMixin.startOtherActivity(mActivity, com.ihs.demo.message.MainActivity.class);
+                            break;
 //                        case SETTINGS:
 //                            break;
 //                        case HELP:
@@ -100,9 +103,9 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
 //                            break;
 //                        case DEBUG:
 //                            break;
-//                        default:
-//                            break;
-//                    }
+                        default:
+                            break;
+                    }
                 }
             });
             mIcon.setImageResource(item.iconId);

@@ -81,6 +81,8 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(mToolbar);
         // TODO: i18n
         mCollapsingToolbar.setTitle("Tsinghua Now");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     private void setDrawer() {
