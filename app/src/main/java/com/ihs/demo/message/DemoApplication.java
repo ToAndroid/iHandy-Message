@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import test.contacts.demo.friends.api.HSContactFriendsMgr;
+import com.ihs.message_2012010548.friends.api.HSContactFriendsMgr;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Handler;

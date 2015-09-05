@@ -1,6 +1,5 @@
 package me.hqythu.ihs.message;
 
-import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,7 +21,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
-import test.contacts.demo.friends.api.HSContactFriendsMgr;
+import com.ihs.message_2012010548.friends.api.HSContactFriendsMgr;
 
 /**
  * Created by hqythu on 9/4/2015.

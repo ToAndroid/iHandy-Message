@@ -3,9 +3,9 @@ package com.ihs.demo.message;
 import java.util.ArrayList;
 import java.util.List;
 
-import test.contacts.demo.friends.api.HSContactFriendsMgr;
-import test.contacts.demo.friends.api.HSContactFriendsMgr.IFriendSyncListener;
-import test.contacts.demo.friends.dao.ContactFriendsDao;
+import com.ihs.message_2012010548.friends.api.HSContactFriendsMgr;
+import com.ihs.message_2012010548.friends.api.HSContactFriendsMgr.IFriendSyncListener;
+import com.ihs.message_2012010548.friends.dao.ContactFriendsDao;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.text.TextUtils;

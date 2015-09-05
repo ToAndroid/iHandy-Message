@@ -1,6 +1,6 @@
-package test.contacts.demo.friends.dao;
+package com.ihs.message_2012010548.friends.dao;
 
-import test.contacts.demo.friends.FriendInfo;
+import com.ihs.message_2012010548.friends.FriendInfo;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

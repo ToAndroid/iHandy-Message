@@ -1,8 +1,8 @@
-package test.contacts.demo.friends.api;
+package com.ihs.message_2012010548.friends.api;
 
 import java.util.ArrayList;
 
-import test.contacts.demo.friends.ContactFriendsMgr;
+import com.ihs.message_2012010548.friends.ContactFriendsMgr;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;

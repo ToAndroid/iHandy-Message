@@ -1,23 +1,19 @@
 package com.ihs.demo.message;
 
 import me.hqythu.ihs.message.ui.BaseActivity;
-import test.contacts.demo.friends.api.HSContactFriendsMgr;
+import com.ihs.message_2012010548.friends.api.HSContactFriendsMgr;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBar.Tab;
-import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.ihs.commons.utils.HSLog;
 import com.ihs.message_2012010548.managers.HSMessageManager;
 
 import java.util.ArrayList;

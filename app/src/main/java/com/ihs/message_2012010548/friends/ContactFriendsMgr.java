@@ -1,4 +1,4 @@
-package test.contacts.demo.friends;
+package com.ihs.message_2012010548.friends;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,9 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import test.contacts.demo.friends.api.HSContactFriendsMgr.IFriendSyncListener;
-import test.contacts.demo.friends.dao.ContactFriendsDao;
-import test.contacts.demo.friends.dao.FriendsDBHelper;
+import com.ihs.message_2012010548.friends.api.HSContactFriendsMgr.IFriendSyncListener;
+import com.ihs.message_2012010548.friends.dao.ContactFriendsDao;
+import com.ihs.message_2012010548.friends.dao.FriendsDBHelper;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;

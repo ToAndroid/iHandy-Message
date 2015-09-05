@@ -1,7 +1,7 @@
 /**
  * 
  */
-package test.contacts.demo.friends.dao;
+package com.ihs.message_2012010548.friends.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

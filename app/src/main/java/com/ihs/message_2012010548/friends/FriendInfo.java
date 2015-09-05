@@ -1,4 +1,4 @@
-package test.contacts.demo.friends;
+package com.ihs.message_2012010548.friends;
 
 public class FriendInfo {
 
