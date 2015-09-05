@@ -8,7 +8,6 @@
         android:id="@+id/chat_message_item_image"
         android:layout_width="@dimen/cell_item_contact_avatar_layout_width"
         android:layout_height="@dimen/cell_item_contact_avatar_layout_height"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_margin="@dimen/cell_item_contact_avatar_layout_margin"
         android:adjustViewBounds="true"
@@ -18,6 +17,10 @@
         android:id="@+id/chat_message_item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/chat_message_item_image" />
+        android:layout_toRightOf="@id/chat_message_item_image"
+        android:layout_margin="@dimen/cell_item_contact_avatar_layout_margin"
+        android:background="@color/primary_deep_purple"
+        android:padding="@dimen/padding_medium"
+        android:textSize="@dimen/txt_20sp" />
 
 </RelativeLayout>
