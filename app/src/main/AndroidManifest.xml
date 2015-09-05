@@ -58,6 +58,8 @@
             android:name="com.ihs.demo.message.LoginActivity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity android:name="com.ihs.demo.message.MainActivity" >
+        </activity>
         <activity android:name="com.ihs.demo.message.ZoomImageView" >
         </activity>
         <activity android:name="com.ihs.demo.message.ProBaseActivity" >
