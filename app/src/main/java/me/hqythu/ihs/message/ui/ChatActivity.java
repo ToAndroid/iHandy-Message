@@ -67,6 +67,8 @@ public class ChatActivity extends BaseActivity {
         messages.add(new HSTextMessage("13", "I'm fine"));
         messages.add(new HSTextMessage("12", "how are you"));
         messages.add(new HSTextMessage("13", "not bad"));
+        messages.add(new HSTextMessage("12", "aaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbassssdfjioasoiejfdzxdf"));
+        messages.add(new HSTextMessage("13", "aaaaajoiupjadsipofaabbbbbbbbbbbbbbbbbassssdfjioasoiejfdzxdf"));
         mMessageView = (RecyclerView) findViewById(R.id.chat_message_list);
         mMessageView.setLayoutManager(new LinearLayoutManager(this));
         mMessageView.setAdapter(new ChatListAdapter(messages));
