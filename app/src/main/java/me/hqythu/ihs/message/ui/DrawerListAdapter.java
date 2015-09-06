@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ihs.demo.message.ContactsFragment;
+import me.hqythu.ihs.message.ui.ContactsFragment;
 import com.ihs.demo.message.MessagesFragment;
 
 import me.hqythu.ihs.message.R;

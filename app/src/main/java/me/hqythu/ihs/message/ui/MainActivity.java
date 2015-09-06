@@ -101,7 +101,6 @@ public class MainActivity extends BaseActivity {
                     mToolbar.setElevation(slideOffset * MAX_TOOLBAR_ELEVATION);
                 }
                 mToolbar.setTitle(R.string.app_name);
-                mToolbar.setTitleTextColor((((int) Math.floor(0xff * (double) slideOffset)) << 24) | 0xffffff);
                 //TODO: also change toolbar background color/transparency
                 if (slideOffset > 0) {
                     // TODO: disable recycler view

@@ -56,27 +56,11 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <FrameLayout
+        <android.support.v4.view.ViewPager
             android:id="@+id/main_activity_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-            <android.support.v4.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true" />
-        </FrameLayout>
-
-        <!--<android.support.v4.widget.NestedScrollView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:fillViewport="true"-->
-            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
-            <!--<FrameLayout-->
-                <!--android:id="@+id/main_activity_content"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent" />-->
-        <!--</android.support.v4.widget.NestedScrollView>-->
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <!--<android.support.v7.widget.RecyclerView-->
             <!--android:id="@+id/card_recycler_view"-->
