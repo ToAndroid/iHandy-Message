@@ -1,5 +1,6 @@
 package me.hqythu.ihs.message.ui;
 
+import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,26 +10,49 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.ihs.account.api.account.HSAccountManager;
+import com.ihs.message_2012010548.managers.HSMessageManager;
+import com.ihs.message_2012010548.types.HSBaseMessage;
 import com.ihs.message_2012010548.types.HSTextMessage;
 
 import java.util.ArrayList;
 
+import de.greenrobot.event.EventBus;
 import me.hqythu.ihs.message.R;
+import me.hqythu.ihs.message.event.MessageReceiveEvent;
 
 public class ChatActivity extends BaseActivity {
 
+    public final static String CHAT_MID = "ChatMid";
+
+    private String mid;
     private Toolbar mToolbar;
     private RecyclerView mMessageView;
-
-    private ArrayList<HSTextMessage> messages;
+    private ChatListAdapter mAdapter;
+    private ArrayList<HSBaseMessage> messages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        Intent intent = getIntent();
+        mid = intent.getStringExtra(CHAT_MID);
+
         setToolbar();
         setData();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     @Override
@@ -62,17 +86,27 @@ public class ChatActivity extends BaseActivity {
     }
 
     private void setData() {
-        messages = new ArrayList<>();
-        messages.add(new HSTextMessage("12", "hello"));
-        messages.add(new HSTextMessage("13", "I'm fine"));
-        messages.add(new HSTextMessage("12", "how are you"));
-        messages.add(new HSTextMessage("13", "not bad"));
-        messages.add(new HSTextMessage("12", "aaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbassssdfjioasoiejfdzxdf"));
-        messages.add(new HSTextMessage("13", "aaaaajoiupjadsipofaabbbbbbbbbbbbbbbbbassssdfjioasoiejfdzxdf"));
+        HSMessageManager.QueryResult result = HSMessageManager.getInstance().queryMessages(mid, 0, -1);
+        messages = new ArrayList<>(result.getMessages());
         mMessageView = (RecyclerView) findViewById(R.id.chat_message_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
         mMessageView.setLayoutManager(layoutManager);
-        mMessageView.setAdapter(new ChatListAdapter(messages));
+        mAdapter = new ChatListAdapter(messages);
+        mMessageView.setAdapter(mAdapter);
+    }
+
+    public void onEvent(MessageReceiveEvent event) {
+        int position = messages.size();
+        int count = 0;
+        for (HSBaseMessage message : event.getMessages()) {
+            if (message.getFrom().equals(mid) ||
+                message.getTo().equals(HSAccountManager.getInstance().getMainAccount().getMID())) {
+                messages.add(message);
+                count++;
+            }
+        }
+        mAdapter.notifyItemRangeInserted(position, count);
+        mMessageView.scrollToPosition(messages.size() - 1);
     }
 }
