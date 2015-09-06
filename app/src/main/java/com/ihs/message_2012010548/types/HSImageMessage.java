@@ -1,4 +1,4 @@
-package com.ihs.message_2012010548.types;
+package com.ihs.message.types;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,14 +20,14 @@ import com.ihs.commons.config.HSConfig;
 import com.ihs.commons.connection.HSHttpMultiPart;
 import com.ihs.commons.connection.HSServerAPIConnection;
 import com.ihs.commons.utils.HSLog;
-import com.ihs.message_2012010548.managers.DownloadManager;
-import com.ihs.message_2012010548.managers.DownloadManager.DownloadOperationType;
-import com.ihs.message_2012010548.utils.ImageUtils;
-import com.ihs.message_2012010548.utils.ImageUtils.ImageClass;
-import com.ihs.message_2012010548.utils.ImageUtils.ImageCompressionSetting;
-import com.ihs.message_2012010548.utils.ImageUtils.ImageSizeClass;
-import com.ihs.message_2012010548.utils.ImageUtils.Size;
-import com.ihs.message_2012010548.utils.Utils;
+import com.ihs.message.managers.DownloadManager;
+import com.ihs.message.managers.DownloadManager.DownloadOperationType;
+import com.ihs.message.utils.ImageUtils;
+import com.ihs.message.utils.ImageUtils.ImageClass;
+import com.ihs.message.utils.ImageUtils.ImageCompressionSetting;
+import com.ihs.message.utils.ImageUtils.ImageSizeClass;
+import com.ihs.message.utils.ImageUtils.Size;
+import com.ihs.message.utils.Utils;
 
 /**
  * 图片消息类
@@ -40,19 +40,19 @@ public class HSImageMessage extends HSBaseMessage implements IMediaProtocol {
     private static final int DO_NOT_UPLOAD = 0;
     private static final int NO_COMPRESSION = -1;
 
-    private Size thumbnailSize = new Size(0, 0); // 缩略图尺寸
-    private Size normalImageSize = new Size(0, 0); // 大图尺寸
-    private Size originalImageSize = new Size(0, 0); // 原图尺寸（当前版本不适用）
+    private Size thumbnailSize; // 缩略图尺寸
+    private Size normalImageSize; // 大图尺寸
+    private Size originalImageSize; // 原图尺寸（当前版本不适用）
 
     /**
-     * @return 缩略图宽度
+     * @return 获取缩略图宽度
      */
     public int getThumbnailWidth() {
         return thumbnailSize.getWidth();
     }
 
     /**
-     * @return 获取缩略图搞定
+     * @return 获取缩略图高度
      */
     public int getThumbnailHeight() {
         return thumbnailSize.getHeight();
@@ -67,15 +67,14 @@ public class HSImageMessage extends HSBaseMessage implements IMediaProtocol {
     }
 
     /**
-     * 
-     * @return 大图宽度
+     * @return 获取大图宽度
      */
     public int getNormalImageWidth() {
         return normalImageSize.getWidth();
     }
 
     /**
-     * @return 大图高度
+     * @return 获取大图高度
      */
     public int getNormalImageHeight() {
         return normalImageSize.getHeight();
@@ -157,7 +156,7 @@ public class HSImageMessage extends HSBaseMessage implements IMediaProtocol {
      *            png），构造方法会将图片按照配置文件指定的方式，进行缩小、压缩、格式转换（jpg 格式的原图保留 jpg 格式，其余一律转换为 png
      *            格式）和重命名，复制到统一的媒体文件路径下进行管理。当根据配置，其中存在两种或三种图片的尺寸和压缩情况完全一致时，将合并只存储一份本地文件
      * @param uploadOrigin 是否发送原图，设置为 true 发送原图，设置为 false 不发送原图
-     * @param thuJavaProject 临时参数，简版方法开关
+     * @param thuJavaProject 临时参数，简版构造方法开关
      */
     public HSImageMessage(String to, String imageFilePath, boolean uploadOrigin, boolean thuJavaProject) {
         // @formatter:off
@@ -187,7 +186,7 @@ public class HSImageMessage extends HSBaseMessage implements IMediaProtocol {
             normalParam = 960;
             compressionQuality = (float) 0.6;
         }
-
+        
         // Check parameters' validity
         if (thumbnailParam > 0 && normalParam > 0) {
             assert (thumbnailParam <= normalParam) : "Configuration error: thumbnail cannot be larger than normal image.";
@@ -239,8 +238,7 @@ public class HSImageMessage extends HSBaseMessage implements IMediaProtocol {
         try {
             if (uploadOrigin) { // Original image
                 JSONObject originalInfo = new JSONObject();
-                setOriginalImageWidth(originalImageSize.getWidth());
-                setOriginalImageHeight(originalImageSize.getHeight());
+                this.originalImageSize = new Size(originalImageSize.getWidth(), originalImageSize.getHeight());
                 originalInfo.put(Constants.WIDTH, originalImageSize.getWidth());
                 originalInfo.put(Constants.HEIGHT, originalImageSize.getHeight());
                 content.put(Constants.ORIGIN, originalInfo);
@@ -251,8 +249,7 @@ public class HSImageMessage extends HSBaseMessage implements IMediaProtocol {
 
             if (normalParam != DO_NOT_UPLOAD) { // Normal image
                 JSONObject normalInfo = new JSONObject();
-                setNormalImageWidth(normalImageSize.getWidth());
-                setNormalImageHeight(normalImageSize.getHeight());
+                this.normalImageSize = new Size(normalImageSize.getWidth(), normalImageSize.getHeight());
                 normalInfo.put(Constants.WIDTH, normalImageSize.getWidth());
                 normalInfo.put(Constants.HEIGHT, normalImageSize.getHeight());
                 content.put(Constants.NORMAL, normalInfo);
@@ -269,8 +266,7 @@ public class HSImageMessage extends HSBaseMessage implements IMediaProtocol {
 
             if (thumbnailParam != DO_NOT_UPLOAD) { // Thumbnail
                 JSONObject thumbnailInfo = new JSONObject();
-                setThumbnailWidth(thumbnailSize.getWidth());
-                setThumbnailHeight(thumbnailSize.getHeight());
+                this.thumbnailSize = new Size(thumbnailSize.getWidth(), thumbnailSize.getHeight());
                 thumbnailInfo.put(Constants.WIDTH, thumbnailSize.getWidth());
                 thumbnailInfo.put(Constants.HEIGHT, thumbnailSize.getHeight());
                 content.put(Constants.THUMBNAIL, thumbnailInfo);
@@ -469,12 +465,47 @@ public class HSImageMessage extends HSBaseMessage implements IMediaProtocol {
         return new HSServerAPIConnection(Utils.getMessageSendingURL(), getDataBody(), bodyParts);
     }
 
+    @Override
+    public void initMessageSpecialProperties() {
+        JSONObject ct = getContent();
+        JSONObject thumbnailInfo = ct.optJSONObject(Constants.THUMBNAIL);
+        JSONObject normalImageInfo = ct.optJSONObject(Constants.NORMAL);
+        JSONObject originalImageInfo = ct.optJSONObject(Constants.ORIGIN);
+        if (thumbnailInfo != null) {
+            this.thumbnailSize = new Size(thumbnailInfo.optInt(Constants.WIDTH), thumbnailInfo.optInt(Constants.HEIGHT));
+        }
+        else {
+            this.thumbnailSize = new Size(0, 0);
+        }
+        if (normalImageInfo != null) {
+            this.normalImageSize = new Size(normalImageInfo.optInt(Constants.WIDTH), normalImageInfo.optInt(Constants.HEIGHT));
+        }
+        else {
+            this.normalImageSize = new Size(0, 0);
+        }
+        if (originalImageInfo != null) {
+            this.originalImageSize = new Size(originalImageInfo.optInt(Constants.WIDTH), originalImageInfo.optInt(Constants.HEIGHT));
+        }
+        else {
+            this.originalImageSize = new Size(0, 0);
+        }
+        if (getThumbnailMediaStatus() == HSMessageMediaStatus.DOWNLOADED) {
+            setDownloadProgress(1);
+        } else {
+            setThumbnailMediaStatus(HSMessageMediaStatus.TO_DOWNLOAD);
+            setDownloadProgress(0);
+        }
+        this.setGoHttp(true);
+    }
+
     public HSImageMessage(JSONObject info) {
         super(info);
+        initMessageSpecialProperties();
     }
 
     public HSImageMessage(Cursor cursor) {
         super(cursor);
+        initMessageSpecialProperties();
     }
 
     @Override
