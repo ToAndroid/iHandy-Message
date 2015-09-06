@@ -3,6 +3,7 @@ package me.hqythu.ihs.message.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ public class ContactsFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_contacts, null);
 
         mContactList = (RecyclerView) view.findViewById(R.id.contacts_list);
+        mContactList.setLayoutManager(new LinearLayoutManager(getActivity()));
         contacts = new ArrayList<>();
         mAdapter = new ContactsAdapter(getActivity(), contacts);
         mContactList.setAdapter(mAdapter);

@@ -18,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.ihs.demo.message.MessagesFragment;
+import com.ihs.message_2012010548.friends.api.HSContactFriendsMgr;
+import com.ihs.message_2012010548.managers.HSMessageManager;
 
 import java.util.ArrayList;
 
@@ -73,6 +75,13 @@ public class MainActivity extends BaseActivity {
 //        initData();
         setView();
         setDrawer();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        HSMessageManager.getInstance().pullMessages();
+        HSContactFriendsMgr.startSync(true);
     }
 
     @Override
@@ -174,9 +183,5 @@ public class MainActivity extends BaseActivity {
         mViewPager.setCurrentItem(0);
         fragments.add(new MessagesFragment());
         fragments.add(new ContactsFragment());
-    }
-
-    public void setViewPager(int position) {
-        mViewPager.setCurrentItem(0, true);
     }
 }
