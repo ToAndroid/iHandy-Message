@@ -3,6 +3,7 @@ package me.hqythu.ihs.message.ui;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -102,7 +103,6 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     mDrawerLayout.closeDrawers();
-                    Fragment f = null;
                     switch (item) {
                         case ORIGIN_ACTIVITY:
                             ActivityMixin.startOtherActivity(mActivity, com.ihs.demo.message.MainActivity.class);
@@ -111,10 +111,10 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
                             ActivityMixin.startOtherActivity(mActivity, ChatActivity.class);
                             break;
                         case MESSAGE_FRAGMENT:
-                            f = new MessagesFragment();
+                            mViewPager.setCurrentItem(0, true);
                             break;
                         case CONTACT_FRAGMENT:
-                            f = new ContactsFragment();
+                            mViewPager.setCurrentItem(1, true);
                             break;
 //                        case SETTINGS:
 //                            break;
@@ -138,29 +138,20 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
                         default:
                             break;
                     }
-                    if (f == null) {
-                        return;
-                    }
-                    FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
-                    fragmentManager.beginTransaction()
-                        .replace(R.id.main_activity_content, f)
-                        .commit();
                 }
             });
-            mIcon.setImageResource(item.iconId);
-            mIcon.setColorFilter(activity.getResources().getColor(item.colorId));
-            mTitle.setText(item.textId);
-            mTitle.setTextColor(activity.getResources().getColor(R.color.BLACK));
         }
     }
 
     private AppCompatActivity mActivity;
     private DrawerLayout mDrawerLayout;
+    private ViewPager mViewPager;
 
-    public DrawerListAdapter(AppCompatActivity activity, DrawerLayout drawerLayout) {
+    public DrawerListAdapter(AppCompatActivity activity, DrawerLayout drawerLayout, ViewPager viewPager) {
         super();
         this.mActivity = activity;
         this.mDrawerLayout = drawerLayout;
+        this.mViewPager = viewPager;
     }
 
     @Override
@@ -173,6 +164,10 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final DrawerListItem item = DrawerListItem.values()[position];
         holder.bind(item, mActivity);
+        holder.mIcon.setImageResource(item.iconId);
+        holder.mIcon.setColorFilter(mActivity.getResources().getColor(item.colorId));
+        holder.mTitle.setText(item.textId);
+        holder.mTitle.setTextColor(mActivity.getResources().getColor(R.color.BLACK));
     }
 
     @Override
