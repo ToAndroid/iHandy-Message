@@ -1,13 +1,19 @@
 package me.hqythu.ihs.message.ui;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.ihs.demo.message.ContactsFragment;
+import com.ihs.demo.message.MessagesFragment;
 
 import me.hqythu.ihs.message.R;
 
@@ -19,13 +25,25 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
 
     enum DrawerListItem {
         ORIGIN_ACTIVITY(
-            R.string.actionbar_menu_origin,
+            R.string.main_drawer_origin,
             0,
-            R.color.gray_600),
+            R.color.gray_600
+        ),
         CHAT_ACTIVITY(
-            R.string.actionbar_menu_chat_activity,
+            R.string.main_drawer_chat_activity,
             0,
-            R.color.gray_600),
+            R.color.gray_600
+        ),
+        MESSAGE_FRAGMENT(
+            R.string.main_drawer_message_fragment,
+            0,
+            R.color.gray_600
+        ),
+        CONTACT_FRAGMENT(
+            R.string.main_drawer_contact_fragment,
+            0,
+            R.color.gray_600
+        )
 //        CURRICULUM(
 //            R.string.actionbar_menu_curriculum,
 //            R.mipmap.ic_assignment_white_24dp,
@@ -84,12 +102,19 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     mDrawerLayout.closeDrawers();
+                    Fragment f = null;
                     switch (item) {
                         case ORIGIN_ACTIVITY:
                             ActivityMixin.startOtherActivity(mActivity, com.ihs.demo.message.MainActivity.class);
                             break;
                         case CHAT_ACTIVITY:
                             ActivityMixin.startOtherActivity(mActivity, ChatActivity.class);
+                            break;
+                        case MESSAGE_FRAGMENT:
+                            f = new MessagesFragment();
+                            break;
+                        case CONTACT_FRAGMENT:
+                            f = new ContactsFragment();
                             break;
 //                        case SETTINGS:
 //                            break;
@@ -113,6 +138,13 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
                         default:
                             break;
                     }
+                    if (f == null) {
+                        return;
+                    }
+                    FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                        .replace(R.id.main_activity_content, f)
+                        .commit();
                 }
             });
             mIcon.setImageResource(item.iconId);
@@ -122,10 +154,10 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
         }
     }
 
-    private Activity mActivity;
+    private AppCompatActivity mActivity;
     private DrawerLayout mDrawerLayout;
 
-    public DrawerListAdapter(Activity activity, DrawerLayout drawerLayout) {
+    public DrawerListAdapter(AppCompatActivity activity, DrawerLayout drawerLayout) {
         super();
         this.mActivity = activity;
         this.mDrawerLayout = drawerLayout;

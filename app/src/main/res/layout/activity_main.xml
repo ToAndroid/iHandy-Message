@@ -56,6 +56,28 @@
 
         </android.support.design.widget.AppBarLayout>
 
+        <FrameLayout
+            android:id="@+id/main_activity_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true" />
+        </FrameLayout>
+
+        <!--<android.support.v4.widget.NestedScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:fillViewport="true"-->
+            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+            <!--<FrameLayout-->
+                <!--android:id="@+id/main_activity_content"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent" />-->
+        <!--</android.support.v4.widget.NestedScrollView>-->
+
         <!--<android.support.v7.widget.RecyclerView-->
             <!--android:id="@+id/card_recycler_view"-->
             <!--android:layout_width="match_parent"-->
@@ -147,7 +169,7 @@
                 android:layout_marginRight="10dp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="@string/actionbar_menu_about"
+                android:text="@string/main_drawer_about"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/BLACK" />
 
