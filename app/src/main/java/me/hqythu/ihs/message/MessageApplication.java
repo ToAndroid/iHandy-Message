@@ -1,6 +1,7 @@
 package me.hqythu.ihs.message;
 
 import android.content.Context;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -14,7 +15,10 @@ import com.ihs.commons.notificationcenter.INotificationObserver;
 import com.ihs.commons.utils.HSBundle;
 import com.ihs.contacts.api.HSPhoneContactMgr;
 import com.ihs.demo.message.SampleFragment;
+import com.ihs.message_2012010548.managers.HSMessageChangeListener;
 import com.ihs.message_2012010548.managers.HSMessageManager;
+import com.ihs.message_2012010548.types.HSBaseMessage;
+import com.ihs.message_2012010548.types.HSOnlineMessage;
 import com.ihs.message_2012010548.utils.Utils;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -22,6 +26,13 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import com.ihs.message_2012010548.friends.api.HSContactFriendsMgr;
+
+import org.json.JSONObject;
+
+import java.util.List;
+
+import de.greenrobot.event.EventBus;
+import me.hqythu.ihs.message.event.MessageReceiveEvent;
 
 /**
  * Created by hqythu on 9/4/2015.
@@ -36,6 +47,35 @@ public class MessageApplication extends HSApplication implements INotificationOb
     public static final String URL_ACK = "http://54.223.212.19:8024/template/contacts/friends/get";
 
     private static final String LogTag = MessageApplication.class.getName();
+
+    public HSMessageChangeListener messageChangeListener = new HSMessageChangeListener() {
+        @Override
+        public void onMessageChanged(HSMessageChangeType changeType, List<HSBaseMessage> messages) {
+            if (changeType == HSMessageChangeType.ADDED) {
+                EventBus.getDefault().post(new MessageReceiveEvent(messages));
+            }
+        }
+
+        @Override
+        public void onTypingMessageReceived(String fromMid) {
+
+        }
+
+        @Override
+        public void onOnlineMessageReceived(HSOnlineMessage message) {
+
+        }
+
+        @Override
+        public void onUnreadMessageCountChanged(String mid, int newCount) {
+
+        }
+
+        @Override
+        public void onReceivingRemoteNotification(JSONObject pushInfo) {
+
+        }
+    };
 
     @Override
     public void onCreate() {
@@ -68,6 +108,14 @@ public class MessageApplication extends HSApplication implements INotificationOb
 
         // 演示HSGlobalNotificationCenter功能：增加名为 SAMPLE_NOTIFICATION_NAME 的观察者
         HSGlobalNotificationCenter.addObserver(SampleFragment.SAMPLE_NOTIFICATION_NAME, observer);
+
+        HSMessageManager.getInstance().addListener(messageChangeListener, new Handler());
+    }
+
+    @Override
+    public void onTerminate() {
+        HSMessageManager.getInstance().removeListener(messageChangeListener);
+        super.onTerminate();
     }
 
     private static void doInit() {
