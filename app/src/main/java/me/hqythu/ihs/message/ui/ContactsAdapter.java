@@ -40,6 +40,15 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
             avatar = (ImageView) view.findViewById(R.id.contact_avatar);
             title = (TextView) view.findViewById(R.id.contact_title);
             detail = (TextView) view.findViewById(R.id.contact_detail);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mActivity, ChatActivity.class);
+                    intent.putExtra(ChatActivity.CHAT_MID, contacts.get(getAdapterPosition()).getMid());
+                    ActivityMixin.startOtherActivity(mActivity, intent, false);
+                }
+            });
         }
     }
 
@@ -64,15 +73,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
         holder.title.setText("" + contact.getName() + ": " + contact.getContent());
         holder.detail.setText("mid: " + contact.getMid());
         ImageLoader.getInstance().displayImage("content://com.android.contacts/contacts/" + contact.getContactId(), holder.avatar, options);
-
-        holder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mActivity, ChatActivity.class);
-                intent.putExtra(ChatActivity.CHAT_MID, contacts.get(position).getMid());
-                ActivityMixin.startOtherActivity(mActivity, intent, false);
-            }
-        });
     }
 
     @Override
