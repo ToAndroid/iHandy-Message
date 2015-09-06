@@ -41,7 +41,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        if (messages.get(position).getTo().equals(HSAccountManager.getInstance().getMainAccount().getMID())) {
+        if (messages.get(position).getFrom().equals(HSAccountManager.getInstance().getMainAccount().getMID())) {
             return 1;
         } else {
             return 0;

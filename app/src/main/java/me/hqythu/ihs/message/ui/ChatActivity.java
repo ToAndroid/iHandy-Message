@@ -1,6 +1,7 @@
 package me.hqythu.ihs.message.ui;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,8 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.ihs.account.api.account.HSAccountManager;
+import com.ihs.commons.utils.HSError;
 import com.ihs.message_2012010548.managers.HSMessageManager;
 import com.ihs.message_2012010548.types.HSBaseMessage;
 import com.ihs.message_2012010548.types.HSTextMessage;
@@ -31,6 +37,9 @@ public class ChatActivity extends BaseActivity {
     private ChatListAdapter mAdapter;
     private ArrayList<HSBaseMessage> messages;
 
+    private Button sendButton;
+    private EditText sendText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +50,27 @@ public class ChatActivity extends BaseActivity {
 
         setToolbar();
         setData();
+
+        sendButton = (Button) findViewById(R.id.chat_button_send);
+        sendText = (EditText) findViewById(R.id.chat_text_send);
+        sendText.clearFocus();
+
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = sendText.getText().toString();
+                sendText.setText("");
+                HSBaseMessage message = new HSTextMessage(mid, text);
+                HSMessageManager.getInstance().send(message, new HSMessageManager.SendMessageCallback() {
+                    @Override
+                    public void onMessageSentFinished(HSBaseMessage message, boolean success, HSError error) {
+                        messages.add(0, message);
+                        mAdapter.notifyItemInserted(0);
+                        mMessageView.scrollToPosition(0);
+                    }
+                }, new Handler());
+            }
+        });
     }
 
     @Override
@@ -89,24 +119,22 @@ public class ChatActivity extends BaseActivity {
         HSMessageManager.QueryResult result = HSMessageManager.getInstance().queryMessages(mid, 0, -1);
         messages = new ArrayList<>(result.getMessages());
         mMessageView = (RecyclerView) findViewById(R.id.chat_message_list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setStackFromEnd(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
         mMessageView.setLayoutManager(layoutManager);
         mAdapter = new ChatListAdapter(messages);
         mMessageView.setAdapter(mAdapter);
     }
 
     public void onEvent(MessageReceiveEvent event) {
-        int position = messages.size();
         int count = 0;
         for (HSBaseMessage message : event.getMessages()) {
             if (message.getFrom().equals(mid) ||
                 message.getTo().equals(HSAccountManager.getInstance().getMainAccount().getMID())) {
-                messages.add(message);
+                messages.add(0, message);
                 count++;
             }
         }
-        mAdapter.notifyItemRangeInserted(position, count);
-        mMessageView.scrollToPosition(messages.size() - 1);
+        mAdapter.notifyItemRangeInserted(0, count);
+        mMessageView.scrollToPosition(0);
     }
 }
