@@ -4,6 +4,10 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +16,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.ihs.demo.message.MessagesFragment;
+import com.ihs.message_2012010548.friends.api.HSContactFriendsMgr;
+import com.ihs.message_2012010548.managers.HSMessageManager;
+
+import java.util.ArrayList;
 
 import me.hqythu.ihs.message.R;
 
@@ -26,7 +36,35 @@ public class MainActivity extends BaseActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private RecyclerView mDrawerList;
+    private ViewPager mViewPager;
+    private ArrayList<Fragment> fragments = new ArrayList<>();
     private boolean mDrawerOpened = false;
+
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final String[] TITLES = {
+            getString(R.string.messages),
+            getString(R.string.contacts),
+        };
+
+        public ViewPagerAdapter(FragmentManager fragmentManager) {
+            super(fragmentManager);
+        }
+
+        @Override
+        public Fragment getItem(int Index) {
+            return fragments.get(Index);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return TITLES[position];
+        }
+
+        @Override
+        public int getCount() {
+            return TITLES.length;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +73,15 @@ public class MainActivity extends BaseActivity {
 
         setToolbar();
 //        initData();
-        setDrawer();
         setView();
+        setDrawer();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        HSMessageManager.getInstance().pullMessages();
+        HSContactFriendsMgr.startSync(true);
     }
 
     @Override
@@ -101,7 +146,6 @@ public class MainActivity extends BaseActivity {
                     mToolbar.setElevation(slideOffset * MAX_TOOLBAR_ELEVATION);
                 }
                 mToolbar.setTitle(R.string.app_name);
-                mToolbar.setTitleTextColor((((int) Math.floor(0xff * (double) slideOffset)) << 24) | 0xffffff);
                 //TODO: also change toolbar background color/transparency
                 if (slideOffset > 0) {
                     // TODO: disable recycler view
@@ -130,9 +174,14 @@ public class MainActivity extends BaseActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerList = (RecyclerView) findViewById(R.id.drawer_list);
         mDrawerList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mDrawerList.setAdapter(new DrawerListAdapter(this, mDrawerLayout));
+        mDrawerList.setAdapter(new DrawerListAdapter(this, mDrawerLayout, mViewPager));
     }
 
     private void setView() {
+        mViewPager = (ViewPager) findViewById(R.id.main_activity_content);
+        mViewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+        mViewPager.setCurrentItem(0);
+        fragments.add(new MessagesFragment());
+        fragments.add(new ContactsFragment());
     }
 }
