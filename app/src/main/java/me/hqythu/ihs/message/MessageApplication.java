@@ -1,7 +1,11 @@
 package me.hqythu.ihs.message;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -33,6 +37,7 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import me.hqythu.ihs.message.event.MessageReceiveEvent;
+import me.hqythu.ihs.message.ui.MainActivity;
 
 /**
  * Created by hqythu on 9/4/2015.
@@ -47,6 +52,8 @@ public class MessageApplication extends HSApplication implements INotificationOb
     public static final String URL_ACK = "http://54.223.212.19:8024/template/contacts/friends/get";
 
     private static final String LogTag = MessageApplication.class.getName();
+
+    private final int NOTIFICATION = 1;
 
     public HSMessageChangeListener messageChangeListener = new HSMessageChangeListener() {
         @Override
@@ -73,7 +80,22 @@ public class MessageApplication extends HSApplication implements INotificationOb
 
         @Override
         public void onReceivingRemoteNotification(JSONObject pushInfo) {
-
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext())
+                .setSmallIcon(R.drawable.notification_icon)
+                .setContentTitle("有新消息")
+                .setContentText("新消息");
+            Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+            PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                    getApplicationContext(),
+                    0,
+                    resultIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                );
+            mBuilder.setContentIntent(resultPendingIntent);
+            NotificationManager mNotifyMgr =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            mNotifyMgr.notify(NOTIFICATION, mBuilder.build());
         }
     };
 
