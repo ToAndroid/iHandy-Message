@@ -83,7 +83,8 @@ public class MessageApplication extends HSApplication implements INotificationOb
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext())
                 .setSmallIcon(R.drawable.notification_icon)
                 .setContentTitle("有新消息")
-                .setContentText("新消息");
+                .setContentText("新消息")
+                .setAutoCancel(true);
             Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
             PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
