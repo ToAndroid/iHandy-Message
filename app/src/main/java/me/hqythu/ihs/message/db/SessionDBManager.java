@@ -190,7 +190,7 @@ public class SessionDBManager {
                 if (t1.lastMessageDate.getTime() == t2.lastMessageDate.getTime()) {
                     return 0;
                 } else {
-                    return t1.lastMessageDate.getTime() > t2.lastMessageDate.getTime() ? 1 : -1;
+                    return t1.lastMessageDate.getTime() > t2.lastMessageDate.getTime() ? -1 : 1;
                 }
             }
         });
