@@ -36,6 +36,7 @@ public class MessageSessionAdapter
 
     public class ViewHolder extends AbstractSwipeableItemViewHolder {
         View mView;
+        View mContainer;
         ImageView avatar;
         TextView title;
         TextView detail;
@@ -43,11 +44,12 @@ public class MessageSessionAdapter
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
+            mContainer = mView.findViewById(R.id.message_session_container);
             avatar = (ImageView) mView.findViewById(R.id.session_contact_avatar);
             title = (TextView) mView.findViewById(R.id.session_contact_title);
             detail = (TextView) mView.findViewById(R.id.session_contact_detail);
 
-            mView.setOnClickListener(new View.OnClickListener() {
+            mContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mActivity, ChatActivity.class);
@@ -59,7 +61,7 @@ public class MessageSessionAdapter
 
         @Override
         public View getSwipeableContainerView() {
-            return mView;
+            return mContainer;
         }
     }
 
