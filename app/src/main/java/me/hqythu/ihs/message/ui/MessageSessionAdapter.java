@@ -43,9 +43,9 @@ public class MessageSessionAdapter
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            avatar = (ImageView) mView.findViewById(R.id.contact_avatar);
-            title = (TextView) mView.findViewById(R.id.contact_title);
-            detail = (TextView) mView.findViewById(R.id.contact_detail);
+            avatar = (ImageView) mView.findViewById(R.id.session_contact_avatar);
+            title = (TextView) mView.findViewById(R.id.session_contact_title);
+            detail = (TextView) mView.findViewById(R.id.session_contact_detail);
 
             mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,6 +81,9 @@ public class MessageSessionAdapter
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Contact contact = mSessionInfos.get(position).contact;
+        if (contact == null) {
+            return;
+        }
         holder.title.setText("" + contact.getName() + ": " + contact.getContent());
         holder.detail.setText("mid: " + contact.getMid());
         ImageLoader.getInstance().displayImage("content://com.android.contacts/contacts/" + contact.getContactId(), holder.avatar, options);

@@ -139,6 +139,13 @@ public class SessionDBManager {
             COLUMN_CONTACT_MID + "=" + contactMid, null) > 0;
     }
 
+    public static boolean isContactSessionExist(String contactMid) {
+        checkDatabase();
+        Cursor cursor = mSQLiteDatabase.query(SESSION_TABLE_NAME, null,
+            COLUMN_CONTACT_MID + "=" + contactMid, null, null, null, null, null);
+        return cursor.getCount() > 0;
+    }
+
     public static boolean setSnoozeDate(String contactMid, Date snoozeDate) {
         checkDatabase();
         ContentValues initialValues = new ContentValues();
@@ -163,6 +170,7 @@ public class SessionDBManager {
         ArrayList<MessageSessionInfo> sessionInfos = new ArrayList<>();
         int counter = 0;
         for (cursor.moveToFirst(); counter < cursor.getCount(); cursor.moveToNext()) {
+            counter++;
             Date lastMessageDate = new Date();
             lastMessageDate.setTime(cursor.getLong(cursor.getColumnIndex(COLUMN_LAST_MESSAGE_DATE)));
             Date snoozeDate = new Date();

@@ -32,6 +32,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
+import me.hqythu.ihs.message.db.SessionDBManager;
 import me.hqythu.ihs.message.event.MessageReceiveEvent;
 
 /**
@@ -53,6 +54,22 @@ public class MessageApplication extends HSApplication implements INotificationOb
         public void onMessageChanged(HSMessageChangeType changeType, List<HSBaseMessage> messages) {
             if (changeType == HSMessageChangeType.ADDED) {
                 EventBus.getDefault().post(new MessageReceiveEvent(messages));
+                for (HSBaseMessage message : messages) {
+                    String contactMid = message.getFrom();
+                    if (contactMid.equals(HSAccountManager.getInstance().getMainAccount().getMID())) {
+                        contactMid = message.getTo();
+                    }
+                    if (SessionDBManager.isContactSessionExist(contactMid)) {
+                        SessionDBManager.setNewMessage(contactMid, message.getMsgID(), message.getTimestamp());
+                    } else {
+                        SessionDBManager.MessageSessionInfo session = new SessionDBManager.MessageSessionInfo(
+                            contactMid,
+                            message.getMsgID(),
+                            message.getTimestamp()
+                        );
+                        SessionDBManager.insertSession(session);
+                    }
+                }
             }
         }
 
