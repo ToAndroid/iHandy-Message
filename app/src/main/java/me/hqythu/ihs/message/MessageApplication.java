@@ -36,8 +36,10 @@ import org.json.JSONObject;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
+import me.hqythu.ihs.message.data.MessageSession;
 import me.hqythu.ihs.message.db.SessionDBManager;
 import me.hqythu.ihs.message.event.MessageReceiveEvent;
+import me.hqythu.ihs.message.event.SessionUpdateEvent;
 import me.hqythu.ihs.message.ui.MainActivity;
 
 /**
@@ -66,16 +68,17 @@ public class MessageApplication extends HSApplication implements INotificationOb
                     if (contactMid.equals(HSAccountManager.getInstance().getMainAccount().getMID())) {
                         contactMid = message.getTo();
                     }
+                    SessionDBManager.MessageSessionInfo session = new SessionDBManager.MessageSessionInfo(
+                        contactMid,
+                        message.getMsgID(),
+                        message.getTimestamp()
+                    );
                     if (SessionDBManager.isContactSessionExist(contactMid)) {
                         SessionDBManager.setNewMessage(contactMid, message.getMsgID(), message.getTimestamp());
                     } else {
-                        SessionDBManager.MessageSessionInfo session = new SessionDBManager.MessageSessionInfo(
-                            contactMid,
-                            message.getMsgID(),
-                            message.getTimestamp()
-                        );
                         SessionDBManager.insertSession(session);
                     }
+                    EventBus.getDefault().post(new SessionUpdateEvent(new MessageSession(session)));
                 }
             }
         }

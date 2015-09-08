@@ -19,9 +19,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
+import de.greenrobot.event.EventBus;
 import me.hqythu.ihs.message.R;
 import me.hqythu.ihs.message.data.MessageSession;
 import me.hqythu.ihs.message.db.SessionDBManager;
+import me.hqythu.ihs.message.event.SessionStatusChangeEvent;
+import me.hqythu.ihs.message.event.SessionUpdateEvent;
 
 /**
  * Created by hqythu on 9/8/2015.
@@ -132,6 +135,8 @@ public class MessageSessionAdapter
             SessionDBManager.setArchived(session.contactMid, session.archived);
             mSessionInfos.remove(position);
             notifyItemRemoved(position);
+
+            EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.archived));
         }
     }
 }
