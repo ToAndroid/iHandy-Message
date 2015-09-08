@@ -151,9 +151,15 @@ public class SessionDBManager {
             COLUMN_CONTACT_MID + "=" + contactMid, null) > 0;
     }
 
-    public static ArrayList<MessageSessionInfo> getSessionInfoList() {
+    public static ArrayList<MessageSessionInfo> getSessionInfoList(boolean all, boolean archived) {
         checkDatabase();
-        Cursor cursor = mSQLiteDatabase.query(SESSION_TABLE_NAME, null, null, null, null, null, null, null);
+        Cursor cursor;
+        if (all) {
+            cursor = mSQLiteDatabase.query(SESSION_TABLE_NAME, null, null, null, null, null, null, null);
+        } else {
+            cursor = mSQLiteDatabase.query(SESSION_TABLE_NAME, null,
+                COLUMN_ARCHIVED + "=" + (archived ? 1 : 0), null, null, null, null, null);
+        }
         ArrayList<MessageSessionInfo> sessionInfos = new ArrayList<>();
         int counter = 0;
         for (cursor.moveToFirst(); counter < cursor.getCount(); cursor.moveToNext()) {
