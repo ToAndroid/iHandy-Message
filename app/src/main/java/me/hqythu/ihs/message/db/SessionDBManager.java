@@ -2,9 +2,13 @@ package me.hqythu.ihs.message.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import me.hqythu.ihs.message.MessageApplication;
@@ -145,5 +149,37 @@ public class SessionDBManager {
         }
         return mSQLiteDatabase.update(SESSION_TABLE_NAME, initialValues,
             COLUMN_CONTACT_MID + "=" + contactMid, null) > 0;
+    }
+
+    public static ArrayList<MessageSessionInfo> getSessionInfoList() {
+        checkDatabase();
+        Cursor cursor = mSQLiteDatabase.query(SESSION_TABLE_NAME, null, null, null, null, null, null, null);
+        ArrayList<MessageSessionInfo> sessionInfos = new ArrayList<>();
+        int counter = 0;
+        for (cursor.moveToFirst(); counter < cursor.getCount(); cursor.moveToNext()) {
+            Date lastMessageDate = new Date();
+            lastMessageDate.setTime(cursor.getLong(cursor.getColumnIndex(COLUMN_LAST_MESSAGE_DATE)));
+            Date snoozeDate = new Date();
+            snoozeDate.setTime(cursor.getLong(cursor.getColumnIndex(COLUMN_SNOOZE_DATE)));
+            sessionInfos.add(new MessageSessionInfo(
+                cursor.getString(cursor.getColumnIndex(COLUMN_CONTACT_MID)),
+                cursor.getString(cursor.getColumnIndex(COLUMN_LAST_MESSAGE_MID)),
+                lastMessageDate,
+                cursor.getInt(cursor.getColumnIndex(COLUMN_ARCHIVED)) == 1,
+                snoozeDate
+            ));
+        }
+        cursor.close();
+        Collections.sort(sessionInfos, new Comparator<MessageSessionInfo>() {
+            @Override
+            public int compare(MessageSessionInfo t1, MessageSessionInfo t2) {
+                if (t1.lastMessageDate.getTime() == t2.lastMessageDate.getTime()) {
+                    return 0;
+                } else {
+                    return t1.lastMessageDate.getTime() > t2.lastMessageDate.getTime() ? 1 : -1;
+                }
+            }
+        });
+        return sessionInfos;
     }
 }
