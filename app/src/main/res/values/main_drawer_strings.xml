@@ -3,8 +3,10 @@
     <string name="main_drawer_about">About Us</string>
     <string name="main_drawer_origin">Origin Activity</string>
     <string name="main_drawer_chat_activity">Chat Activity</string>
-    <string name="main_drawer_message_fragment">Message Fragment</string>
-    <string name="main_drawer_contact_fragment">Contact Fragment</string>
+    <string name="main_drawer_inbox">Inbox</string>
+    <string name="main_drawer_archived">Archived</string>
+    <string name="main_drawer_all">All</string>
+    <string name="main_drawer_contact">Contact</string>
 
     <string name="open_drawer">Open Drawer</string>
     <string name="close_drawer">Close Drawer</string>

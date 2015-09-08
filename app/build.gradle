@@ -38,4 +38,5 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.7.4'
 }
