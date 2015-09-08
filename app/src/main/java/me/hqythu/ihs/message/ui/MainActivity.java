@@ -42,8 +42,10 @@ public class MainActivity extends BaseActivity {
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
         private final String[] TITLES = {
-            getString(R.string.messages),
-            getString(R.string.contacts),
+            getString(R.string.main_drawer_inbox),
+            getString(R.string.main_drawer_archived),
+            getString(R.string.main_drawer_all),
+            getString(R.string.main_drawer_contact),
         };
 
         public ViewPagerAdapter(FragmentManager fragmentManager) {
@@ -180,8 +182,32 @@ public class MainActivity extends BaseActivity {
     private void setView() {
         mViewPager = (ViewPager) findViewById(R.id.main_activity_content);
         mViewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
-        mViewPager.setCurrentItem(0);
-        fragments.add(new MessagesFragment());
+
+        Bundle displayAllBundle = new Bundle();
+        displayAllBundle.putBoolean(MessageSessionFragment.DISPLAY_ALL, true);
+        displayAllBundle.putBoolean(MessageSessionFragment.DISPLAY_ARCHIVED, true);
+
+        Bundle displayInboxBundle = new Bundle();
+        displayInboxBundle.putBoolean(MessageSessionFragment.DISPLAY_ALL, false);
+        displayInboxBundle.putBoolean(MessageSessionFragment.DISPLAY_ARCHIVED, false);
+
+        Bundle displayArchivedBundle = new Bundle();
+        displayArchivedBundle.putBoolean(MessageSessionFragment.DISPLAY_ALL, false);
+        displayArchivedBundle.putBoolean(MessageSessionFragment.DISPLAY_ARCHIVED, true);
+
+        MessageSessionFragment messageSessionFragment = new MessageSessionFragment();
+        messageSessionFragment.setArguments(displayInboxBundle);
+        fragments.add(messageSessionFragment);
+
+        messageSessionFragment = new MessageSessionFragment();
+        messageSessionFragment.setArguments(displayArchivedBundle);
+        fragments.add(messageSessionFragment);
+
+        messageSessionFragment = new MessageSessionFragment();
+        messageSessionFragment.setArguments(displayAllBundle);
+        fragments.add(messageSessionFragment);
+
         fragments.add(new ContactsFragment());
+        mViewPager.setCurrentItem(0);
     }
 }

@@ -25,8 +25,9 @@ import me.hqythu.ihs.message.db.SessionDBManager;
  */
 public class MessageSessionFragment extends Fragment {
 
-    private ArrayList<MessageSession> sessionInfos;
+    private ArrayList<MessageSession> mSessionInfos;
     private RecyclerView mSessionList;
+    private MessageSessionAdapter mAdapter;
 
     public static final String DISPLAY_ALL = "DisplayAll";
     public static final String DISPLAY_ARCHIVED = "DisplayArhived";
@@ -34,6 +35,7 @@ public class MessageSessionFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         displayAll = bundle.getBoolean(DISPLAY_ALL);
         displayArchived = bundle.getBoolean(DISPLAY_ARCHIVED);
@@ -42,6 +44,19 @@ public class MessageSessionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_message_session, null);
+
+        ArrayList<SessionDBManager.MessageSessionInfo> sessions =
+            SessionDBManager.getSessionInfoList(displayAll, displayArchived);
+        mSessionInfos = new ArrayList<>();
+        for (SessionDBManager.MessageSessionInfo session : sessions) {
+            mSessionInfos.add(new MessageSession(session));
+        }
+
+        mSessionList = (RecyclerView) view.findViewById(R.id.session_list);
+        mSessionList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAdapter = new MessageSessionAdapter(getActivity(), mSessionInfos);
+        mSessionList.setAdapter(mAdapter);
+
         return view;
     }
 }
