@@ -64,9 +64,9 @@ public class MessageSessionFragment extends Fragment {
         }
 
         mSessionList = (RecyclerView) view.findViewById(R.id.session_list);
-        mSessionList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new MessageSessionAdapter(getActivity(), mSessionInfos);
         mSessionList.setAdapter(mAdapter);
+        mSessionList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         final Parcelable eimSavedState = (savedInstanceState != null) ? savedInstanceState.getParcelable(SAVED_STATE_EXPANDABLE_ITEM_MANAGER) : null;
 

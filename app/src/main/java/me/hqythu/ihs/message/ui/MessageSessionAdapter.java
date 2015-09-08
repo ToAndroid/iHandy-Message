@@ -40,6 +40,7 @@ public class MessageSessionAdapter
         ImageView avatar;
         TextView title;
         TextView detail;
+        boolean swipedOut;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -72,6 +73,12 @@ public class MessageSessionAdapter
         options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.chat_avatar_default_icon).showImageForEmptyUri(R.drawable.chat_avatar_default_icon)
             .showImageOnFail(R.drawable.chat_avatar_default_icon).cacheInMemory(true).cacheOnDisk(true).considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565).build();
 
+        setHasStableIds(true);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return Integer.parseInt(mSessionInfos.get(position).contactMid);
     }
 
     @Override
@@ -89,7 +96,6 @@ public class MessageSessionAdapter
         holder.title.setText("" + contact.getName() + ": " + contact.getContent());
         holder.detail.setText("mid: " + contact.getMid());
         ImageLoader.getInstance().displayImage("content://com.android.contacts/contacts/" + contact.getContactId(), holder.avatar, options);
-
     }
 
     @Override
