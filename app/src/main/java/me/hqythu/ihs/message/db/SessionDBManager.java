@@ -1,10 +1,13 @@
 package me.hqythu.ihs.message.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.Date;
+
+import me.hqythu.ihs.message.MessageApplication;
 
 /**
  * Created by hqythu on 9/8/2015.
@@ -45,7 +48,25 @@ public class SessionDBManager {
             this.lastMessageDate = lastMessageDate;
             this.lastMessageMid = lastMessageMid;
             this.archived = false;
-            this.snoozeDate = new Date();
+            this.snoozeDate = null;
+        }
+
+        public ContentValues getDBInfo() {
+            ContentValues initialValues = new ContentValues();
+            initialValues.put(COLUMN_CONTACT_MID, contactMid);
+            initialValues.put(COLUMN_LAST_MESSAGE_MID, lastMessageMid);
+            if (lastMessageDate != null) {
+                initialValues.put(COLUMN_LAST_MESSAGE_DATE, lastMessageDate.getTime());
+            } else {
+                initialValues.put(COLUMN_LAST_MESSAGE_DATE, 0);
+            }
+            initialValues.put(COLUMN_ARCHIVED, archived ? 1 : 0);
+            if (snoozeDate != null) {
+                initialValues.put(COLUMN_SNOOZE_DATE, snoozeDate.getTime());
+            } else {
+                initialValues.put(COLUMN_SNOOZE_DATE, 0);
+            }
+            return initialValues;
         }
     }
 
@@ -73,5 +94,56 @@ public class SessionDBManager {
             db.execSQL("DROP TABLE IF EXISTS " + SESSION_TABLE_NAME);
             onCreate(db);
         }
+    }
+
+    private static synchronized void checkDatabase() {
+        if (mSQLiteDatabase == null) {
+            mDatabaseHelper = new DatabaseHelper(MessageApplication.getContext());
+            mSQLiteDatabase = mDatabaseHelper.getWritableDatabase();
+        }
+    }
+
+    public static boolean insertSession(MessageSessionInfo info) {
+        checkDatabase();
+        return mSQLiteDatabase.insert(SESSION_TABLE_NAME, null, info.getDBInfo()) > 0;
+    }
+
+    public static boolean updateSessionInfo(String contactMid, MessageSessionInfo newInfo) {
+        checkDatabase();
+        return mSQLiteDatabase.update(SESSION_TABLE_NAME, newInfo.getDBInfo(),
+            COLUMN_CONTACT_MID + "=" + contactMid, null) > 0;
+    }
+
+    public static boolean setArchived(String contactMid, boolean archived) {
+        checkDatabase();
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(COLUMN_ARCHIVED, archived ? 1 : 0);
+        return mSQLiteDatabase.update(SESSION_TABLE_NAME, initialValues,
+            COLUMN_CONTACT_MID + "=" + contactMid, null) > 0;
+    }
+
+    public static boolean setNewMessage(String contactMid, String lastMessageMid, Date lastMessageDate) {
+        checkDatabase();
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(COLUMN_LAST_MESSAGE_MID, lastMessageMid);
+        if (lastMessageDate != null) {
+            initialValues.put(COLUMN_LAST_MESSAGE_DATE, lastMessageDate.getTime());
+        } else {
+            initialValues.put(COLUMN_LAST_MESSAGE_DATE, 0);
+        }
+        return mSQLiteDatabase.update(SESSION_TABLE_NAME, initialValues,
+            COLUMN_CONTACT_MID + "=" + contactMid, null) > 0;
+    }
+
+    public static boolean setSnoozeDate(String contactMid, Date snoozeDate) {
+        checkDatabase();
+        ContentValues initialValues = new ContentValues();
+        if (snoozeDate != null) {
+            initialValues.put(COLUMN_SNOOZE_DATE, snoozeDate.getTime());
+        } else {
+            initialValues.put(COLUMN_SNOOZE_DATE, 0);
+        }
+        return mSQLiteDatabase.update(SESSION_TABLE_NAME, initialValues,
+            COLUMN_CONTACT_MID + "=" + contactMid, null) > 0;
     }
 }
