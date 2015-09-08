@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity {
         mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         setSupportActionBar(mToolbar);
         // TODO: i18n
-        mCollapsingToolbar.setTitle("Tsinghua Now");
+        mCollapsingToolbar.setTitle("Message");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }

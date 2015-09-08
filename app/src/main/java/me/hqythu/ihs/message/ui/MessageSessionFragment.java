@@ -97,7 +97,7 @@ public class MessageSessionFragment extends Fragment {
 
     public void onEvent(SessionUpdateEvent event) {
         int position = mSessionInfos.indexOf(event.getSession());
-        if (position == -1) {
+        if (position == -1 && (!displayArchived || displayAll)) {
             mSessionInfos.add(0, event.getSession());
             mWrappedAdapter.notifyItemInserted(0);
         } else {
