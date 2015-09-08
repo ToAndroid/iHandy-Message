@@ -17,6 +17,7 @@ import com.ihs.demo.message.FriendManager;
 import java.util.ArrayList;
 
 import me.hqythu.ihs.message.R;
+import me.hqythu.ihs.message.data.MessageSession;
 import me.hqythu.ihs.message.db.SessionDBManager;
 
 /**
@@ -24,8 +25,19 @@ import me.hqythu.ihs.message.db.SessionDBManager;
  */
 public class MessageSessionFragment extends Fragment {
 
-    private ArrayList<SessionDBManager.MessageSessionInfo> sessionInfos;
+    private ArrayList<MessageSession> sessionInfos;
     private RecyclerView mSessionList;
+
+    public static final String DISPLAY_ALL = "DisplayAll";
+    public static final String DISPLAY_ARCHIVED = "DisplayArhived";
+    private boolean displayAll, displayArchived;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        Bundle bundle = getArguments();
+        displayAll = bundle.getBoolean(DISPLAY_ALL);
+        displayArchived = bundle.getBoolean(DISPLAY_ARCHIVED);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
