@@ -94,7 +94,7 @@ public class ChatActivity extends BaseActivity {
                     9);
                 // 选择模式
                 intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE,
-                    MultiImageSelectorActivity.MODE_SINGLE);
+                    MultiImageSelectorActivity.MODE_MULTI);
                 startActivityForResult(intent, REQUEST_IMAGE);
             }
         });
