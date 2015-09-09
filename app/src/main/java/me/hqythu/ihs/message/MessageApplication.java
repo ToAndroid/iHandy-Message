@@ -18,6 +18,7 @@ import com.ihs.commons.notificationcenter.HSGlobalNotificationCenter;
 import com.ihs.commons.notificationcenter.INotificationObserver;
 import com.ihs.commons.utils.HSBundle;
 import com.ihs.contacts.api.HSPhoneContactMgr;
+import com.ihs.demo.message.FriendManager;
 import com.ihs.demo.message.SampleFragment;
 import com.ihs.message_2012010548.managers.HSMessageChangeListener;
 import com.ihs.message_2012010548.managers.HSMessageManager;
@@ -38,6 +39,7 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 import me.hqythu.ihs.message.data.MessageSession;
 import me.hqythu.ihs.message.db.SessionDBManager;
+import me.hqythu.ihs.message.event.FriendUpdateEvent;
 import me.hqythu.ihs.message.event.MessageReceiveEvent;
 import me.hqythu.ihs.message.event.SessionUpdateEvent;
 import me.hqythu.ihs.message.ui.MainActivity;
@@ -151,6 +153,13 @@ public class MessageApplication extends HSApplication implements INotificationOb
 
         // 演示HSGlobalNotificationCenter功能：增加名为 SAMPLE_NOTIFICATION_NAME 的观察者
         HSGlobalNotificationCenter.addObserver(SampleFragment.SAMPLE_NOTIFICATION_NAME, observer);
+        HSGlobalNotificationCenter.addObserver(FriendManager.NOTIFICATION_NAME_FRIEND_CHANGED,
+            new INotificationObserver() {
+                @Override
+                public void onReceive(String s, HSBundle hsBundle) {
+                    EventBus.getDefault().post(new FriendUpdateEvent());
+                }
+            });
 
         HSMessageManager.getInstance().addListener(messageChangeListener, new Handler());
     }

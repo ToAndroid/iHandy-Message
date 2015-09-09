@@ -17,7 +17,9 @@ import com.ihs.demo.message.FriendManager;
 
 import java.util.ArrayList;
 
+import de.greenrobot.event.EventBus;
 import me.hqythu.ihs.message.R;
+import me.hqythu.ihs.message.event.FriendUpdateEvent;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +31,12 @@ public class ContactsFragment extends Fragment {
     private RecyclerView mContactList;
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_contacts, null);
 
@@ -38,16 +46,19 @@ public class ContactsFragment extends Fragment {
         mAdapter = new ContactsAdapter(getActivity(), contacts);
         mContactList.setAdapter(mAdapter);
 
-        HSGlobalNotificationCenter.addObserver(FriendManager.NOTIFICATION_NAME_FRIEND_CHANGED,
-            new INotificationObserver() {
-                @Override
-                public void onReceive(String s, HSBundle hsBundle) {
-                    refreshContacts();
-                }
-            });
         refreshContacts();
 
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    public void onEvent(FriendUpdateEvent event) {
+        refreshContacts();
     }
 
     void refreshContacts() {

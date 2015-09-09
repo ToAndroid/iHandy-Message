@@ -20,6 +20,7 @@ import de.greenrobot.event.EventBus;
 import me.hqythu.ihs.message.R;
 import me.hqythu.ihs.message.data.MessageSession;
 import me.hqythu.ihs.message.db.SessionDBManager;
+import me.hqythu.ihs.message.event.FriendUpdateEvent;
 import me.hqythu.ihs.message.event.SessionStatusChangeEvent;
 import me.hqythu.ihs.message.event.SessionUpdateEvent;
 
@@ -121,5 +122,12 @@ public class MessageSessionFragment extends Fragment {
                 }
             }
         }
+    }
+
+    public void onEvent(FriendUpdateEvent event) {
+        for (MessageSession session : mSessionInfos) {
+            session.updateContact();
+        }
+        mWrappedAdapter.notifyDataSetChanged();
     }
 }

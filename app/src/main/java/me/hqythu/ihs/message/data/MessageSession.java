@@ -17,6 +17,10 @@ public class MessageSession extends SessionDBManager.MessageSessionInfo {
         contact = FriendManager.getInstance().getFriend(contactMid);
     }
 
+    public void updateContact() {
+        contact = FriendManager.getInstance().getFriend(contactMid);
+    }
+
     @Override
     public boolean equals(Object session) {
         if (session instanceof MessageSession) {
