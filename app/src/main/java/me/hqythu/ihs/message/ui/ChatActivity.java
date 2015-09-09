@@ -19,17 +19,22 @@ import com.ihs.account.api.account.HSAccountManager;
 import com.ihs.commons.utils.HSError;
 import com.ihs.message_2012010548.managers.HSMessageManager;
 import com.ihs.message_2012010548.types.HSBaseMessage;
+import com.ihs.message_2012010548.types.HSImageMessage;
 import com.ihs.message_2012010548.types.HSTextMessage;
 
+import java.sql.BatchUpdateException;
 import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
 import me.hqythu.ihs.message.R;
 import me.hqythu.ihs.message.event.MessageReceiveEvent;
 
+import me.nereo.multi_image_selector.MultiImageSelectorActivity;
+
 public class ChatActivity extends BaseActivity {
 
     public final static String CHAT_MID = "ChatMid";
+    private static final int REQUEST_IMAGE = 2;
 
     private String mid;
     private Toolbar mToolbar;
@@ -38,10 +43,13 @@ public class ChatActivity extends BaseActivity {
     private ArrayList<HSBaseMessage> messages;
 
     private Button sendButton;
+    private Button imageButton;
     private EditText sendText;
 
+    private ArrayList<String> mSelectPath;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
@@ -52,6 +60,7 @@ public class ChatActivity extends BaseActivity {
         setData();
 
         sendButton = (Button) findViewById(R.id.chat_button_send);
+        imageButton = (Button) findViewById(R.id.chat_button_image);
         sendText = (EditText) findViewById(R.id.chat_text_send);
         sendText.clearFocus();
 
@@ -61,6 +70,7 @@ public class ChatActivity extends BaseActivity {
                 String text = sendText.getText().toString();
                 sendText.setText("");
                 HSBaseMessage message = new HSTextMessage(mid, text);
+                // TODO 统一发送消息的回调
                 HSMessageManager.getInstance().send(message, new HSMessageManager.SendMessageCallback() {
                     @Override
                     public void onMessageSentFinished(HSBaseMessage message, boolean success, HSError error) {
@@ -69,6 +79,23 @@ public class ChatActivity extends BaseActivity {
                         mMessageView.scrollToPosition(0);
                     }
                 }, new Handler());
+            }
+        });
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ChatActivity.this, MultiImageSelectorActivity.class);
+                // 是否显示拍摄图片
+                intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA,
+                    true);
+                // 最大可选择图片数量
+                intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT,
+                    9);
+                // 选择模式
+                intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE,
+                    MultiImageSelectorActivity.MODE_SINGLE);
+                startActivityForResult(intent, REQUEST_IMAGE);
             }
         });
     }
@@ -107,6 +134,19 @@ public class ChatActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_IMAGE){
+            if(resultCode == RESULT_OK){
+                mSelectPath = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+                for (String path : mSelectPath) {
+                    sendImage(path);
+                }
+            }
+        }
+    }
+
     private void setToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.chat_toolbar);
         mToolbar.setBackgroundColor(getResources().getColor(R.color.primary_blue));
@@ -123,6 +163,18 @@ public class ChatActivity extends BaseActivity {
         mMessageView.setLayoutManager(layoutManager);
         mAdapter = new ChatListAdapter(messages);
         mMessageView.setAdapter(mAdapter);
+    }
+
+    public void sendImage(String imagePath) {
+        HSBaseMessage message = new HSImageMessage(mid, imagePath);
+        HSMessageManager.getInstance().send(message, new HSMessageManager.SendMessageCallback() {
+            @Override
+            public void onMessageSentFinished(HSBaseMessage message, boolean success, HSError error) {
+                messages.add(0, message);
+                mAdapter.notifyItemInserted(0);
+                mMessageView.scrollToPosition(0);
+            }
+        }, new Handler());
     }
 
     public void onEvent(MessageReceiveEvent event) {
