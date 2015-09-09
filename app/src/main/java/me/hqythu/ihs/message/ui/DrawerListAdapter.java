@@ -25,16 +25,6 @@ import me.hqythu.ihs.message.R;
 public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.ViewHolder> {
 
     enum DrawerListItem {
-        ORIGIN_ACTIVITY(
-            R.string.main_drawer_origin,
-            0,
-            R.color.gray_600
-        ),
-        CHAT_ACTIVITY(
-            R.string.main_drawer_chat_activity,
-            0,
-            R.color.gray_600
-        ),
         INBOX_FRAGMENT(
             R.string.main_drawer_inbox,
             0,
@@ -54,7 +44,12 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
             R.string.main_drawer_contact,
             0,
             R.color.gray_600
-        )
+        ),
+        ORIGIN_ACTIVITY(
+            R.string.main_drawer_origin,
+            0,
+            R.color.gray_600
+        ),
 //        CURRICULUM(
 //            R.string.actionbar_menu_curriculum,
 //            R.mipmap.ic_assignment_white_24dp,
@@ -117,9 +112,6 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
                         case ORIGIN_ACTIVITY:
                             ActivityMixin.startOtherActivity(mActivity, com.ihs.demo.message.MainActivity.class);
                             break;
-                        case CHAT_ACTIVITY:
-                            ActivityMixin.startOtherActivity(mActivity, ChatActivity.class);
-                            break;
                         case INBOX_FRAGMENT:
                             mViewPager.setCurrentItem(0, true);
                             break;
@@ -132,25 +124,6 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
                         case CONTACT_FRAGMENT:
                             mViewPager.setCurrentItem(3, true);
                             break;
-//                        case SETTINGS:
-//                            break;
-//                        case HELP:
-//                            break;
-//                        case FEEDBACK:
-//                            break;
-//                        case UPDATE:
-//                            break;
-//                        case LEARN_HELPER:
-//                            ActivityMixin.startOtherActivity(activity, LearnHelperActivity.class);
-//                            break;
-//                        case CURRICULUM:
-//                            ActivityMixin.startOtherActivity(activity, CurriculumActivity.class);
-//                            break;
-//                        case GPA_CALCULATOR:
-//                            ActivityMixin.startOtherActivity(activity, GpaCalculatorActivity.class);
-//                            break;
-//                        case DEBUG:
-//                            break;
                         default:
                             break;
                     }

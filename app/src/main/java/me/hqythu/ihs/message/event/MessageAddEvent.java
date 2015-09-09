@@ -8,11 +8,11 @@ import java.util.List;
 /**
  * Created by hqythu on 9/6/2015.
  */
-public class MessageReceiveEvent extends MessageEvent {
+public class MessageAddEvent extends MessageEvent {
 
     private ArrayList<HSBaseMessage> messages;
 
-    public MessageReceiveEvent(List<HSBaseMessage> messages) {
+    public MessageAddEvent(List<HSBaseMessage> messages) {
         this.messages = new ArrayList<>(messages);
     }
 

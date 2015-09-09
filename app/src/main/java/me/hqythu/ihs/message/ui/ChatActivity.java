@@ -2,8 +2,6 @@ package me.hqythu.ihs.message.ui;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.ihs.account.api.account.HSAccountManager;
 import com.ihs.commons.utils.HSError;
@@ -25,7 +22,7 @@ import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
 import me.hqythu.ihs.message.R;
-import me.hqythu.ihs.message.event.MessageReceiveEvent;
+import me.hqythu.ihs.message.event.MessageAddEvent;
 
 public class ChatActivity extends BaseActivity {
 
@@ -125,7 +122,7 @@ public class ChatActivity extends BaseActivity {
         mMessageView.setAdapter(mAdapter);
     }
 
-    public void onEvent(MessageReceiveEvent event) {
+    public void onEvent(MessageAddEvent event) {
         int count = 0;
         for (HSBaseMessage message : event.getMessages()) {
             if (message.getFrom().equals(mid) ||

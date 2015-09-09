@@ -40,7 +40,7 @@ import de.greenrobot.event.EventBus;
 import me.hqythu.ihs.message.data.MessageSession;
 import me.hqythu.ihs.message.db.SessionDBManager;
 import me.hqythu.ihs.message.event.FriendUpdateEvent;
-import me.hqythu.ihs.message.event.MessageReceiveEvent;
+import me.hqythu.ihs.message.event.MessageAddEvent;
 import me.hqythu.ihs.message.event.SessionUpdateEvent;
 import me.hqythu.ihs.message.ui.MainActivity;
 
@@ -64,7 +64,7 @@ public class MessageApplication extends HSApplication implements INotificationOb
         @Override
         public void onMessageChanged(HSMessageChangeType changeType, List<HSBaseMessage> messages) {
             if (changeType == HSMessageChangeType.ADDED) {
-                EventBus.getDefault().post(new MessageReceiveEvent(messages));
+                EventBus.getDefault().post(new MessageAddEvent(messages));
                 for (HSBaseMessage message : messages) {
                     String contactMid = message.getFrom();
                     if (contactMid.equals(HSAccountManager.getInstance().getMainAccount().getMID())) {
