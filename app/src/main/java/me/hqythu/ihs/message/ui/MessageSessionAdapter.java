@@ -19,9 +19,13 @@ import com.ihs.demo.message.Contact;
 import com.ihs.message_2012010548.managers.HSMessageManager;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import de.greenrobot.event.EventBus;
 import me.hqythu.ihs.message.R;
@@ -43,7 +47,6 @@ public class MessageSessionAdapter
     private Activity mActivity;
     private int type;
     private DisplayImageOptions options;
-    private int lastSwipePosition;
 
     private SimpleDateFormat formatter = new SimpleDateFormat("MM-dd HH:mm");
 
@@ -187,7 +190,6 @@ public class MessageSessionAdapter
 
     @Override
     public void onPerformAfterSwipeReaction(ViewHolder holder, final int position, int result, int reaction) {
-        lastSwipePosition = position;
         final MessageSession session = mSessionInfos.get(position);
         if (reaction == RecyclerViewSwipeManager.AFTER_SWIPE_REACTION_REMOVE_ITEM) {
             if (result == RecyclerViewSwipeManager.RESULT_SWIPED_RIGHT) {
@@ -197,8 +199,8 @@ public class MessageSessionAdapter
                 } else {
                     messageResId = R.string.main_session_item_archived;
                 }
-                Snackbar.make((
-                    (MainActivity)mActivity).getContainter(),
+                Snackbar.make(
+                    ((MainActivity)mActivity).getContainter(),
                     messageResId,
                     Snackbar.LENGTH_SHORT)
                     .setAction(R.string.main_session_undo, new View.OnClickListener() {
@@ -222,7 +224,45 @@ public class MessageSessionAdapter
                 mSessionInfos.remove(position);
                 notifyItemRemoved(position);
             } else if (result == RecyclerViewSwipeManager.RESULT_SWIPED_LEFT) {
-
+                Calendar now = Calendar.getInstance();
+                TimePickerDialog dpd = TimePickerDialog.newInstance(
+                    new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(RadialPickerLayout view, int hour, int minute) {
+                            final Calendar time = Calendar.getInstance();
+                            time.set(Calendar.HOUR_OF_DAY, hour);
+                            time.set(Calendar.MINUTE, minute);
+                            Snackbar.make(
+                                ((MainActivity)mActivity).getContainter(),
+                                R.string.main_session_item_snoozed,
+                                Snackbar.LENGTH_SHORT)
+                                .setAction(R.string.main_session_undo, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        mSessionInfos.add(position, session);
+                                        notifyItemInserted(position);
+                                    }
+                                })
+                                .setCallback(new Snackbar.Callback() {
+                                    @Override
+                                    public void onDismissed(Snackbar snackbar, int event) {
+                                        super.onDismissed(snackbar, event);
+                                        if (event != DISMISS_EVENT_ACTION) {
+                                            session.snoozeDate = time.getTime();
+                                            SessionDBManager.setSnoozeDate(session.contactMid, session.snoozeDate);
+                                            EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.getType()));
+                                        }
+                                    }
+                                }).show();
+                            mSessionInfos.remove(position);
+                            notifyItemRemoved(position);
+                        }
+                    },
+                    now.get(Calendar.HOUR_OF_DAY),
+                    now.get(Calendar.MINUTE),
+                    true
+                );
+                dpd.show(mActivity.getFragmentManager(), "Timepickerdialog");
             }
         }
     }
