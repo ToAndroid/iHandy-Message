@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 
 import me.hqythu.ihs.message.R;
@@ -34,5 +35,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationManager mNotifyMgr =
             (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
         mNotifyMgr.notify(ALARM, mBuilder.build());
+
+        Vibrator vibrator = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
+        vibrator.vibrate(1000);
     }
 }
