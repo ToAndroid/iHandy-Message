@@ -173,11 +173,13 @@ public class SessionDBManager {
                 break;
             case MessageSessionFragment.SESSION_LIST_TYPE_INBOX:
                 cursor = mSQLiteDatabase.query(SESSION_TABLE_NAME, null,
-                    COLUMN_ARCHIVED + "=" + 0, null, null, null, null, null);
+                    COLUMN_ARCHIVED + "=" + 0 + " AND " + COLUMN_SNOOZE_DATE + "=" + 0,
+                    null, null, null, null, null);
                 break;
             case MessageSessionFragment.SESSION_LIST_TYPE_ARCHIVED:
                 cursor = mSQLiteDatabase.query(SESSION_TABLE_NAME, null,
-                    COLUMN_ARCHIVED + "=" + 1, null, null, null, null, null);
+                    COLUMN_ARCHIVED + "=" + 1 + " AND " + COLUMN_SNOOZE_DATE + "=" + 0,
+                    null, null, null, null, null);
                 break;
             case MessageSessionFragment.SESSION_LIST_TYPE_SNOOZED:
                 cursor = mSQLiteDatabase.query(SESSION_TABLE_NAME, null,
