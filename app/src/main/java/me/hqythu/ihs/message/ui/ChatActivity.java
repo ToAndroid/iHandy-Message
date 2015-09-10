@@ -46,6 +46,7 @@ public class ChatActivity extends BaseActivity {
     private EditText sendText;
     private Button extendButton;
     private View extendArea;
+    private boolean extend;
 
     private ArrayList<String> mSelectPath;
 
@@ -56,6 +57,7 @@ public class ChatActivity extends BaseActivity {
 
         Intent intent = getIntent();
         mid = intent.getStringExtra(CHAT_MID);
+        extend = false;
 
         setToolbar();
         setData();
@@ -105,7 +107,12 @@ public class ChatActivity extends BaseActivity {
         extendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                extendArea.setVisibility(View.VISIBLE);
+                extend = !extend;
+                if (extend) {
+                    extendArea.setVisibility(View.VISIBLE);
+                } else {
+                    extendArea.setVisibility(View.GONE);
+                }
             }
         });
 

@@ -41,7 +41,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/TU_DARK_GRAY"
+                        android:background="@drawable/toolbar_background"
                         android:fitsSystemWindows="true" />
 
                 </LinearLayout>
@@ -75,9 +75,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:clickable="true"
-            android:src="@android:drawable/ic_menu_edit"
-            app:layout_anchor="@id/app_bar"
-            app:layout_anchorGravity="bottom|right|end" />
+            android:src="@drawable/ic_add_white_48dp"
+            app:layout_anchor="@id/main_content"
+            app:layout_anchorGravity="bottom|right" />
 
     </android.support.design.widget.CoordinatorLayout>
 
@@ -102,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_gravity="center"
-                android:background="@android:color/transparent" />
+                android:background="@drawable/drawer_background" />
 
         </LinearLayout>
 
