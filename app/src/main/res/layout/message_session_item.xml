@@ -6,70 +6,78 @@
     android:layout_marginTop="4dp"
     android:background="@color/WHITE"
     android:orientation="vertical">
-
-    <LinearLayout
+    
+    <RelativeLayout
         android:id="@+id/message_session_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/WHITE"
-        android:clickable="true"
-        android:orientation="horizontal"
-        android:textColor="@color/BLACK">
-
-        <ImageView
-            android:id="@+id/session_contact_avatar"
-            android:layout_width="@dimen/cell_item_contact_avatar_layout_width"
-            android:layout_height="@dimen/cell_item_contact_avatar_layout_height"
-            android:layout_margin="@dimen/cell_item_contact_avatar_layout_margin"
-            android:adjustViewBounds="true"
-            android:background="@drawable/chat_avatar_default_icon" />
+        android:textColor="@color/BLACK"
+        android:clickable="true">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:orientation="vertical">
+            android:background="?selectableItemBackground"
+            android:orientation="horizontal"
+            android:textColor="@color/BLACK">
 
-            <TextView
-                android:id="@+id/session_contact_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="@dimen/cell_item_title_text_view_paddingLeft"
-                android:paddingRight="@dimen/cell_item_title_text_view_paddingRight"
-                android:textSize="@dimen/cell_item_title_text_view_textSize" />
+            <ImageView
+                android:id="@+id/session_contact_avatar"
+                android:layout_width="@dimen/cell_item_contact_avatar_layout_width"
+                android:layout_height="@dimen/cell_item_contact_avatar_layout_height"
+                android:layout_margin="@dimen/cell_item_contact_avatar_layout_margin"
+                android:adjustViewBounds="true"
+                android:background="@drawable/chat_avatar_default_icon" />
 
-            <TextView
-                android:id="@+id/session_message_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/session_contact_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/cell_item_title_text_view_paddingLeft"
+                    android:paddingRight="@dimen/cell_item_title_text_view_paddingRight"
+                    android:textSize="@dimen/cell_item_title_text_view_textSize" />
+
+                <TextView
+                    android:id="@+id/session_message_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/cell_item_detail_text_view_paddingLeft"
+                    android:paddingRight="@dimen/cell_item_detail_text_view_paddingRight"
+                    android:textSize="@dimen/cell_item_detail_text_view_textSize" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:paddingLeft="@dimen/cell_item_detail_text_view_paddingLeft"
-                android:paddingRight="@dimen/cell_item_detail_text_view_paddingRight"
-                android:textSize="@dimen/cell_item_detail_text_view_textSize" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/session_last_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/session_unread_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/session_last_time"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/session_unread_count"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>
