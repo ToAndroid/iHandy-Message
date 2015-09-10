@@ -11,9 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="?selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true">
+        android:background="?selectableItemBackground">
 
         <ImageView
             android:id="@+id/contact_avatar"
