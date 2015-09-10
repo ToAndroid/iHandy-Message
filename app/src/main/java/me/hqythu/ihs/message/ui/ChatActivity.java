@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import com.ihs.account.api.account.HSAccountManager;
 import com.ihs.commons.utils.HSError;
+import com.ihs.demo.message.FriendManager;
 import com.ihs.message_2012010548.managers.HSMessageManager;
 import com.ihs.message_2012010548.types.HSBaseMessage;
 import com.ihs.message_2012010548.types.HSImageMessage;
@@ -148,6 +149,8 @@ public class ChatActivity extends BaseActivity {
         mToolbar = (Toolbar) findViewById(R.id.chat_toolbar);
         mToolbar.setBackgroundColor(getResources().getColor(R.color.primary_blue));
         setSupportActionBar(mToolbar);
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.gray_600));
+        getSupportActionBar().setTitle(FriendManager.getInstance().getFriend(mid).getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
