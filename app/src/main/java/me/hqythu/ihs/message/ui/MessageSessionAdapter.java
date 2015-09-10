@@ -1,6 +1,8 @@
 package me.hqythu.ihs.message.ui;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.design.widget.Snackbar;
@@ -29,6 +31,7 @@ import java.util.Calendar;
 
 import de.greenrobot.event.EventBus;
 import me.hqythu.ihs.message.R;
+import me.hqythu.ihs.message.backend.AlarmReceiver;
 import me.hqythu.ihs.message.data.MessageSession;
 import me.hqythu.ihs.message.data.MessageSessionType;
 import me.hqythu.ihs.message.db.SessionDBManager;
@@ -286,6 +289,7 @@ public class MessageSessionAdapter
                             if (event != DISMISS_EVENT_ACTION) {
                                 session.snoozeDate = time.getTime();
                                 SessionDBManager.setSnoozeDate(session.contactMid, session.snoozeDate);
+                                setAlarm(session);
                                 EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.getType()));
                             }
                         }
@@ -299,5 +303,13 @@ public class MessageSessionAdapter
             true
         );
         dpd.show(mActivity.getFragmentManager(), "Timepickerdialog");
+    }
+
+    private void setAlarm(MessageSession session) {
+        Intent intent = new Intent(mActivity, AlarmReceiver.class);
+        PendingIntent sender = PendingIntent.getBroadcast(mActivity, 0, intent, 0);
+
+        AlarmManager alarmMgr = (AlarmManager) mActivity.getSystemService(mActivity.ALARM_SERVICE);
+        alarmMgr.set(AlarmManager.RTC_WAKEUP, session.snoozeDate.getTime(), sender);
     }
 }

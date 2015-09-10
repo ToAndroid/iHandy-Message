@@ -72,6 +72,9 @@
             android:configChanges="orientation|screenSize"
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity">
         </activity>
+        <activity
+            android:name=".ui.ChatActivity" >
+        </activity>
 
         <!-- ===================================================== -->
         <!-- required by libAppFramework -->
@@ -93,10 +96,7 @@
                 <category android:name="com.ihs.message" />
             </intent-filter>
         </receiver>
-
-        <activity
-            android:name=".ui.ChatActivity" >
-        </activity>
+        <receiver android:name=".backend.AlarmReceiver"></receiver>
     </application>
 
 </manifest>

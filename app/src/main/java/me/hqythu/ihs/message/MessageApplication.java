@@ -61,7 +61,7 @@ public class MessageApplication extends HSApplication implements INotificationOb
 
     private static final String LogTag = MessageApplication.class.getName();
 
-    private final int NOTIFICATION = 1;
+    private static final int NOTIFICATION = 1;
 
     public HSMessageChangeListener messageChangeListener = new HSMessageChangeListener() {
         @Override
