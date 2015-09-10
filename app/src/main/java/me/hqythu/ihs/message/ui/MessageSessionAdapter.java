@@ -195,13 +195,22 @@ public class MessageSessionAdapter
                     (MainActivity)mActivity).getContainter(),
                     "Item Archived",
                     Snackbar.LENGTH_SHORT)
+                    .setAction("UNDO", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mSessionInfos.add(position, session);
+                            notifyItemInserted(position);
+                        }
+                    })
                     .setCallback(new Snackbar.Callback() {
                         @Override
                         public void onDismissed(Snackbar snackbar, int event) {
                             super.onDismissed(snackbar, event);
-                            session.archived = !session.archived;
-                            SessionDBManager.setArchived(session.contactMid, session.archived);
-                            EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.getType()));
+                            if (event != DISMISS_EVENT_ACTION) {
+                                session.archived = !session.archived;
+                                SessionDBManager.setArchived(session.contactMid, session.archived);
+                                EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.getType()));
+                            }
                         }
                     }).show();
                 mSessionInfos.remove(position);

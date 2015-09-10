@@ -56,7 +56,7 @@ public class MessageSession extends SessionDBManager.MessageSessionInfo {
     public int getType() {
         if (archived) {
             return MessageSessionType.TYPE_ARCHIVED;
-        } else if (snoozeDate == null) {
+        } else if (snoozeDate.getTime() == 0) {
             return MessageSessionType.TYPE_INBOX;
         } else {
             return MessageSessionType.TYPE_SNOOZED;
