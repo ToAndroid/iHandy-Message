@@ -7,7 +7,7 @@
     <FrameLayout
         android:id="@+id/chat_message_item_content"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_toLeftOf="@id/chat_message_item_image"
         android:layout_margin="@dimen/cell_item_contact_avatar_layout_margin"
         android:background="@color/primary_green"
