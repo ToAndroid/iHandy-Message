@@ -15,6 +15,7 @@ import me.hqythu.ihs.message.db.SessionDBManager;
 public class MessageSession extends SessionDBManager.MessageSessionInfo {
     public Contact contact;
     public String messageBrief;
+    public int unreadCount;
 
     public MessageSession(SessionDBManager.MessageSessionInfo sessionInfo) {
         super(sessionInfo.contactMid, sessionInfo.lastMessageMid,
@@ -31,6 +32,7 @@ public class MessageSession extends SessionDBManager.MessageSessionInfo {
             messageBrief = "Unsupported Message Type";
         }
         this.messageBrief = messageBrief;
+        this.unreadCount = HSMessageManager.getInstance().queryUnreadCount(contactMid);
     }
 
     public void updateContact() {

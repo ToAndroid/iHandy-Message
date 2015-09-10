@@ -106,6 +106,7 @@ public class MessageSessionFragment extends Fragment {
             mSessionInfos.remove(position);
             mSessionInfos.add(0, event.getSession());
             mWrappedAdapter.notifyItemMoved(position, 0);
+            mWrappedAdapter.notifyItemChanged(0);
         }
     }
 

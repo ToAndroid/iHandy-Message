@@ -106,7 +106,7 @@ public class MessageSessionAdapter
         }
         holder.name.setText(contact.getName());
         holder.detail.setText(session.messageBrief);
-        holder.unread.setText(Integer.toString(HSMessageManager.getInstance().queryUnreadCount(session.contactMid)));
+        holder.unread.setText(Integer.toString(session.unreadCount));
         holder.lastTime.setText(formatter.format(session.lastMessageDate));
         ImageLoader.getInstance().displayImage("content://com.android.contacts/contacts/" + contact.getContactId(), holder.avatar, options);
     }
