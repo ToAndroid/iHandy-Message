@@ -208,7 +208,7 @@ public class MessageSessionAdapter
             messageResId = R.string.main_session_item_archived;
         }
         Snackbar.make(
-            ((MainActivity)mActivity).getContainter(),
+            ((MainActivity) mActivity).getContainter(),
             messageResId,
             Snackbar.LENGTH_SHORT)
             .setAction(R.string.main_session_undo, new View.OnClickListener() {
@@ -236,6 +236,32 @@ public class MessageSessionAdapter
     private void handleSwipeLeft(final int position) {
         final MessageSession session = mSessionInfos.get(position);
         Calendar now = Calendar.getInstance();
+        if (type == MessageSessionType.TYPE_SNOOZED) {
+            Snackbar.make(
+                ((MainActivity) mActivity).getContainter(),
+                R.string.main_session_item_unsnoozed,
+                Snackbar.LENGTH_SHORT
+            ).setAction(R.string.main_session_undo, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mSessionInfos.add(position, session);
+                    notifyItemInserted(position);
+                }
+            }).setCallback(new Snackbar.Callback() {
+                @Override
+                public void onDismissed(Snackbar snackbar, int event) {
+                    super.onDismissed(snackbar, event);
+                    if (event != DISMISS_EVENT_ACTION) {
+                        session.snoozeDate = null;
+                        SessionDBManager.setSnoozeDate(session.contactMid, null);
+                        EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.getType()));
+                    }
+                }
+            }).show();
+            mSessionInfos.remove(position);
+            notifyItemRemoved(position);
+            return;
+        }
         TimePickerDialog dpd = TimePickerDialog.newInstance(
             new TimePickerDialog.OnTimeSetListener() {
                 @Override
@@ -244,27 +270,26 @@ public class MessageSessionAdapter
                     time.set(Calendar.HOUR_OF_DAY, hour);
                     time.set(Calendar.MINUTE, minute);
                     Snackbar.make(
-                        ((MainActivity)mActivity).getContainter(),
+                        ((MainActivity) mActivity).getContainter(),
                         R.string.main_session_item_snoozed,
-                        Snackbar.LENGTH_SHORT)
-                        .setAction(R.string.main_session_undo, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                mSessionInfos.add(position, session);
-                                notifyItemInserted(position);
+                        Snackbar.LENGTH_SHORT
+                    ).setAction(R.string.main_session_undo, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mSessionInfos.add(position, session);
+                            notifyItemInserted(position);
+                        }
+                    }).setCallback(new Snackbar.Callback() {
+                        @Override
+                        public void onDismissed(Snackbar snackbar, int event) {
+                            super.onDismissed(snackbar, event);
+                            if (event != DISMISS_EVENT_ACTION) {
+                                session.snoozeDate = time.getTime();
+                                SessionDBManager.setSnoozeDate(session.contactMid, session.snoozeDate);
+                                EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.getType()));
                             }
-                        })
-                        .setCallback(new Snackbar.Callback() {
-                            @Override
-                            public void onDismissed(Snackbar snackbar, int event) {
-                                super.onDismissed(snackbar, event);
-                                if (event != DISMISS_EVENT_ACTION) {
-                                    session.snoozeDate = time.getTime();
-                                    SessionDBManager.setSnoozeDate(session.contactMid, session.snoozeDate);
-                                    EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.getType()));
-                                }
-                            }
-                        }).show();
+                        }
+                    }).show();
                     mSessionInfos.remove(position);
                     notifyItemRemoved(position);
                 }

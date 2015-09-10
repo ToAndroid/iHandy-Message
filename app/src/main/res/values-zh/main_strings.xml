@@ -16,4 +16,5 @@
     <string name="main_session_item_archived">已将一项内容标记为已归档</string>
     <string name="main_session_item_unarchived">已经取消一项内容的归档</string>
     <string name="main_session_item_snoozed">已将一项内容延后处理</string>
+    <string name="main_session_item_unsnoozed">已经取消一项内容的延后处理</string>
 </resources>

@@ -16,4 +16,5 @@
     <string name="main_session_item_archived">Item marked as Archived</string>
     <string name="main_session_item_unarchived">Item marked as Unarchived</string>
     <string name="main_session_item_snoozed">Item snoozed to other time</string>
+    <string name="main_session_item_unsnoozed">Item snooze canceled</string>
 </resources>
