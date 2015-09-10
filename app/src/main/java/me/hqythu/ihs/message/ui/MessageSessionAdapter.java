@@ -1,8 +1,8 @@
 package me.hqythu.ihs.message.ui;
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.design.widget.Snackbar;
@@ -38,6 +38,7 @@ import me.hqythu.ihs.message.db.SessionDBManager;
 import me.hqythu.ihs.message.event.SessionDeleteEvent;
 import me.hqythu.ihs.message.event.SessionStatusChangeEvent;
 import me.hqythu.ihs.message.event.SessionUpdateEvent;
+import me.hqythu.ihs.message.backend.AlarmManager;
 
 /**
  * Created by hqythu on 9/8/2015.
@@ -257,6 +258,7 @@ public class MessageSessionAdapter
                     if (event != DISMISS_EVENT_ACTION) {
                         session.snoozeDate = null;
                         SessionDBManager.setSnoozeDate(session.contactMid, null);
+                        AlarmManager.removeAlarm(session);
                         EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.getType()));
                     }
                 }
@@ -289,7 +291,7 @@ public class MessageSessionAdapter
                             if (event != DISMISS_EVENT_ACTION) {
                                 session.snoozeDate = time.getTime();
                                 SessionDBManager.setSnoozeDate(session.contactMid, session.snoozeDate);
-                                setAlarm(session);
+                                AlarmManager.addAlarm(session);
                                 EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.getType()));
                             }
                         }
@@ -302,14 +304,12 @@ public class MessageSessionAdapter
             now.get(Calendar.MINUTE),
             true
         );
+        dpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                notifyItemChanged(position);
+            }
+        });
         dpd.show(mActivity.getFragmentManager(), "Timepickerdialog");
-    }
-
-    private void setAlarm(MessageSession session) {
-        Intent intent = new Intent(mActivity, AlarmReceiver.class);
-        PendingIntent sender = PendingIntent.getBroadcast(mActivity, 0, intent, 0);
-
-        AlarmManager alarmMgr = (AlarmManager) mActivity.getSystemService(mActivity.ALARM_SERVICE);
-        alarmMgr.set(AlarmManager.RTC_WAKEUP, session.snoozeDate.getTime(), sender);
     }
 }

@@ -164,6 +164,28 @@ public class SessionDBManager {
             COLUMN_CONTACT_MID + "=" + contactMid, null) > 0;
     }
 
+    public static MessageSessionInfo querySession(String contactMid) {
+        checkDatabase();
+        Cursor cursor = mSQLiteDatabase.query(SESSION_TABLE_NAME, null,
+            COLUMN_CONTACT_MID + "=" + contactMid, null, null, null, null);
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            Date lastMessageDate = new Date();
+            lastMessageDate.setTime(cursor.getLong(cursor.getColumnIndex(COLUMN_LAST_MESSAGE_DATE)));
+            Date snoozeDate = new Date();
+            snoozeDate.setTime(cursor.getLong(cursor.getColumnIndex(COLUMN_SNOOZE_DATE)));
+            return new MessageSessionInfo(
+                cursor.getString(cursor.getColumnIndex(COLUMN_CONTACT_MID)),
+                cursor.getString(cursor.getColumnIndex(COLUMN_LAST_MESSAGE_MID)),
+                lastMessageDate,
+                cursor.getInt(cursor.getColumnIndex(COLUMN_ARCHIVED)) == 1,
+                snoozeDate
+            );
+        } else {
+            return null;
+        }
+    }
+
     public static ArrayList<MessageSessionInfo> getSessionInfoList(int type) {
         checkDatabase();
         Cursor cursor;

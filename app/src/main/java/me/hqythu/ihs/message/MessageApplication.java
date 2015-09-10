@@ -125,8 +125,16 @@ public class MessageApplication extends HSApplication implements INotificationOb
         }
     };
 
+    private static MessageApplication instance = null;
+
+    public static MessageApplication getInstance() {
+        return instance;
+    }
+
     @Override
     public void onCreate() {
+        instance = this;
+
         super.onCreate();
 
         HSAccountManager.getInstance();
