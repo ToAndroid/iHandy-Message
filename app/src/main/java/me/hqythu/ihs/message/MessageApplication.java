@@ -173,7 +173,7 @@ public class MessageApplication extends HSApplication implements INotificationOb
         super.onTerminate();
     }
 
-    private static void doInit() {
+    public static void doInit() {
         Log.d(LogTag, "doInit invoked");
 
         // 验证登录状态

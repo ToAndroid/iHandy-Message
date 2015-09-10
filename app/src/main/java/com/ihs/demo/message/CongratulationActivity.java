@@ -29,7 +29,7 @@ public class CongratulationActivity extends HSActivity implements OnClickListene
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, me.hqythu.ihs.message.ui.MainActivity.class);
         startActivity(intent);
         finish();
     }

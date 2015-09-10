@@ -34,6 +34,8 @@ import com.ihs.account.api.tpaccount.ITPAccountPhone.HSPhoneAuthType;
 import com.ihs.commons.notificationcenter.HSGlobalNotificationCenter;
 import com.ihs.commons.notificationcenter.INotificationObserver;
 import com.ihs.commons.utils.HSBundle;
+
+import me.hqythu.ihs.message.MessageApplication;
 import me.hqythu.ihs.message.R;
 
 public class MtVerifyActivity extends ProBaseActivity implements View.OnClickListener, android.content.DialogInterface.OnClickListener, ITPAccountObserver, INotificationObserver {
@@ -301,7 +303,7 @@ public class MtVerifyActivity extends ProBaseActivity implements View.OnClickLis
         if (HSAccountManager.HS_ACCOUNT_NOTIFICATION_SIGNIN_DID_FINISH.equals(arg0) || HSAccountManager.HS_ACCOUNT_NOTIFICATION_BIND_DID_FINISH.equals(arg0)) {
             Intent intent = new Intent(this, CongratulationActivity.class);
             startActivity(intent);
-            DemoApplication.doInit();
+            MessageApplication.doInit();
             finish();
         }
         dismissProgress();

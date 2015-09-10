@@ -13,10 +13,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.ihs.account.api.account.HSAccountManager;
+import com.ihs.commons.keepcenter.HSKeepCenter;
+import com.ihs.demo.message.LoginActivity;
 import com.ihs.demo.message.MessagesFragment;
 import com.ihs.message_2012010548.friends.api.HSContactFriendsMgr;
 import com.ihs.message_2012010548.managers.HSMessageManager;
@@ -74,6 +78,10 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContainer = findViewById(R.id.main_content);
+
+        if (HSAccountManager.getInstance().getSessionState() != HSAccountManager.HSAccountSessionState.VALID) {
+            ActivityMixin.startOtherActivity(this, LoginActivity.class);
+        }
 
         setToolbar();
 //        initData();
@@ -197,6 +205,8 @@ public class MainActivity extends BaseActivity {
         Bundle displayArchivedBundle = new Bundle();
         displayArchivedBundle.putInt(MessageSessionFragment.DISPLAY_TYPE, MessageSessionFragment.SESSION_LIST_TYPE_ARCHIVED);
 
+        fragments.clear();
+
         MessageSessionFragment messageSessionFragment = new MessageSessionFragment();
         messageSessionFragment.setArguments(displayInboxBundle);
         fragments.add(messageSessionFragment);
@@ -209,9 +219,9 @@ public class MainActivity extends BaseActivity {
         messageSessionFragment.setArguments(displayArchivedBundle);
         fragments.add(messageSessionFragment);
 
-        messageSessionFragment = new MessageSessionFragment();
-        messageSessionFragment.setArguments(displayAllBundle);
-        fragments.add(messageSessionFragment);
+//        messageSessionFragment = new MessageSessionFragment();
+//        messageSessionFragment.setArguments(displayAllBundle);
+//        fragments.add(messageSessionFragment);
 
         fragments.add(new ContactsFragment());
         mViewPager.setCurrentItem(0);

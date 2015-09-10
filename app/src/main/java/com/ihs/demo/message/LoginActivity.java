@@ -33,6 +33,8 @@ import com.ihs.commons.notificationcenter.HSGlobalNotificationCenter;
 import com.ihs.commons.notificationcenter.INotificationObserver;
 import com.ihs.commons.utils.HSBundle;
 import com.ihs.commons.utils.HSLog;
+
+import me.hqythu.ihs.message.MessageApplication;
 import me.hqythu.ihs.message.R;
 
 public class LoginActivity extends HSActivity implements ITPAccountObserver, INotificationObserver {
@@ -98,12 +100,12 @@ public class LoginActivity extends HSActivity implements ITPAccountObserver, INo
             HSLog.d("Signin Finished");
             Toast.makeText(HSApplication.getContext(), "Provision Finished", Toast.LENGTH_LONG).show();
             finish();
-            DemoApplication.doInit();
+            MessageApplication.doInit();
         } else if (HSAccountManager.HS_ACCOUNT_NOTIFICATION_BIND_DID_FINISH.equals(arg0)) {
             HSLog.d("Bind Finished");
             Toast.makeText(HSApplication.getContext(), "Provision Finished", Toast.LENGTH_LONG).show();
             finish();
-            DemoApplication.doInit();
+            MessageApplication.doInit();
         } else if (HSAccountManager.HS_ACCOUNT_NOTIFICATION_SIGNIN_FAILED.equals(arg0) || HSAccountManager.HS_ACCOUNT_NOTIFICATION_BIND_FAILED.equals(arg0)) {
             JSONObject response = (JSONObject) arg1.getObject(HSAccountManager.KEY_HS_ACCOUNT_NOTIFICATION_BUDDLE_INFO);
             if (response.optString(HSAccountManager.KEY_HS_ACCOUNT_NOTIFICATION_INFO_ERROR).equals(HSAccountError.EXCEPTION_NEED_AUTH)) {

@@ -40,11 +40,11 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
             0,
             R.color.gray_600
         ),
-        ALL_FRAGMENT(
-            R.string.main_drawer_all,
-            0,
-            R.color.gray_600
-        ),
+//        ALL_FRAGMENT(
+//            R.string.main_drawer_all,
+//            0,
+//            R.color.gray_600
+//        ),
         CONTACT_FRAGMENT(
             R.string.main_drawer_contact,
             0,
@@ -126,9 +126,9 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
                         case ARCHIVED_FRAGMENT:
                             mViewPager.setCurrentItem(2, true);
                             break;
-                        case ALL_FRAGMENT:
-                            mViewPager.setCurrentItem(3, true);
-                            break;
+//                        case ALL_FRAGMENT:
+//                            mViewPager.setCurrentItem(3, true);
+//                            break;
                         case CONTACT_FRAGMENT:
                             mViewPager.setCurrentItem(4, true);
                             break;
