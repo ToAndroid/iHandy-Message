@@ -3,6 +3,7 @@ package me.hqythu.ihs.message.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ public class MessageSessionAdapter
     private Activity mActivity;
     private int type;
     private DisplayImageOptions options;
+    private int lastSwipePosition;
 
     private SimpleDateFormat formatter = new SimpleDateFormat("MM-dd HH:mm");
 
@@ -184,15 +186,26 @@ public class MessageSessionAdapter
     }
 
     @Override
-    public void onPerformAfterSwipeReaction(ViewHolder holder, int position, int result, int reaction) {
-        MessageSession session = mSessionInfos.get(position);
+    public void onPerformAfterSwipeReaction(ViewHolder holder, final int position, int result, int reaction) {
+        lastSwipePosition = position;
+        final MessageSession session = mSessionInfos.get(position);
         if (reaction == RecyclerViewSwipeManager.AFTER_SWIPE_REACTION_REMOVE_ITEM) {
             if (result == RecyclerViewSwipeManager.RESULT_SWIPED_RIGHT) {
-                session.archived = !session.archived;
-                SessionDBManager.setArchived(session.contactMid, session.archived);
+                Snackbar.make((
+                    (MainActivity)mActivity).getContainter(),
+                    "Item Archived",
+                    Snackbar.LENGTH_SHORT)
+                    .setCallback(new Snackbar.Callback() {
+                        @Override
+                        public void onDismissed(Snackbar snackbar, int event) {
+                            super.onDismissed(snackbar, event);
+                            session.archived = !session.archived;
+                            SessionDBManager.setArchived(session.contactMid, session.archived);
+                            EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.getType()));
+                        }
+                    }).show();
                 mSessionInfos.remove(position);
                 notifyItemRemoved(position);
-                EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.getType()));
             } else if (result == RecyclerViewSwipeManager.RESULT_SWIPED_LEFT) {
 
             }

@@ -31,6 +31,7 @@ import me.hqythu.ihs.message.R;
 
 public class MainActivity extends BaseActivity {
 
+    private View mContainer;
     private Toolbar mToolbar;
     private CollapsingToolbarLayout mCollapsingToolbar;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -72,6 +73,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mContainer = findViewById(R.id.main_content);
 
         setToolbar();
 //        initData();
@@ -213,5 +215,9 @@ public class MainActivity extends BaseActivity {
 
         fragments.add(new ContactsFragment());
         mViewPager.setCurrentItem(0);
+    }
+
+    public View getContainter() {
+        return mContainer;
     }
 }
