@@ -14,9 +14,11 @@ import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeMana
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.SwipeableItemAdapter;
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractSwipeableItemViewHolder;
 import com.ihs.demo.message.Contact;
+import com.ihs.message_2012010548.managers.HSMessageManager;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
@@ -37,21 +39,26 @@ public class MessageSessionAdapter
     private Activity mActivity;
     private DisplayImageOptions options;
 
+    private SimpleDateFormat formatter = new SimpleDateFormat("MM-dd HH:mm");
+
     public class ViewHolder extends AbstractSwipeableItemViewHolder {
         View mView;
         View mContainer;
         ImageView avatar;
-        TextView title;
+        TextView name;
         TextView detail;
-        boolean swipedOut;
+        TextView lastTime;
+        TextView unread;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
             mContainer = mView.findViewById(R.id.message_session_container);
             avatar = (ImageView) mView.findViewById(R.id.session_contact_avatar);
-            title = (TextView) mView.findViewById(R.id.session_contact_title);
-            detail = (TextView) mView.findViewById(R.id.session_contact_detail);
+            name = (TextView) mView.findViewById(R.id.session_contact_name);
+            detail = (TextView) mView.findViewById(R.id.session_message_detail);
+            lastTime = (TextView) mView.findViewById(R.id.session_last_time);
+            unread = (TextView) mView.findViewById(R.id.session_unread_count);
 
             mContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -92,12 +99,15 @@ public class MessageSessionAdapter
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Contact contact = mSessionInfos.get(position).contact;
+        MessageSession session = mSessionInfos.get(position);
+        Contact contact = session.contact;
         if (contact == null) {
             return;
         }
-        holder.title.setText("" + contact.getName() + ": " + contact.getContent());
-        holder.detail.setText("mid: " + contact.getMid());
+        holder.name.setText(contact.getName());
+        holder.detail.setText(session.messageBrief);
+        holder.unread.setText(Integer.toString(HSMessageManager.getInstance().queryUnreadCount(session.contactMid)));
+        holder.lastTime.setText(formatter.format(session.lastMessageDate));
         ImageLoader.getInstance().displayImage("content://com.android.contacts/contacts/" + contact.getContactId(), holder.avatar, options);
     }
 
