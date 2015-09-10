@@ -11,4 +11,8 @@
 
     <string name="open_drawer">Open Drawer</string>
     <string name="close_drawer">Close Drawer</string>
+
+    <string name="main_session_undo">UNDO</string>
+    <string name="main_session_item_archived">Item marked as Archived</string>
+    <string name="main_session_item_unarchived">Item marked as Unarchived</string>
 </resources>

@@ -191,11 +191,17 @@ public class MessageSessionAdapter
         final MessageSession session = mSessionInfos.get(position);
         if (reaction == RecyclerViewSwipeManager.AFTER_SWIPE_REACTION_REMOVE_ITEM) {
             if (result == RecyclerViewSwipeManager.RESULT_SWIPED_RIGHT) {
+                int messageResId;
+                if (type == MessageSessionType.TYPE_ARCHIVED) {
+                    messageResId = R.string.main_session_item_unarchived;
+                } else {
+                    messageResId = R.string.main_session_item_archived;
+                }
                 Snackbar.make((
                     (MainActivity)mActivity).getContainter(),
-                    "Item Archived",
+                    messageResId,
                     Snackbar.LENGTH_SHORT)
-                    .setAction("UNDO", new View.OnClickListener() {
+                    .setAction(R.string.main_session_undo, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             mSessionInfos.add(position, session);
