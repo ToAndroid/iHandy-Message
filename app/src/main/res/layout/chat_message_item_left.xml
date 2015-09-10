@@ -13,8 +13,8 @@
         android:adjustViewBounds="true"
         android:background="@drawable/chat_avatar_default_icon" />
 
-    <TextView
-        android:id="@+id/chat_message_item_text"
+    <FrameLayout
+        android:id="@+id/chat_message_item_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/chat_message_item_image"
