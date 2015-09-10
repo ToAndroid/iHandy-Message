@@ -155,6 +155,7 @@ public class ChatActivity extends BaseActivity {
     private void setData() {
         HSMessageManager.QueryResult result = HSMessageManager.getInstance().queryMessages(mid, 0, -1);
         messages = new ArrayList<>(result.getMessages());
+        HSMessageManager.getInstance().markRead(messages);
         mMessageView = (RecyclerView) findViewById(R.id.chat_message_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
         mMessageView.setLayoutManager(layoutManager);

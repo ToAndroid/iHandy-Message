@@ -43,6 +43,7 @@ import me.hqythu.ihs.message.data.MessageSession;
 import me.hqythu.ihs.message.db.SessionDBManager;
 import me.hqythu.ihs.message.event.FriendUpdateEvent;
 import me.hqythu.ihs.message.event.MessageAddEvent;
+import me.hqythu.ihs.message.event.SessionUnreadCountChangeEvent;
 import me.hqythu.ihs.message.event.SessionUpdateEvent;
 import me.hqythu.ihs.message.ui.MainActivity;
 
@@ -99,7 +100,7 @@ public class MessageApplication extends HSApplication implements INotificationOb
 
         @Override
         public void onUnreadMessageCountChanged(String mid, int newCount) {
-
+            EventBus.getDefault().post(new SessionUnreadCountChangeEvent(mid, newCount));
         }
 
         @Override

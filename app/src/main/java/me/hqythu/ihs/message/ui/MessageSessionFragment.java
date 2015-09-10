@@ -23,6 +23,7 @@ import me.hqythu.ihs.message.data.MessageSession;
 import me.hqythu.ihs.message.db.SessionDBManager;
 import me.hqythu.ihs.message.event.FriendUpdateEvent;
 import me.hqythu.ihs.message.event.SessionStatusChangeEvent;
+import me.hqythu.ihs.message.event.SessionUnreadCountChangeEvent;
 import me.hqythu.ihs.message.event.SessionUpdateEvent;
 
 /**
@@ -122,6 +123,17 @@ public class MessageSessionFragment extends Fragment {
                     mSessionInfos.add(0, event.getSession());
                     mWrappedAdapter.notifyItemInserted(0);
                 }
+            }
+        }
+    }
+
+    public void onEvent(SessionUnreadCountChangeEvent event) {
+        int count = 0;
+        for (MessageSession session : mSessionInfos) {
+            if (session.contactMid.equals(event.getContactMid())) {
+                session.unreadCount = event.getUnreadCount();
+                mWrappedAdapter.notifyItemChanged(count);
+                count++;
             }
         }
     }
