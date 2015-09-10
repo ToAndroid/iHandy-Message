@@ -184,6 +184,7 @@ public class ChatActivity extends BaseActivity {
                 count++;
             }
         }
+        HSMessageManager.getInstance().markRead(messages);
         mAdapter.notifyItemRangeInserted(0, count);
         mMessageView.scrollToPosition(0);
     }

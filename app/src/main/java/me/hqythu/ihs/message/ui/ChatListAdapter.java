@@ -13,6 +13,8 @@ import com.ihs.account.api.account.HSAccountManager;
 import com.ihs.message_2012010548.types.HSBaseMessage;
 import com.ihs.message_2012010548.types.HSImageMessage;
 import com.ihs.message_2012010548.types.HSTextMessage;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -24,6 +26,8 @@ import me.hqythu.ihs.message.R;
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> {
 
     private ArrayList<HSBaseMessage> messages;
+
+    private DisplayImageOptions options;
 
     private final int MESSAGE_ME_TYPE = 1;
     private final int MESSAGE_OTHER_TYPE = 2;
@@ -43,6 +47,9 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
     public ChatListAdapter(ArrayList<HSBaseMessage> messages) {
         this.messages = messages;
+        options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.chat_avatar_default_icon).showImageForEmptyUri(R.drawable.chat_avatar_default_icon)
+            .showImageOnFail(R.drawable.chat_avatar_default_icon).cacheInMemory(true).cacheOnDisk(true).considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565).build();
+
     }
 
     @Override
@@ -79,8 +86,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
         } else if (message instanceof HSImageMessage) {
             mContent = new ImageView(holder.mItem.getContext());
-            Bitmap bitmap = BitmapFactory.decodeFile(((HSImageMessage) message).getNormalImageFilePath());
-                ((ImageView) mContent).setImageBitmap(bitmap);
+            ImageLoader.getInstance().displayImage(
+                "file://" + ((HSImageMessage) message).getNormalImageFilePath(), (ImageView)mContent, options);
         } else {
             text = "Unsupported Yet";
             mContent = new TextView(holder.mItem.getContext());
