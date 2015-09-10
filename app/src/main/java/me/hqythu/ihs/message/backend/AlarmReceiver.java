@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.PowerManager;
 import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 
@@ -24,6 +25,10 @@ public class AlarmReceiver extends BroadcastReceiver {
     public static final String CONTACT_MID = "ContactMid";
     @Override
     public void onReceive(Context context, Intent intent) {
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
+        wl.acquire();
+
         String contactMid = intent.getStringExtra(CONTACT_MID);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
             .setSmallIcon(R.drawable.notification_icon)
@@ -52,5 +57,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Vibrator vibrator = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
         vibrator.vibrate(1000);
+
+        wl.release();
     }
 }
