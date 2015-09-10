@@ -189,81 +189,90 @@ public class MessageSessionAdapter
     }
 
     @Override
-    public void onPerformAfterSwipeReaction(ViewHolder holder, final int position, int result, int reaction) {
-        final MessageSession session = mSessionInfos.get(position);
+    public void onPerformAfterSwipeReaction(ViewHolder holder, int position, int result, int reaction) {
         if (reaction == RecyclerViewSwipeManager.AFTER_SWIPE_REACTION_REMOVE_ITEM) {
             if (result == RecyclerViewSwipeManager.RESULT_SWIPED_RIGHT) {
-                int messageResId;
-                if (type == MessageSessionType.TYPE_ARCHIVED) {
-                    messageResId = R.string.main_session_item_unarchived;
-                } else {
-                    messageResId = R.string.main_session_item_archived;
-                }
-                Snackbar.make(
-                    ((MainActivity)mActivity).getContainter(),
-                    messageResId,
-                    Snackbar.LENGTH_SHORT)
-                    .setAction(R.string.main_session_undo, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            mSessionInfos.add(position, session);
-                            notifyItemInserted(position);
-                        }
-                    })
-                    .setCallback(new Snackbar.Callback() {
-                        @Override
-                        public void onDismissed(Snackbar snackbar, int event) {
-                            super.onDismissed(snackbar, event);
-                            if (event != DISMISS_EVENT_ACTION) {
-                                session.archived = !session.archived;
-                                SessionDBManager.setArchived(session.contactMid, session.archived);
-                                EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.getType()));
-                            }
-                        }
-                    }).show();
-                mSessionInfos.remove(position);
-                notifyItemRemoved(position);
+                handleSwipeRight(position);
             } else if (result == RecyclerViewSwipeManager.RESULT_SWIPED_LEFT) {
-                Calendar now = Calendar.getInstance();
-                TimePickerDialog dpd = TimePickerDialog.newInstance(
-                    new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(RadialPickerLayout view, int hour, int minute) {
-                            final Calendar time = Calendar.getInstance();
-                            time.set(Calendar.HOUR_OF_DAY, hour);
-                            time.set(Calendar.MINUTE, minute);
-                            Snackbar.make(
-                                ((MainActivity)mActivity).getContainter(),
-                                R.string.main_session_item_snoozed,
-                                Snackbar.LENGTH_SHORT)
-                                .setAction(R.string.main_session_undo, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        mSessionInfos.add(position, session);
-                                        notifyItemInserted(position);
-                                    }
-                                })
-                                .setCallback(new Snackbar.Callback() {
-                                    @Override
-                                    public void onDismissed(Snackbar snackbar, int event) {
-                                        super.onDismissed(snackbar, event);
-                                        if (event != DISMISS_EVENT_ACTION) {
-                                            session.snoozeDate = time.getTime();
-                                            SessionDBManager.setSnoozeDate(session.contactMid, session.snoozeDate);
-                                            EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.getType()));
-                                        }
-                                    }
-                                }).show();
-                            mSessionInfos.remove(position);
-                            notifyItemRemoved(position);
-                        }
-                    },
-                    now.get(Calendar.HOUR_OF_DAY),
-                    now.get(Calendar.MINUTE),
-                    true
-                );
-                dpd.show(mActivity.getFragmentManager(), "Timepickerdialog");
+                handleSwipeLeft(position);
             }
         }
+    }
+
+    private void handleSwipeRight(final int position) {
+        final MessageSession session = mSessionInfos.get(position);
+        int messageResId;
+        if (type == MessageSessionType.TYPE_ARCHIVED) {
+            messageResId = R.string.main_session_item_unarchived;
+        } else {
+            messageResId = R.string.main_session_item_archived;
+        }
+        Snackbar.make(
+            ((MainActivity)mActivity).getContainter(),
+            messageResId,
+            Snackbar.LENGTH_SHORT)
+            .setAction(R.string.main_session_undo, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mSessionInfos.add(position, session);
+                    notifyItemInserted(position);
+                }
+            })
+            .setCallback(new Snackbar.Callback() {
+                @Override
+                public void onDismissed(Snackbar snackbar, int event) {
+                    super.onDismissed(snackbar, event);
+                    if (event != DISMISS_EVENT_ACTION) {
+                        session.archived = !session.archived;
+                        SessionDBManager.setArchived(session.contactMid, session.archived);
+                        EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.getType()));
+                    }
+                }
+            }).show();
+        mSessionInfos.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    private void handleSwipeLeft(final int position) {
+        final MessageSession session = mSessionInfos.get(position);
+        Calendar now = Calendar.getInstance();
+        TimePickerDialog dpd = TimePickerDialog.newInstance(
+            new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(RadialPickerLayout view, int hour, int minute) {
+                    final Calendar time = Calendar.getInstance();
+                    time.set(Calendar.HOUR_OF_DAY, hour);
+                    time.set(Calendar.MINUTE, minute);
+                    Snackbar.make(
+                        ((MainActivity)mActivity).getContainter(),
+                        R.string.main_session_item_snoozed,
+                        Snackbar.LENGTH_SHORT)
+                        .setAction(R.string.main_session_undo, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                mSessionInfos.add(position, session);
+                                notifyItemInserted(position);
+                            }
+                        })
+                        .setCallback(new Snackbar.Callback() {
+                            @Override
+                            public void onDismissed(Snackbar snackbar, int event) {
+                                super.onDismissed(snackbar, event);
+                                if (event != DISMISS_EVENT_ACTION) {
+                                    session.snoozeDate = time.getTime();
+                                    SessionDBManager.setSnoozeDate(session.contactMid, session.snoozeDate);
+                                    EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.getType()));
+                                }
+                            }
+                        }).show();
+                    mSessionInfos.remove(position);
+                    notifyItemRemoved(position);
+                }
+            },
+            now.get(Calendar.HOUR_OF_DAY),
+            now.get(Calendar.MINUTE),
+            true
+        );
+        dpd.show(mActivity.getFragmentManager(), "Timepickerdialog");
     }
 }
