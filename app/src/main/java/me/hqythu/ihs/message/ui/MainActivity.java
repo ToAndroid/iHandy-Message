@@ -31,6 +31,7 @@ import me.hqythu.ihs.message.R;
 
 public class MainActivity extends BaseActivity {
 
+    private View mContainer;
     private Toolbar mToolbar;
     private CollapsingToolbarLayout mCollapsingToolbar;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -72,6 +73,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mContainer = findViewById(R.id.main_content);
 
         setToolbar();
 //        initData();
@@ -184,19 +186,23 @@ public class MainActivity extends BaseActivity {
         mViewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
 
         Bundle displayAllBundle = new Bundle();
-        displayAllBundle.putBoolean(MessageSessionFragment.DISPLAY_ALL, true);
-        displayAllBundle.putBoolean(MessageSessionFragment.DISPLAY_ARCHIVED, true);
+        displayAllBundle.putInt(MessageSessionFragment.DISPLAY_TYPE, MessageSessionFragment.SESSION_LIST_TYPE_ALL);
 
         Bundle displayInboxBundle = new Bundle();
-        displayInboxBundle.putBoolean(MessageSessionFragment.DISPLAY_ALL, false);
-        displayInboxBundle.putBoolean(MessageSessionFragment.DISPLAY_ARCHIVED, false);
+        displayInboxBundle.putInt(MessageSessionFragment.DISPLAY_TYPE, MessageSessionFragment.SESSION_LIST_TYPE_INBOX);
+
+        Bundle displaySnoozedBundle = new Bundle();
+        displaySnoozedBundle.putInt(MessageSessionFragment.DISPLAY_TYPE, MessageSessionFragment.SESSION_LIST_TYPE_SNOOZED);
 
         Bundle displayArchivedBundle = new Bundle();
-        displayArchivedBundle.putBoolean(MessageSessionFragment.DISPLAY_ALL, false);
-        displayArchivedBundle.putBoolean(MessageSessionFragment.DISPLAY_ARCHIVED, true);
+        displayArchivedBundle.putInt(MessageSessionFragment.DISPLAY_TYPE, MessageSessionFragment.SESSION_LIST_TYPE_ARCHIVED);
 
         MessageSessionFragment messageSessionFragment = new MessageSessionFragment();
         messageSessionFragment.setArguments(displayInboxBundle);
+        fragments.add(messageSessionFragment);
+
+        messageSessionFragment = new MessageSessionFragment();
+        messageSessionFragment.setArguments(displaySnoozedBundle);
         fragments.add(messageSessionFragment);
 
         messageSessionFragment = new MessageSessionFragment();
@@ -209,5 +215,9 @@ public class MainActivity extends BaseActivity {
 
         fragments.add(new ContactsFragment());
         mViewPager.setCurrentItem(0);
+    }
+
+    public View getContainter() {
+        return mContainer;
     }
 }

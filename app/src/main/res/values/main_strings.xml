@@ -4,10 +4,17 @@
     <string name="main_drawer_origin">Origin Activity</string>
     <string name="main_drawer_chat_activity">Chat Activity</string>
     <string name="main_drawer_inbox">Inbox</string>
+    <string name="main_drawer_snoozed">Snoozed</string>
     <string name="main_drawer_archived">Archived</string>
     <string name="main_drawer_all">All</string>
     <string name="main_drawer_contact">Contact</string>
 
     <string name="open_drawer">Open Drawer</string>
     <string name="close_drawer">Close Drawer</string>
+
+    <string name="main_session_undo">UNDO</string>
+    <string name="main_session_item_archived">Item marked as Archived</string>
+    <string name="main_session_item_unarchived">Item marked as Unarchived</string>
+    <string name="main_session_item_snoozed">Item snoozed to other time</string>
+    <string name="main_session_item_unsnoozed">Item snooze canceled</string>
 </resources>

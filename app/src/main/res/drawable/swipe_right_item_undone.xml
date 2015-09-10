@@ -2,11 +2,11 @@
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <color android:color="@color/primary_orange"/>
+        <color android:color="@color/primary_blue"/>
     </item>
     <item android:right="16dp">
         <bitmap
             android:src="@drawable/ic_close_white_48dp"
-            android:gravity="right|center_vertical"/>
+            android:gravity="left|center_vertical"/>
     </item>
 </layer-list>
