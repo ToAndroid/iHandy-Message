@@ -52,4 +52,14 @@ public class MessageSession extends SessionDBManager.MessageSessionInfo {
         return new SessionDBManager.MessageSessionInfo(
             contactMid, lastMessageMid, lastMessageDate, archived, snoozeDate);
     }
+
+    public int getType() {
+        if (archived) {
+            return MessageSessionType.TYPE_ARCHIVED;
+        } else if (snoozeDate == null) {
+            return MessageSessionType.TYPE_INBOX;
+        } else {
+            return MessageSessionType.TYPE_SNOOZED;
+        }
+    }
 }

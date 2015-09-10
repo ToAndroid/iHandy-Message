@@ -184,19 +184,23 @@ public class MainActivity extends BaseActivity {
         mViewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
 
         Bundle displayAllBundle = new Bundle();
-        displayAllBundle.putBoolean(MessageSessionFragment.DISPLAY_ALL, true);
-        displayAllBundle.putBoolean(MessageSessionFragment.DISPLAY_ARCHIVED, true);
+        displayAllBundle.putInt(MessageSessionFragment.DISPLAY_TYPE, MessageSessionFragment.SESSION_LIST_TYPE_ALL);
 
         Bundle displayInboxBundle = new Bundle();
-        displayInboxBundle.putBoolean(MessageSessionFragment.DISPLAY_ALL, false);
-        displayInboxBundle.putBoolean(MessageSessionFragment.DISPLAY_ARCHIVED, false);
+        displayInboxBundle.putInt(MessageSessionFragment.DISPLAY_TYPE, MessageSessionFragment.SESSION_LIST_TYPE_INBOX);
+
+        Bundle displaySnoozedBundle = new Bundle();
+        displaySnoozedBundle.putInt(MessageSessionFragment.DISPLAY_TYPE, MessageSessionFragment.SESSION_LIST_TYPE_SNOOZED);
 
         Bundle displayArchivedBundle = new Bundle();
-        displayArchivedBundle.putBoolean(MessageSessionFragment.DISPLAY_ALL, false);
-        displayArchivedBundle.putBoolean(MessageSessionFragment.DISPLAY_ARCHIVED, true);
+        displayArchivedBundle.putInt(MessageSessionFragment.DISPLAY_TYPE, MessageSessionFragment.SESSION_LIST_TYPE_ARCHIVED);
 
         MessageSessionFragment messageSessionFragment = new MessageSessionFragment();
         messageSessionFragment.setArguments(displayInboxBundle);
+        fragments.add(messageSessionFragment);
+
+        messageSessionFragment = new MessageSessionFragment();
+        messageSessionFragment.setArguments(displaySnoozedBundle);
         fragments.add(messageSessionFragment);
 
         messageSessionFragment = new MessageSessionFragment();

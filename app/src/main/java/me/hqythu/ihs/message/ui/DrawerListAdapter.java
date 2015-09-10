@@ -30,6 +30,11 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
             0,
             R.color.gray_600
         ),
+        SNOOZED_FRAGMENT(
+            R.string.main_drawer_snoozed,
+            0,
+            R.color.gray_600
+        ),
         ARCHIVED_FRAGMENT(
             R.string.main_drawer_archived,
             0,
@@ -115,14 +120,17 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
                         case INBOX_FRAGMENT:
                             mViewPager.setCurrentItem(0, true);
                             break;
-                        case ARCHIVED_FRAGMENT:
+                        case SNOOZED_FRAGMENT:
                             mViewPager.setCurrentItem(1, true);
                             break;
-                        case ALL_FRAGMENT:
+                        case ARCHIVED_FRAGMENT:
                             mViewPager.setCurrentItem(2, true);
                             break;
-                        case CONTACT_FRAGMENT:
+                        case ALL_FRAGMENT:
                             mViewPager.setCurrentItem(3, true);
+                            break;
+                        case CONTACT_FRAGMENT:
+                            mViewPager.setCurrentItem(4, true);
                             break;
                         default:
                             break;

@@ -4,6 +4,7 @@
     <string name="main_drawer_origin">打开原程序</string>
     <string name="main_drawer_chat_activity">聊天界面</string>
     <string name="main_drawer_inbox">消息列表</string>
+    <string name="main_drawer_snoozed">已延后</string>
     <string name="main_drawer_archived">已归档</string>
     <string name="main_drawer_all">所有消息</string>
     <string name="main_drawer_contact">联系人</string>

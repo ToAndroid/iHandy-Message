@@ -7,18 +7,18 @@ import me.hqythu.ihs.message.data.MessageSession;
  */
 public class SessionStatusChangeEvent extends SessionEvent {
     private MessageSession session;
-    private boolean isArchived;
+    private int type;
 
-    public SessionStatusChangeEvent(MessageSession session, boolean isArchived) {
+    public SessionStatusChangeEvent(MessageSession session, int type) {
         this.session = session;
-        this.isArchived = isArchived;
+        this.type = type;
     }
 
     public MessageSession getSession() {
         return session;
     }
 
-    public boolean getArchived() {
-        return isArchived;
+    public int getType() {
+        return type;
     }
 }

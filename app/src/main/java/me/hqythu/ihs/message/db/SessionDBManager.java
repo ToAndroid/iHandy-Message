@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.util.Date;
 
 import me.hqythu.ihs.message.MessageApplication;
+import me.hqythu.ihs.message.ui.MessageSessionFragment;
 
 /**
  * Created by hqythu on 9/8/2015.
@@ -163,14 +164,27 @@ public class SessionDBManager {
             COLUMN_CONTACT_MID + "=" + contactMid, null) > 0;
     }
 
-    public static ArrayList<MessageSessionInfo> getSessionInfoList(boolean all, boolean archived) {
+    public static ArrayList<MessageSessionInfo> getSessionInfoList(int type) {
         checkDatabase();
         Cursor cursor;
-        if (all) {
-            cursor = mSQLiteDatabase.query(SESSION_TABLE_NAME, null, null, null, null, null, null, null);
-        } else {
-            cursor = mSQLiteDatabase.query(SESSION_TABLE_NAME, null,
-                COLUMN_ARCHIVED + "=" + (archived ? 1 : 0), null, null, null, null, null);
+        switch (type) {
+            case MessageSessionFragment.SESSION_LIST_TYPE_ALL:
+                cursor = mSQLiteDatabase.query(SESSION_TABLE_NAME, null, null, null, null, null, null, null);
+                break;
+            case MessageSessionFragment.SESSION_LIST_TYPE_INBOX:
+                cursor = mSQLiteDatabase.query(SESSION_TABLE_NAME, null,
+                    COLUMN_ARCHIVED + "=" + 0, null, null, null, null, null);
+                break;
+            case MessageSessionFragment.SESSION_LIST_TYPE_ARCHIVED:
+                cursor = mSQLiteDatabase.query(SESSION_TABLE_NAME, null,
+                    COLUMN_ARCHIVED + "=" + 1, null, null, null, null, null);
+                break;
+            case MessageSessionFragment.SESSION_LIST_TYPE_SNOOZED:
+                cursor = mSQLiteDatabase.query(SESSION_TABLE_NAME, null,
+                    COLUMN_SNOOZE_DATE + "<>" + 0, null, null, null, null, null);
+                break;
+            default:
+                cursor = mSQLiteDatabase.query(SESSION_TABLE_NAME, null, null, null, null, null, null, null);
         }
         ArrayList<MessageSessionInfo> sessionInfos = new ArrayList<>();
         int counter = 0;

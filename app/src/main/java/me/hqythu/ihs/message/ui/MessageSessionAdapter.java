@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import de.greenrobot.event.EventBus;
 import me.hqythu.ihs.message.R;
 import me.hqythu.ihs.message.data.MessageSession;
+import me.hqythu.ihs.message.data.MessageSessionType;
 import me.hqythu.ihs.message.db.SessionDBManager;
 import me.hqythu.ihs.message.event.SessionDeleteEvent;
 import me.hqythu.ihs.message.event.SessionStatusChangeEvent;
@@ -39,6 +40,7 @@ public class MessageSessionAdapter
 
     private ArrayList<MessageSession> mSessionInfos;
     private Activity mActivity;
+    private int type;
     private DisplayImageOptions options;
 
     private SimpleDateFormat formatter = new SimpleDateFormat("MM-dd HH:mm");
@@ -103,9 +105,10 @@ public class MessageSessionAdapter
         }
     }
 
-    public MessageSessionAdapter(Activity activity, ArrayList<MessageSession> sessionInfos) {
+    public MessageSessionAdapter(Activity activity, ArrayList<MessageSession> sessionInfos, int type) {
         mActivity = activity;
         mSessionInfos = sessionInfos;
+        this.type = type;
 
         options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.chat_avatar_default_icon).showImageForEmptyUri(R.drawable.chat_avatar_default_icon)
             .showImageOnFail(R.drawable.chat_avatar_default_icon).cacheInMemory(true).cacheOnDisk(true).considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565).build();
@@ -145,16 +148,32 @@ public class MessageSessionAdapter
 
     @Override
     public int onGetSwipeReactionType(ViewHolder holder, int position, int x, int y) {
-        return RecyclerViewSwipeManager.REACTION_CAN_SWIPE_BOTH;
+        if (type == MessageSessionType.TYPE_ALL) {
+            return RecyclerViewSwipeManager.REACTION_CAN_NOT_SWIPE_BOTH;
+        } else {
+            return RecyclerViewSwipeManager.REACTION_CAN_SWIPE_BOTH;
+        }
     }
 
     @Override
     public void onSetSwipeBackground(ViewHolder holder, int position, int type) {
         int bgResId;
-        if (mSessionInfos.get(position).archived) {
-            bgResId = R.drawable.swipe_right_item_undone;
-        } else {
-            bgResId = R.drawable.swipe_left_item_done;
+        switch (type) {
+            case RecyclerViewSwipeManager.DRAWABLE_SWIPE_NEUTRAL_BACKGROUND:
+                bgResId = R.drawable.swipe_item_neutral;
+                break;
+            case RecyclerViewSwipeManager.DRAWABLE_SWIPE_RIGHT_BACKGROUND:
+                if (this.type == MessageSessionType.TYPE_ARCHIVED) {
+                    bgResId = R.drawable.swipe_right_item_undone;
+                } else {
+                    bgResId = R.drawable.swipe_right_item_done;
+                }
+                break;
+            case RecyclerViewSwipeManager.DRAWABLE_SWIPE_LEFT_BACKGROUND:
+                bgResId = R.drawable.swipe_left_item_snooze;
+                break;
+            default:
+                bgResId = R.drawable.swipe_item_neutral;
         }
         holder.itemView.setBackgroundResource(bgResId);
     }
@@ -168,12 +187,15 @@ public class MessageSessionAdapter
     public void onPerformAfterSwipeReaction(ViewHolder holder, int position, int result, int reaction) {
         MessageSession session = mSessionInfos.get(position);
         if (reaction == RecyclerViewSwipeManager.AFTER_SWIPE_REACTION_REMOVE_ITEM) {
-            session.archived = !session.archived;
-            SessionDBManager.setArchived(session.contactMid, session.archived);
-            mSessionInfos.remove(position);
-            notifyItemRemoved(position);
+            if (result == RecyclerViewSwipeManager.RESULT_SWIPED_RIGHT) {
+                session.archived = !session.archived;
+                SessionDBManager.setArchived(session.contactMid, session.archived);
+                mSessionInfos.remove(position);
+                notifyItemRemoved(position);
+                EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.getType()));
+            } else if (result == RecyclerViewSwipeManager.RESULT_SWIPED_LEFT) {
 
-            EventBus.getDefault().post(new SessionStatusChangeEvent(session, session.archived));
+            }
         }
     }
 }

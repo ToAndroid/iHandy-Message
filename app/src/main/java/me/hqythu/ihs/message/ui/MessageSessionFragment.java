@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import de.greenrobot.event.EventBus;
 import me.hqythu.ihs.message.R;
 import me.hqythu.ihs.message.data.MessageSession;
+import me.hqythu.ihs.message.data.MessageSessionType;
 import me.hqythu.ihs.message.db.SessionDBManager;
 import me.hqythu.ihs.message.event.FriendUpdateEvent;
 import me.hqythu.ihs.message.event.SessionDeleteEvent;
@@ -42,19 +43,23 @@ public class MessageSessionFragment extends Fragment {
     private RecyclerViewSwipeManager mRecyclerViewSwipeManager;
     private RecyclerViewTouchActionGuardManager mRecyclerViewTouchActionGuardManager;
 
-    public static final String DISPLAY_ALL = "DisplayAll";
-    public static final String DISPLAY_ARCHIVED = "DisplayArhived";
-    private boolean displayAll, displayArchived;
+    public static final String DISPLAY_TYPE = "DisplayType";
+
+    public static final int SESSION_LIST_TYPE_ALL = 1;
+    public static final int SESSION_LIST_TYPE_INBOX = 2;
+    public static final int SESSION_LIST_TYPE_ARCHIVED = 3;
+    public static final int SESSION_LIST_TYPE_SNOOZED = 4;
+
+    public int displayType;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
-        displayAll = bundle.getBoolean(DISPLAY_ALL);
-        displayArchived = bundle.getBoolean(DISPLAY_ARCHIVED);
+        displayType = bundle.getInt(DISPLAY_TYPE);
 
         ArrayList<SessionDBManager.MessageSessionInfo> sessions =
-            SessionDBManager.getSessionInfoList(displayAll, displayArchived);
+            SessionDBManager.getSessionInfoList(displayType);
         mSessionInfos = new ArrayList<>();
         for (SessionDBManager.MessageSessionInfo session : sessions) {
             mSessionInfos.add(new MessageSession(session));
@@ -68,7 +73,7 @@ public class MessageSessionFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_message_session, null);
 
         mSessionList = (RecyclerView) view.findViewById(R.id.session_list);
-        mAdapter = new MessageSessionAdapter(getActivity(), mSessionInfos);
+        mAdapter = new MessageSessionAdapter(getActivity(), mSessionInfos, displayType);
         mSessionList.setAdapter(mAdapter);
         mSessionList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -101,7 +106,7 @@ public class MessageSessionFragment extends Fragment {
 
     public void onEvent(SessionUpdateEvent event) {
         int position = mSessionInfos.indexOf(event.getSession());
-        if (position == -1 && (!displayArchived || displayAll)) {
+        if (position == -1 && (displayType == SESSION_LIST_TYPE_INBOX || displayType == SESSION_LIST_TYPE_ALL)) {
             mSessionInfos.add(0, event.getSession());
             mWrappedAdapter.notifyItemInserted(0);
         } else {
@@ -119,17 +124,20 @@ public class MessageSessionFragment extends Fragment {
     }
 
     public void onEvent(SessionStatusChangeEvent event) {
-        if (!displayAll) {
-            if (displayArchived) {
-                if (event.getArchived()) {
-                    mSessionInfos.add(0, event.getSession());
-                    mWrappedAdapter.notifyItemInserted(0);
-                }
-            } else {
-                if (!event.getArchived()) {
-                    mSessionInfos.add(0, event.getSession());
-                    mWrappedAdapter.notifyItemInserted(0);
-                }
+        if (displayType == SESSION_LIST_TYPE_ARCHIVED) {
+            if (event.getType() == MessageSessionType.TYPE_ARCHIVED) {
+                mSessionInfos.add(0, event.getSession());
+                mWrappedAdapter.notifyItemInserted(0);
+            }
+        } else if (displayType == SESSION_LIST_TYPE_INBOX) {
+            if (event.getType() == MessageSessionType.TYPE_INBOX) {
+                mSessionInfos.add(0, event.getSession());
+                mWrappedAdapter.notifyItemInserted(0);
+            }
+        } else if (displayType == SESSION_LIST_TYPE_SNOOZED) {
+            if (event.getType() == MessageSessionType.TYPE_SNOOZED) {
+                mSessionInfos.add(0, event.getSession());
+                mWrappedAdapter.notifyItemInserted(0);
             }
         }
     }

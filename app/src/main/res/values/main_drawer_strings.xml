@@ -4,6 +4,7 @@
     <string name="main_drawer_origin">Origin Activity</string>
     <string name="main_drawer_chat_activity">Chat Activity</string>
     <string name="main_drawer_inbox">Inbox</string>
+    <string name="main_drawer_snoozed">Snoozed</string>
     <string name="main_drawer_archived">Archived</string>
     <string name="main_drawer_all">All</string>
     <string name="main_drawer_contact">Contact</string>
