@@ -68,6 +68,10 @@
         </activity>
         <activity android:name="com.ihs.demo.message.CongratulationActivity" >
         </activity>
+        <activity
+            android:configChanges="orientation|screenSize"
+            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity">
+        </activity>
 
         <!-- ===================================================== -->
         <!-- required by libAppFramework -->
