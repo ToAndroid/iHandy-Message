@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/chat_message_item_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/chat_message_item_text"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_toLeftOf="@id/chat_message_item_image"
-        android:layout_margin="@dimen/cell_item_contact_avatar_layout_margin"
-        android:background="@color/primary_green"
-        android:textSize="@dimen/txt_20sp" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/cell_item_contact_avatar_layout_margin"
+        android:layout_marginTop="@dimen/cell_item_contact_avatar_layout_margin"
+        android:layout_marginLeft="@dimen/cell_item_contact_avatar_layout_margin"
+        android:layout_toLeftOf="@id/chat_message_item_avatar"
+        android:background="@drawable/bg_chat_item_green"
+        android:padding="@dimen/padding_medium"
+        android:textSize="@dimen/chat_list_item_name_textSize"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/chat_message_item_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/cell_item_contact_avatar_layout_margin"
+        android:layout_marginTop="@dimen/cell_item_contact_avatar_layout_margin"
+        android:layout_marginLeft="@dimen/cell_item_contact_avatar_layout_margin"
+        android:layout_toLeftOf="@id/chat_message_item_avatar"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/chat_message_item_avatar"
         android:layout_width="@dimen/cell_item_contact_avatar_layout_width"
         android:layout_height="@dimen/cell_item_contact_avatar_layout_height"
         android:layout_alignParentRight="true"

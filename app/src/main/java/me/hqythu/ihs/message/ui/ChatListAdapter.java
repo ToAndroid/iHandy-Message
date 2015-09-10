@@ -1,7 +1,6 @@
 package me.hqythu.ihs.message.ui;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +15,12 @@ import com.ihs.message_2012010548.types.HSTextMessage;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import me.hqythu.ihs.message.R;
+import me.nereo.multi_image_selector.bean.Image;
 
 /**
  * Created by hqythu on 9/6/2015.
@@ -34,14 +36,16 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mItem;
+        ImageView mImageViewAvatar;
+        TextView mTextView;
         ImageView mImageView;
-        ViewGroup mContentView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mItem = itemView;
+            mImageViewAvatar = (ImageView) mItem.findViewById(R.id.chat_message_item_avatar);
+            mTextView = (TextView) mItem.findViewById(R.id.chat_message_item_text);
             mImageView = (ImageView) mItem.findViewById(R.id.chat_message_item_image);
-            mContentView = (ViewGroup) mItem.findViewById(R.id.chat_message_item_content);
         }
     }
 
@@ -78,23 +82,22 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, final int position) {
         HSBaseMessage message = messages.get(position);
         String text;
-        View mContent;
+        holder.mTextView.setVisibility(View.GONE);
+        holder.mImageView.setVisibility(View.GONE);
         if (message instanceof HSTextMessage) {
             text = ((HSTextMessage) message).getText();
-            mContent = new TextView(holder.mItem.getContext());
-            ((TextView)mContent).setText(text);
+            holder.mTextView.setVisibility(View.VISIBLE);
+            holder.mTextView.setText(text);
 
         } else if (message instanceof HSImageMessage) {
-            mContent = new ImageView(holder.mItem.getContext());
+            holder.mImageView.setVisibility(View.VISIBLE);
             ImageLoader.getInstance().displayImage(
-                "file://" + ((HSImageMessage) message).getNormalImageFilePath(), (ImageView)mContent, options);
+                "file://" + ((HSImageMessage) message).getNormalImageFilePath(), holder.mImageView, options);
         } else {
             text = "Unsupported Yet";
-            mContent = new TextView(holder.mItem.getContext());
-            ((TextView)mContent).setText(text);
+            holder.mTextView.setVisibility(View.VISIBLE);
+            holder.mTextView.setText(text);
         }
-        holder.mContentView.removeAllViews();
-        holder.mContentView.addView(mContent);
     }
 
     @Override
