@@ -30,6 +30,8 @@ public class BaseActivity extends AppCompatActivity {
             actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue_gray_200)));
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        HSSessionMgr.onActivityCreate(this);
     }
 
     @Override

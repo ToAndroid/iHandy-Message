@@ -44,6 +44,7 @@ public class MainActivity extends BaseActivity {
     private ViewPager mViewPager;
     private ArrayList<Fragment> fragments = new ArrayList<>();
     private boolean mDrawerOpened = false;
+    private String mToolbarTitle;
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
         private final String[] TITLES = {
@@ -137,7 +138,9 @@ public class MainActivity extends BaseActivity {
         mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         setSupportActionBar(mToolbar);
         // TODO: i18n
-        mCollapsingToolbar.setTitle("Message");
+        mToolbarTitle = getString(R.string.main_drawer_inbox);
+        mCollapsingToolbar.setTitle(mToolbarTitle);
+        mCollapsingToolbar.setContentScrimColor(getResources().getColor(R.color.primary_blue));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
@@ -152,12 +155,6 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
-                if (getSupportActionBar() != null) {
-                    getSupportActionBar().setElevation(slideOffset * MAX_TOOLBAR_ELEVATION);
-                } else if (Build.VERSION.SDK_INT >= 21) {
-                    mToolbar.setElevation(slideOffset * MAX_TOOLBAR_ELEVATION);
-                }
-                mToolbar.setTitle(R.string.app_name);
                 //TODO: also change toolbar background color/transparency
                 if (slideOffset > 0) {
                     // TODO: disable recycler view
@@ -179,6 +176,7 @@ public class MainActivity extends BaseActivity {
                 super.onDrawerClosed(drawerView);
                 mDrawerOpened = false;
                 supportInvalidateOptionsMenu();
+                setTitle(mToolbarTitle);
             }
         };
 
@@ -227,7 +225,17 @@ public class MainActivity extends BaseActivity {
         mViewPager.setCurrentItem(0);
     }
 
-    public View getContainter() {
+    public View getContainer() {
         return mContainer;
+    }
+
+    public void setTitle(String title) {
+        mToolbarTitle = title;
+        mToolbar.setTitle(mToolbarTitle);
+        mCollapsingToolbar.setTitle(mToolbarTitle);
+    }
+
+    public void setCollapsingToolbarContentScrim(int colorId) {
+        mCollapsingToolbar.setContentScrimColor(getResources().getColor(colorId));
     }
 }

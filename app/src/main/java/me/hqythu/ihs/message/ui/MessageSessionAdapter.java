@@ -1,7 +1,6 @@
 package me.hqythu.ihs.message.ui;
 
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,7 +20,6 @@ import com.ihs.demo.message.Contact;
 import com.ihs.message_2012010548.managers.HSMessageManager;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -31,13 +29,11 @@ import java.util.Calendar;
 
 import de.greenrobot.event.EventBus;
 import me.hqythu.ihs.message.R;
-import me.hqythu.ihs.message.backend.AlarmReceiver;
 import me.hqythu.ihs.message.data.MessageSession;
 import me.hqythu.ihs.message.data.MessageSessionType;
 import me.hqythu.ihs.message.db.SessionDBManager;
 import me.hqythu.ihs.message.event.SessionDeleteEvent;
 import me.hqythu.ihs.message.event.SessionStatusChangeEvent;
-import me.hqythu.ihs.message.event.SessionUpdateEvent;
 import me.hqythu.ihs.message.backend.AlarmManager;
 
 /**
@@ -212,7 +208,7 @@ public class MessageSessionAdapter
             messageResId = R.string.main_session_item_archived;
         }
         Snackbar.make(
-            ((MainActivity) mActivity).getContainter(),
+            ((MainActivity) mActivity).getContainer(),
             messageResId,
             Snackbar.LENGTH_SHORT)
             .setAction(R.string.main_session_undo, new View.OnClickListener() {
@@ -242,7 +238,7 @@ public class MessageSessionAdapter
         Calendar now = Calendar.getInstance();
         if (type == MessageSessionType.TYPE_SNOOZED) {
             Snackbar.make(
-                ((MainActivity) mActivity).getContainter(),
+                ((MainActivity) mActivity).getContainer(),
                 R.string.main_session_item_unsnoozed,
                 Snackbar.LENGTH_SHORT
             ).setAction(R.string.main_session_undo, new View.OnClickListener() {
@@ -275,7 +271,7 @@ public class MessageSessionAdapter
                     time.set(Calendar.HOUR_OF_DAY, hour);
                     time.set(Calendar.MINUTE, minute);
                     Snackbar.make(
-                        ((MainActivity) mActivity).getContainter(),
+                        ((MainActivity) mActivity).getContainer(),
                         R.string.main_session_item_snoozed,
                         Snackbar.LENGTH_SHORT
                     ).setAction(R.string.main_session_undo, new View.OnClickListener() {

@@ -28,17 +28,17 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
         INBOX_FRAGMENT(
             R.string.main_drawer_inbox,
             0,
-            R.color.gray_600
+            R.color.primary_blue
         ),
         SNOOZED_FRAGMENT(
             R.string.main_drawer_snoozed,
             0,
-            R.color.gray_600
+            R.color.primary_orange
         ),
         ARCHIVED_FRAGMENT(
             R.string.main_drawer_archived,
             0,
-            R.color.gray_600
+            R.color.primary_green
         ),
 //        ALL_FRAGMENT(
 //            R.string.main_drawer_all,
@@ -116,7 +116,7 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
                     switch (item) {
                         case ORIGIN_ACTIVITY:
                             ActivityMixin.startOtherActivity(mActivity, com.ihs.demo.message.MainActivity.class);
-                            break;
+                            return;
                         case INBOX_FRAGMENT:
                             mViewPager.setCurrentItem(0, true);
                             break;
@@ -135,18 +135,20 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
                         default:
                             break;
                     }
+                    mActivity.setTitle(mActivity.getString(item.textId));
+                    mActivity.setCollapsingToolbarContentScrim(item.colorId);
                 }
             });
         }
     }
 
-    private AppCompatActivity mActivity;
+    private MainActivity mActivity;
     private DrawerLayout mDrawerLayout;
     private ViewPager mViewPager;
 
     public DrawerListAdapter(AppCompatActivity activity, DrawerLayout drawerLayout, ViewPager viewPager) {
         super();
-        this.mActivity = activity;
+        this.mActivity = (MainActivity)activity;
         this.mDrawerLayout = drawerLayout;
         this.mViewPager = viewPager;
     }
