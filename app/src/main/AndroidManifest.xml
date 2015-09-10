@@ -99,7 +99,6 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:process=":remote"
             android:name=".backend.AlarmReceiver">
         </receiver>
     </application>

@@ -4,7 +4,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -45,6 +47,7 @@ import me.hqythu.ihs.message.event.FriendUpdateEvent;
 import me.hqythu.ihs.message.event.MessageAddEvent;
 import me.hqythu.ihs.message.event.SessionUnreadCountChangeEvent;
 import me.hqythu.ihs.message.event.SessionUpdateEvent;
+import me.hqythu.ihs.message.ui.ChatActivity;
 import me.hqythu.ihs.message.ui.MainActivity;
 
 /**
@@ -60,8 +63,6 @@ public class MessageApplication extends HSApplication implements INotificationOb
     public static final String URL_ACK = "http://54.223.212.19:8024/template/contacts/friends/get";
 
     private static final String LogTag = MessageApplication.class.getName();
-
-    private static final int NOTIFICATION = 1;
 
     public HSMessageChangeListener messageChangeListener = new HSMessageChangeListener() {
         @Override
@@ -105,23 +106,37 @@ public class MessageApplication extends HSApplication implements INotificationOb
 
         @Override
         public void onReceivingRemoteNotification(JSONObject pushInfo) {
+            String contactMid = "";
+            String message = "";
+            try {
+                contactMid = pushInfo.getString("fmid");
+                message = pushInfo.getJSONObject("aps").getString("alert");
+            } catch (Exception e) {
+
+            }
+            String title = FriendManager.getInstance().getFriend(contactMid).getName();
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext())
                 .setSmallIcon(R.drawable.notification_icon)
-                .setContentTitle("有新消息")
-                .setContentText("新消息")
+                .setContentTitle(title)
+                .setContentText(message)
+                .setSound(Uri.parse("android.resource://me.hqythu.ihs.message/ras/message_rington_received"))
                 .setAutoCancel(true);
-            Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+            intent.putExtra(ChatActivity.CHAT_MID, contactMid);
             PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
                     getApplicationContext(),
                     0,
-                    resultIntent,
+                    intent,
                     PendingIntent.FLAG_UPDATE_CURRENT
                 );
             mBuilder.setContentIntent(resultPendingIntent);
             NotificationManager mNotifyMgr =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            mNotifyMgr.notify(NOTIFICATION, mBuilder.build());
+            mNotifyMgr.notify(Integer.parseInt(contactMid), mBuilder.build());
+
+            Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            vibrator.vibrate(500);
         }
     };
 
