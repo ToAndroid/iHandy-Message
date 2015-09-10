@@ -31,11 +31,31 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="textMultiLine" />
+
         <Button
             android:id="@+id/chat_button_send"
             android:text="@string/chat_button_send"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/chat_extend_button"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:background="@drawable/ic_add_circle_outline_white_48dp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/chat_extend_area"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_600"
+        android:visibility="gone">
+
         <Button
             android:id="@+id/chat_button_image"
             android:text="@string/chat_button_image"

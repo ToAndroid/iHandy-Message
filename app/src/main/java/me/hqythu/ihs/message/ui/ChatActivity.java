@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +22,6 @@ import com.ihs.message_2012010548.types.HSBaseMessage;
 import com.ihs.message_2012010548.types.HSImageMessage;
 import com.ihs.message_2012010548.types.HSTextMessage;
 
-import java.sql.BatchUpdateException;
 import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
@@ -43,6 +44,8 @@ public class ChatActivity extends BaseActivity {
     private Button sendButton;
     private Button imageButton;
     private EditText sendText;
+    private Button extendButton;
+    private View extendArea;
 
     private ArrayList<String> mSelectPath;
 
@@ -59,6 +62,8 @@ public class ChatActivity extends BaseActivity {
 
         sendButton = (Button) findViewById(R.id.chat_button_send);
         imageButton = (Button) findViewById(R.id.chat_button_image);
+        extendButton = (Button) findViewById(R.id.chat_extend_button);
+        extendArea = findViewById(R.id.chat_extend_area);
         sendText = (EditText) findViewById(R.id.chat_text_send);
         sendText.clearFocus();
 
@@ -94,6 +99,46 @@ public class ChatActivity extends BaseActivity {
                 intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE,
                     MultiImageSelectorActivity.MODE_MULTI);
                 startActivityForResult(intent, REQUEST_IMAGE);
+            }
+        });
+
+        extendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                extendArea.setVisibility(View.VISIBLE);
+            }
+        });
+
+        sendText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().length() > 0) {
+                    sendButton.setVisibility(View.VISIBLE);
+                    extendButton.setVisibility(View.GONE);
+                    extendArea.setVisibility(View.GONE);
+                } else {
+                    sendButton.setVisibility(View.GONE);
+                    extendButton.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        sendText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean focus) {
+                if (focus) {
+                    extendArea.setVisibility(View.GONE);
+                }
             }
         });
     }
