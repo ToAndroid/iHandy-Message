@@ -27,17 +27,17 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
     enum DrawerListItem {
         INBOX_FRAGMENT(
             R.string.main_drawer_inbox,
-            0,
+            R.drawable.ic_email_white_48dp,
             R.color.primary_blue
         ),
         SNOOZED_FRAGMENT(
             R.string.main_drawer_snoozed,
-            0,
+            R.drawable.ic_alarm_white_48dp,
             R.color.primary_orange
         ),
         ARCHIVED_FRAGMENT(
             R.string.main_drawer_archived,
-            0,
+            R.drawable.ic_done_all_white_48dp,
             R.color.primary_green
         ),
 //        ALL_FRAGMENT(
@@ -47,7 +47,7 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Vi
 //        ),
         CONTACT_FRAGMENT(
             R.string.main_drawer_contact,
-            0,
+            R.drawable.ic_contact_phone_white_48dp,
             R.color.gray_600
         ),
         ORIGIN_ACTIVITY(
