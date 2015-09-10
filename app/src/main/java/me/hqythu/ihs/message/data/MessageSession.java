@@ -47,4 +47,9 @@ public class MessageSession extends SessionDBManager.MessageSessionInfo {
             return false;
         }
     }
+
+    public SessionDBManager.MessageSessionInfo getSessionInfo() {
+        return new SessionDBManager.MessageSessionInfo(
+            contactMid, lastMessageMid, lastMessageDate, archived, snoozeDate);
+    }
 }

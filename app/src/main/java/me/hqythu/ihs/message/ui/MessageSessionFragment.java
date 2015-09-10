@@ -22,6 +22,7 @@ import me.hqythu.ihs.message.R;
 import me.hqythu.ihs.message.data.MessageSession;
 import me.hqythu.ihs.message.db.SessionDBManager;
 import me.hqythu.ihs.message.event.FriendUpdateEvent;
+import me.hqythu.ihs.message.event.SessionDeleteEvent;
 import me.hqythu.ihs.message.event.SessionStatusChangeEvent;
 import me.hqythu.ihs.message.event.SessionUnreadCountChangeEvent;
 import me.hqythu.ihs.message.event.SessionUpdateEvent;
@@ -109,6 +110,12 @@ public class MessageSessionFragment extends Fragment {
             mWrappedAdapter.notifyItemMoved(position, 0);
             mWrappedAdapter.notifyItemChanged(0);
         }
+    }
+
+    public void onEvent(SessionDeleteEvent event) {
+        int position = mSessionInfos.indexOf(event.getSession());
+        mSessionInfos.remove(position);
+        mWrappedAdapter.notifyItemRemoved(position);
     }
 
     public void onEvent(SessionStatusChangeEvent event) {

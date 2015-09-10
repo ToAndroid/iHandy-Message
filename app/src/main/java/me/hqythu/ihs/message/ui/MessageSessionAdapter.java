@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager;
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.SwipeableItemAdapter;
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractSwipeableItemViewHolder;
@@ -25,6 +26,7 @@ import de.greenrobot.event.EventBus;
 import me.hqythu.ihs.message.R;
 import me.hqythu.ihs.message.data.MessageSession;
 import me.hqythu.ihs.message.db.SessionDBManager;
+import me.hqythu.ihs.message.event.SessionDeleteEvent;
 import me.hqythu.ihs.message.event.SessionStatusChangeEvent;
 import me.hqythu.ihs.message.event.SessionUpdateEvent;
 
@@ -66,6 +68,31 @@ public class MessageSessionAdapter
                     Intent intent = new Intent(mActivity, ChatActivity.class);
                     intent.putExtra(ChatActivity.CHAT_MID, mSessionInfos.get(getAdapterPosition()).contact.getMid());
                     ActivityMixin.startOtherActivity(mActivity, intent, false);
+                }
+            });
+
+            mContainer.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    final int position = getAdapterPosition();
+                    new MaterialDialog.Builder(mActivity)
+                        .title("Caution!")
+                        .content("Sure to delete?")
+                        .positiveText("OK")
+                        .negativeText("Cancel")
+                        .callback(new MaterialDialog.ButtonCallback() {
+                            @Override
+                            public void onPositive(MaterialDialog dialog) {
+                                super.onPositive(dialog);
+                                MessageSession session = mSessionInfos.get(position);
+                                String mid = session.contactMid;
+                                HSMessageManager.getInstance().deleteMessages(mid);
+                                SessionDBManager.removeSession(session.getSessionInfo());
+                                EventBus.getDefault().post(new SessionDeleteEvent(session));
+                            }
+                        })
+                        .show();
+                    return false;
                 }
             });
         }

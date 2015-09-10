@@ -112,6 +112,11 @@ public class SessionDBManager {
         return mSQLiteDatabase.insert(SESSION_TABLE_NAME, null, info.getDBInfo()) > 0;
     }
 
+    public static boolean removeSession(MessageSessionInfo info) {
+        checkDatabase();
+        return mSQLiteDatabase.delete(SESSION_TABLE_NAME, COLUMN_CONTACT_MID + "=" + info.contactMid, null) > 0;
+    }
+
     public static boolean updateSessionInfo(String contactMid, MessageSessionInfo newInfo) {
         checkDatabase();
         return mSQLiteDatabase.update(SESSION_TABLE_NAME, newInfo.getDBInfo(),
