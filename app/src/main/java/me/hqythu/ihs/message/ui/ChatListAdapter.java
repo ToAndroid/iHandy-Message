@@ -39,6 +39,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
         ImageView mImageViewAvatar;
         TextView mTextView;
         ImageView mImageView;
+        TextView status;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -46,6 +47,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             mImageViewAvatar = (ImageView) mItem.findViewById(R.id.chat_message_item_avatar);
             mTextView = (TextView) mItem.findViewById(R.id.chat_message_item_text);
             mImageView = (ImageView) mItem.findViewById(R.id.chat_message_item_image);
+            status = (TextView) mItem.findViewById(R.id.chat_message_state);
         }
     }
 
@@ -97,6 +99,15 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             text = "Unsupported Yet";
             holder.mTextView.setVisibility(View.VISIBLE);
             holder.mTextView.setText(text);
+        }
+        if (message.getStatus() == HSBaseMessage.HSMessageStatus.FAILED) {
+            holder.status.setText(R.string.chat_status_failed);
+        } else if (message.getStatus() == HSBaseMessage.HSMessageStatus.SENDING) {
+            holder.status.setText(R.string.chat_status_sending);
+        } else if (message.getStatus() == HSBaseMessage.HSMessageStatus.SENT) {
+            holder.status.setText(R.string.chat_status_sent);
+        } else {
+            holder.status.setText("");
         }
     }
 

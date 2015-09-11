@@ -75,13 +75,17 @@ public class ChatActivity extends BaseActivity {
                 String text = sendText.getText().toString();
                 sendText.setText("");
                 HSBaseMessage message = new HSTextMessage(mid, text);
+                messages.add(0, message);
+                mAdapter.notifyItemInserted(0);
+                mMessageView.scrollToPosition(0);
+
                 // TODO 统一发送消息的回调
                 HSMessageManager.getInstance().send(message, new HSMessageManager.SendMessageCallback() {
                     @Override
                     public void onMessageSentFinished(HSBaseMessage message, boolean success, HSError error) {
-                        messages.add(0, message);
-                        mAdapter.notifyItemInserted(0);
-                        mMessageView.scrollToPosition(0);
+                        int position = messages.indexOf(message);
+                        messages.set(position, message);
+                        mAdapter.notifyItemChanged(position);
                     }
                 }, new Handler());
             }

@@ -36,4 +36,12 @@
         android:adjustViewBounds="true"
         android:background="@drawable/chat_avatar_default_icon" />
 
+    <TextView
+        android:id="@+id/chat_message_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/cell_item_contact_avatar_layout_margin"
+        android:layout_below="@id/chat_message_item_avatar" />
+
 </RelativeLayout>

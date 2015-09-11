@@ -1,6 +1,7 @@
 package com.ihs.message_2012010548.types;
 
 import java.util.Date;
+import java.util.Objects;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -548,5 +549,15 @@ public class HSBaseMessage implements Comparable<HSBaseMessage> {
     @Override
     public int compareTo(HSBaseMessage another) {
         return (int) (this.getTimestamp().getTime() - another.getTimestamp().getTime());
+    }
+
+    @Override
+    public boolean equals(Object message) {
+        if (message instanceof HSBaseMessage) {
+            return this.getFrom().equals(((HSBaseMessage) message).getFrom()) &&
+                this.getTo().equals(((HSBaseMessage) message).getTo());
+        } else {
+            return false;
+        }
     }
 }
