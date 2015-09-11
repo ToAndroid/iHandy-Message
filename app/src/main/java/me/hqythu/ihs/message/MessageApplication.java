@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.baidu.mapapi.SDKInitializer;
 import com.ihs.account.api.account.HSAccountManager;
 import com.ihs.app.framework.HSApplication;
+import com.ihs.app.framework.HSSessionMgr;
 import com.ihs.commons.keepcenter.HSKeepCenter;
 import com.ihs.commons.notificationcenter.HSGlobalNotificationCenter;
 import com.ihs.commons.notificationcenter.INotificationObserver;
@@ -109,6 +110,9 @@ public class MessageApplication extends HSApplication implements INotificationOb
 
         @Override
         public void onReceivingRemoteNotification(JSONObject pushInfo) {
+            if (HSSessionMgr.getTopActivity() != null) {
+                return;
+            }
             String contactMid = "";
             String message = "";
             try {
@@ -122,7 +126,7 @@ public class MessageApplication extends HSApplication implements INotificationOb
                 .setSmallIcon(R.drawable.notification_icon)
                 .setContentTitle(title)
                 .setContentText(message)
-                .setSound(Uri.parse("android.resource://me.hqythu.ihs.message/ras/message_rington_received"))
+                .setSound(Uri.parse("android.resource://me.hqythu.ihs.message/ras/message_ringtone_received"))
                 .setAutoCancel(true);
             Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
             intent.putExtra(ChatActivity.CHAT_MID, contactMid);

@@ -35,9 +35,9 @@ public class AlarmReceiver extends BroadcastReceiver {
         String name = FriendManager.getInstance().getFriend(contactMid).getName();
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
             .setSmallIcon(R.drawable.notification_icon)
-            .setContentTitle("有新消息")
+            .setContentTitle("有新通知")
             .setContentText(name)
-            .setSound(Uri.parse("android.resource://me.hqythu.ihs.message/ras/message_rington_received"))
+            .setSound(Uri.parse("android.resource://me.hqythu.ihs.message/ras/message_ringtone_received"))
             .setAutoCancel(true);
         Intent resultIntent = new Intent(context, ChatActivity.class);
         resultIntent.putExtra(ChatActivity.CHAT_MID, contactMid);
