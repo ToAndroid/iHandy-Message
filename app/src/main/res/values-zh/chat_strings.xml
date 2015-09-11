@@ -2,6 +2,8 @@
 <resources>
     <string name="chat_button_send">发送</string>
     <string name="chat_button_image">图片</string>
+    <string name="chat_button_voice">语音</string>
+    <string name="chat_button_location">位置</string>
 
     <string name="chat_status_sent">已发送</string>
     <string name="chat_status_sending">发送中</string>

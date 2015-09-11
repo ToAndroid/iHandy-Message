@@ -43,7 +43,9 @@ public class ChatActivity extends BaseActivity {
     private ArrayList<HSBaseMessage> messages;
 
     private Button sendButton;
-    private Button imageButton;
+    private View imageButton;
+    private View voidButton;
+    private View locationButton;
     private EditText sendText;
     private Button extendButton;
     private View extendArea;
@@ -64,7 +66,9 @@ public class ChatActivity extends BaseActivity {
         setData();
 
         sendButton = (Button) findViewById(R.id.chat_button_send);
-        imageButton = (Button) findViewById(R.id.chat_button_image);
+        imageButton = findViewById(R.id.chat_button_image);
+        voidButton = findViewById(R.id.chat_button_voice);
+        locationButton = findViewById(R.id.chat_button_location);
         extendButton = (Button) findViewById(R.id.chat_extend_button);
         extendArea = findViewById(R.id.chat_extend_area);
         sendText = (EditText) findViewById(R.id.chat_text_send);
@@ -85,9 +89,6 @@ public class ChatActivity extends BaseActivity {
                 HSMessageManager.getInstance().send(message, new HSMessageManager.SendMessageCallback() {
                     @Override
                     public void onMessageSentFinished(HSBaseMessage message, boolean success, HSError error) {
-                        int position = messages.indexOf(message);
-                        messages.set(position, message);
-                        mAdapter.notifyItemChanged(position);
                     }
                 }, new Handler());
             }
@@ -226,12 +227,13 @@ public class ChatActivity extends BaseActivity {
 
     public void sendImage(String imagePath) {
         HSBaseMessage message = new HSImageMessage(mid, imagePath);
+        message.setStatus(HSBaseMessage.HSMessageStatus.SENDING);
+        messages.add(0, message);
+        mAdapter.notifyItemInserted(0);
+        mMessageView.scrollToPosition(0);
         HSMessageManager.getInstance().send(message, new HSMessageManager.SendMessageCallback() {
             @Override
             public void onMessageSentFinished(HSBaseMessage message, boolean success, HSError error) {
-                messages.add(0, message);
-                mAdapter.notifyItemInserted(0);
-                mMessageView.scrollToPosition(0);
             }
         }, new Handler());
     }

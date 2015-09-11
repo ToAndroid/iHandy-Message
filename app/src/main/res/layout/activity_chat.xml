@@ -53,14 +53,71 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray_600"
+        android:background="@color/gray_300"
         android:visibility="gone">
 
-        <Button
+        <LinearLayout
             android:id="@+id/chat_button_image"
-            android:text="@string/chat_button_image"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:background="?selectableItemBackground"
+            android:orientation="vertical">
+            <ImageView
+                android:padding="10dp"
+                android:layout_height="55dp"
+                android:layout_width="55dp"
+                android:layout_gravity="center"
+                android:background="@drawable/camera_btn_nor" />
+            <TextView
+                android:text="@string/chat_button_image"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/chat_button_voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:background="?selectableItemBackground"
+            android:orientation="vertical">
+            <ImageView
+                android:padding="10dp"
+                android:layout_height="55dp"
+                android:layout_width="55dp"
+                android:layout_gravity="center"
+                android:background="@drawable/chat_select_send_audio_bt" />
+            <TextView
+                android:text="@string/chat_button_voice"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/chat_button_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:background="?selectableItemBackground"
+            android:orientation="vertical">
+            <ImageView
+                android:padding="10dp"
+                android:layout_height="55dp"
+                android:layout_width="55dp"
+                android:layout_gravity="center"
+                android:background="@drawable/location_marker" />
+            <TextView
+                android:text="@string/chat_button_location"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
     </LinearLayout>
 

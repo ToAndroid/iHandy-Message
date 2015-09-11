@@ -106,9 +106,11 @@ public class MessageSessionFragment extends Fragment {
 
     public void onEvent(SessionUpdateEvent event) {
         int position = mSessionInfos.indexOf(event.getSession());
-        if (position == -1 && (displayType == SESSION_LIST_TYPE_INBOX || displayType == SESSION_LIST_TYPE_ALL)) {
-            mSessionInfos.add(0, event.getSession());
-            mWrappedAdapter.notifyItemInserted(0);
+        if (position == -1) {
+            if (displayType == SESSION_LIST_TYPE_INBOX) {
+                mSessionInfos.add(0, event.getSession());
+                mWrappedAdapter.notifyItemInserted(0);
+            }
         } else {
             mSessionInfos.remove(position);
             mSessionInfos.add(0, event.getSession());
