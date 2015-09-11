@@ -1,5 +1,7 @@
 package me.hqythu.ihs.message.ui;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,6 +30,7 @@ import me.nereo.multi_image_selector.bean.Image;
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> {
 
     private ArrayList<HSBaseMessage> messages;
+    private Activity mActivity;
 
     private DisplayImageOptions options;
 
@@ -51,7 +54,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
         }
     }
 
-    public ChatListAdapter(ArrayList<HSBaseMessage> messages) {
+    public ChatListAdapter(Activity activity, ArrayList<HSBaseMessage> messages) {
+        this.mActivity = activity;
         this.messages = messages;
         options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.chat_avatar_default_icon).showImageForEmptyUri(R.drawable.chat_avatar_default_icon)
             .showImageOnFail(R.drawable.chat_avatar_default_icon).cacheInMemory(true).cacheOnDisk(true).considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565).build();
@@ -82,7 +86,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        HSBaseMessage message = messages.get(position);
+        final HSBaseMessage message = messages.get(position);
         String text;
         holder.mTextView.setVisibility(View.GONE);
         holder.mImageView.setVisibility(View.GONE);
@@ -95,6 +99,14 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             holder.mImageView.setVisibility(View.VISIBLE);
             ImageLoader.getInstance().displayImage(
                 "file://" + ((HSImageMessage) message).getNormalImageFilePath(), holder.mImageView, options);
+            holder.mImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mActivity, ImageShowActivity.class);
+                    intent.putExtra(ImageShowActivity.IMAGE_PATH, ((HSImageMessage) message).getNormalImageFilePath());
+                    mActivity.startActivity(intent);
+                }
+            });
         } else {
             text = "Unsupported Yet";
             holder.mTextView.setVisibility(View.VISIBLE);

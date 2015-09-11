@@ -77,6 +77,8 @@
         <activity
             android:name=".ui.ChatActivity" >
         </activity>
+        <activity android:name=".ui.ImageShowActivity">
+        </activity>
 
         <!-- ===================================================== -->
         <!-- required by libAppFramework -->

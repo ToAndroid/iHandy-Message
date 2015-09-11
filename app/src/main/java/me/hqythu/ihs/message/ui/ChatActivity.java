@@ -218,7 +218,7 @@ public class ChatActivity extends BaseActivity {
         mMessageView = (RecyclerView) findViewById(R.id.chat_message_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
         mMessageView.setLayoutManager(layoutManager);
-        mAdapter = new ChatListAdapter(messages);
+        mAdapter = new ChatListAdapter(this, messages);
         mMessageView.setAdapter(mAdapter);
     }
 
