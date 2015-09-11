@@ -45,6 +45,7 @@ import me.hqythu.ihs.message.data.MessageSession;
 import me.hqythu.ihs.message.db.SessionDBManager;
 import me.hqythu.ihs.message.event.FriendUpdateEvent;
 import me.hqythu.ihs.message.event.MessageAddEvent;
+import me.hqythu.ihs.message.event.MessageUpdateEvent;
 import me.hqythu.ihs.message.event.SessionUnreadCountChangeEvent;
 import me.hqythu.ihs.message.event.SessionUpdateEvent;
 import me.hqythu.ihs.message.ui.ChatActivity;
@@ -86,6 +87,8 @@ public class MessageApplication extends HSApplication implements INotificationOb
                     }
                     EventBus.getDefault().post(new SessionUpdateEvent(new MessageSession(session)));
                 }
+            } else if (changeType == HSMessageChangeType.UPDATED) {
+                EventBus.getDefault().post(new MessageUpdateEvent(messages));
             }
         }
 

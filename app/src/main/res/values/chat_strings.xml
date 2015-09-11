@@ -6,4 +6,7 @@
     <string name="chat_status_sent">Sent</string>
     <string name="chat_status_sending">Sending</string>
     <string name="chat_status_failed">Failed</string>
+    <string name="chat_status_unread">Unread</string>
+    <string name="chat_status_received">Received</string>
+    <string name="chat_status_read">Read</string>
 </resources>

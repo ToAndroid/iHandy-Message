@@ -112,14 +112,17 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             holder.mTextView.setVisibility(View.VISIBLE);
             holder.mTextView.setText(text);
         }
-        if (message.getStatus() == HSBaseMessage.HSMessageStatus.FAILED) {
-            holder.status.setText(R.string.chat_status_failed);
-        } else if (message.getStatus() == HSBaseMessage.HSMessageStatus.SENDING) {
-            holder.status.setText(R.string.chat_status_sending);
-        } else if (message.getStatus() == HSBaseMessage.HSMessageStatus.SENT) {
-            holder.status.setText(R.string.chat_status_sent);
-        } else {
+        HSBaseMessage.HSMessageStatus status = message.getStatus();
+        if (getItemViewType(position) == MESSAGE_OTHER_TYPE) {
             holder.status.setText("");
+        } else {
+            if (status == HSBaseMessage.HSMessageStatus.SENDING) {
+                holder.status.setText(R.string.chat_status_sending);
+            } else if (status == HSBaseMessage.HSMessageStatus.FAILED) {
+                holder.status.setText(R.string.chat_status_failed);
+            } else {
+                holder.status.setText(R.string.chat_status_sent);
+            }
         }
     }
 

@@ -554,8 +554,7 @@ public class HSBaseMessage implements Comparable<HSBaseMessage> {
     @Override
     public boolean equals(Object message) {
         if (message instanceof HSBaseMessage) {
-            return this.getFrom().equals(((HSBaseMessage) message).getFrom()) &&
-                this.getTo().equals(((HSBaseMessage) message).getTo());
+            return msgID.equals(((HSBaseMessage) message).msgID);
         } else {
             return false;
         }

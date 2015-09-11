@@ -28,6 +28,7 @@ import de.greenrobot.event.EventBus;
 import me.hqythu.ihs.message.R;
 import me.hqythu.ihs.message.event.MessageAddEvent;
 
+import me.hqythu.ihs.message.event.MessageUpdateEvent;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
 public class ChatActivity extends BaseActivity {
@@ -75,6 +76,7 @@ public class ChatActivity extends BaseActivity {
                 String text = sendText.getText().toString();
                 sendText.setText("");
                 HSBaseMessage message = new HSTextMessage(mid, text);
+                message.setStatus(HSBaseMessage.HSMessageStatus.SENDING);
                 messages.add(0, message);
                 mAdapter.notifyItemInserted(0);
                 mMessageView.scrollToPosition(0);
@@ -246,5 +248,15 @@ public class ChatActivity extends BaseActivity {
         HSMessageManager.getInstance().markRead(messages);
         mAdapter.notifyItemRangeInserted(0, count);
         mMessageView.scrollToPosition(0);
+    }
+
+    public void onEvent(MessageUpdateEvent event) {
+        for (HSBaseMessage message : event.getMessages()) {
+            int position = messages.indexOf(message);
+            if (position != -1) {
+                messages.set(position, message);
+                mAdapter.notifyItemChanged(position);
+            }
+        }
     }
 }

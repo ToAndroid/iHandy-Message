@@ -6,4 +6,7 @@
     <string name="chat_status_sent">已发送</string>
     <string name="chat_status_sending">发送中</string>
     <string name="chat_status_failed">发送失败</string>
+    <string name="chat_status_unread">未读</string>
+    <string name="chat_status_received">已收到</string>
+    <string name="chat_status_read">已读</string>
 </resources>
